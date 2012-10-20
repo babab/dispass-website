@@ -400,14 +400,14 @@ If environment var <code>XDG_DATA_HOME</code> is set,
 </ol>
 
 <p>
-You can start by copying the labelfile from skel/dot.dispass to this location
-and editing it by adding your own labels. Or you can just start writing the
-file from scratch which really isn't a hard thing to do.
+  You can start by copying the labelfile from skel/dot.dispass to this location
+  and editing it by adding your own labels. Or you can just start writing the
+  file from scratch which really isn't a hard thing to do.
 </p>
 
 <p>
-The labels need to be specified on a single line with optional arguments.
-A typical labelfile might look like this:
+  The labels need to be specified on a single line with optional arguments.
+  A typical labelfile might look like this:
 </p>
 <pre class="file">
 google.com length=18
@@ -549,6 +549,103 @@ You can also visit #dispass at Freenode (chat.freenode.net) with your favorite
 IRC client.
 </p>
 
+
+<div class="spacer"></div>
+<h2 id="changelog">
+  Changelog
+</h2>
+<h3>
+  v1.0
+  <small>
+    released October XXst, 2012
+  </small>
+</h3>
+
+<div class="alert alert-error">
+    The default location of labelfile has changed from:
+    <ul>
+      <li>
+        <strong>*nix</strong>:
+        <code>~/.dispass</code>
+      </li>
+      <li>
+        <strong>Windows</strong>:
+        <code>C:\Users\<username>\.dispass</code>
+      </li>
+    </ul>
+    To the following location:
+    <ul>
+      <li>
+        <strong>*nix</strong>:
+        <code>~/.local/share/dispass/labels</code>
+      </li>
+      <li>
+        <strong>Windows</strong>:
+        <code>C:\Users\<username>\.local\share\dispass\labels</code>
+      </li>
+    </ul>
+</div>
+<ul>
+  <li>Center the fields when the window gets bigger</li>
+  <li>Reset all fields in gdispass by pressing <Escape></li>
+  <li>Optionally quit gdispass with Ctrl-Q</li>
+  <li>Gracefully quit on (Ctrl-C) keyboard interrupt</li>
+  <li>Clear input fields after passphrase generation</li>
+  <li>Auto-select generated passphrase in gdispass</li>
+  <li>Generate passphrases in gdispass by pressing <Return></li>
+  <li>Change default location of labelfile</li>
+  <li>Add dispass --script option</li>
+  <li>Add dispass-label for managing labelfiles</li>
+  <li>Use separate text for manpage instead of README</li>
+  <li>Add option to lookup a lable in with '-s' switch</li>
+  <li>Require a min. password length of 8 chars in cli</li>
+  <li>Rename ChangeLog -&gt; ChangeLog.rst</li>
+  <li>Make DisPass run from Python shell without exiting</li>
+  <li>Remove dispass.el emacs wrapper, maintained separately by Tom Willemsen</li>
+</ul>
+
+
+<h3>v0.1-alpha-8 <small>released June 21st, 2012</small></h3>
+
+<ul>
+<li>Add dispass.el emacs wrapper, authored by Tom Willemsen (ryuslash)</li>
+<li>Allow generating a list of passphrases with varying lengths</li>
+<li>Add labelfile handler and skel/dot.dispass</li>
+<li>Add -f &lt;labelfile&gt;, --file=&lt;labelfile&gt; option</li>
+<li>Use labelfile at $HOME/.dispass if no labels are specified</li>
+<li>Add -l &lt;length&gt; --length= option</li>
+<li>Do not autostart gui on Windows</li>
+<li>Explicitly name the gui version 'gDisPass'</li>
+<li>Autofill 1st column on output via stdout</li>
+<li>Remove platform name from usage/help</li>
+<li>Add manpage</li>
+<li>Use a landing page for the html documentation</li>
+</ul>
+
+<h3>
+  v0.1-alpha-7
+  <small>
+    released May 28th, 2012
+  </small>
+</h3>
+<ul>
+<li>Distribute as package instead of a single module</li>
+<li>Add LICENSE file</li>
+<li>Rename README to README.rst</li>
+<li>Add 'master' Makefile for building documentation</li>
+</ul>
+
+<h3>
+  v0.1-alpha-6
+  <small>
+    released May 24th, 2012
+  </small>
+</h3>
+<ul>
+  <li>Initial release of Dispass as single python module</li>
+</ul>
+
+
 <div class="spacer"></div>
 <h2 id="license">
   Software license
@@ -625,6 +722,11 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 <li>
                   <a href="#support">
                     Support / ideas / questions / suggestions
+                  </a>
+                </li>
+                <li>
+                  <a href="#changelog">
+                    Changelog
                   </a>
                 </li>
                 <li>
