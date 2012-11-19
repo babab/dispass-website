@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dispass.gui &mdash; DisPass 0.1a8 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1a8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="DisPass 0.1a8 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">DisPass 0.1a8 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for dispass.gui</h1><div class="highlight"><pre>
+<span class="c"># Copyright (c) 2011-2012 Benjamin Althues &lt;benjamin@babab.nl&gt;</span>
+<span class="c">#</span>
+<span class="c"># Permission to use, copy, modify, and distribute this software for any</span>
+<span class="c"># purpose with or without fee is hereby granted, provided that the above</span>
+<span class="c"># copyright notice and this permission notice appear in all copies.</span>
+<span class="c">#</span>
+<span class="c"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot; AND THE AUTHOR DISCLAIMS ALL WARRANTIES</span>
+<span class="c"># WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF</span>
+<span class="c"># MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR</span>
+<span class="c"># ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES</span>
+<span class="c"># WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN</span>
+<span class="c"># ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF</span>
+<span class="c"># OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">Tkinter</span> <span class="kn">import</span> <span class="o">*</span>
+    <span class="kn">import</span> <span class="nn">tkMessageBox</span>
+    <span class="n">hasTk</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">hasTk</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="kn">import</span> <span class="nn">dispass</span>
+<span class="kn">import</span> <span class="nn">digest</span>
+
+<span class="n">versionStr</span> <span class="o">=</span> <span class="s">&#39;g</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">dispass</span><span class="o">.</span><span class="n">versionStr</span>
+
+<div class="viewcode-block" id="GUI"><a class="viewcode-back" href="../../devdoc.html#dispass.gui.GUI">[docs]</a><span class="k">class</span> <span class="nc">GUI</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;Houses all GUI related objects and interactions&#39;&#39;&#39;</span>
+
+    <span class="n">font</span> <span class="o">=</span> <span class="s">&quot;Verdana&quot;</span>
+    <span class="sd">&#39;&#39;&#39;Default font (Verdana)&#39;&#39;&#39;</span>
+
+    <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="sd">&#39;&#39;&#39;Default fontsize (10 pt.)&#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Initialize GUI object, create the widgets and start mainloop</span>
+
+<span class="sd">        Try to import Tkinter and tkMessageBox. If that fails, show a help</span>
+<span class="sd">        message with quick instructions on installing Tkinter.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">hasTk</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&#39;Could not find Tkinter, this is a package needed &#39;</span>\
+                    <span class="s">&#39;for using</span><span class="se">\n</span><span class="s">the graphical version of dispass.&#39;</span>
+            <span class="k">print</span> <span class="s">&#39;To install, search for a python-tk package for your OS.</span><span class="se">\n</span><span class="s">&#39;</span>
+            <span class="k">print</span> <span class="s">&#39;Debian / Ubuntu</span><span class="se">\t\t</span><span class="s">$ sudo apt-get install python-tk&#39;</span>
+            <span class="k">print</span> <span class="s">&#39;OpenBSD        </span><span class="se">\t\t</span><span class="s"># pkg_add -i python-tk&#39;</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">versionStr</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">createWidgets</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+
+<span class="c"># GUI # Setters and getters</span>
+<div class="viewcode-block" id="GUI.setFont"><a class="viewcode-back" href="../../devdoc.html#dispass.gui.GUI.setFont">[docs]</a>    <span class="k">def</span> <span class="nf">setFont</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Set font and fontsize; not used at this moment&#39;&#39;&#39;</span>
+        <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="GUI.getFont"><a class="viewcode-back" href="../../devdoc.html#dispass.gui.GUI.getFont">[docs]</a>    <span class="k">def</span> <span class="nf">getFont</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sizediff</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Get `font` and `fontsize`, optionally differ from default `fontsize`</span>
+
+<span class="sd">        :Parameters:</span>
+<span class="sd">            - `sizediff`: The difference in pt. from the default `fontsize`</span>
+
+<span class="sd">        :Return:</span>
+<span class="sd">            - Tuple of `(font, fontsize)` to be used when creating widgets</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fontsize</span> <span class="o">+</span> <span class="n">sizediff</span><span class="p">)</span>
+
+<span class="c"># GUI # Prototypes</span></div>
+<div class="viewcode-block" id="GUI.warn"><a class="viewcode-back" href="../../devdoc.html#dispass.gui.GUI.warn">[docs]</a>    <span class="k">def</span> <span class="nf">warn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">warning_type</span><span class="o">=</span><span class="s">&#39;soft&#39;</span><span class="p">,</span> <span class="n">box_title</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Prototype for warning user</span>
+
+<span class="sd">         * soft warnings display a message in the passwordout field</span>
+<span class="sd">         * hard warnings do the same and also display a messagebox</span>
+
+<span class="sd">        :Parameters:</span>
+<span class="sd">            - `message`: The message string for warning the user</span>
+<span class="sd">            - `warning_type`: Either &#39;soft&#39; (default value) or &#39;hard&#39;</span>
+<span class="sd">            - `box_title`: Optional title for tkMessageBox on hard warnings</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="n">warning_type</span> <span class="o">==</span> <span class="s">&#39;soft&#39;</span> <span class="ow">or</span> <span class="n">warning_type</span> <span class="o">==</span> <span class="s">&#39;hard&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">fg</span><span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span> <span class="n">readonlybackground</span><span class="o">=</span><span class="s">&quot;red&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">passwordout</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;- &#39;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&#39; -&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">warning_type</span> <span class="o">==</span> <span class="s">&#39;hard&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">passwordin1</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">passwordin2</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span>
+            <span class="n">tkMessageBox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="n">box_title</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+
+<span class="c"># GUI # Event actions</span></div>
+<div class="viewcode-block" id="GUI.validateAndShow"><a class="viewcode-back" href="../../devdoc.html#dispass.gui.GUI.validateAndShow">[docs]</a>    <span class="k">def</span> <span class="nf">validateAndShow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Check user input</span>
+
+<span class="sd">        Warn when user input is insufficient or wrong. Create digest and</span>
+<span class="sd">        display the generated password if user input is OK.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">passwordin1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">passwordin1</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">passwordin2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">passwordin2</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">isnew</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isnew</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s">&#39;No password generated, label field is empty&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">passwordin1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s">&#39;No password generated, password field is empty&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">passwordin1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s">&#39;Password must contain at least 8 characters&#39;</span><span class="p">,</span> <span class="s">&#39;hard&#39;</span><span class="p">,</span>
+                    <span class="n">box_title</span><span class="o">=</span><span class="s">&#39;Password is too short&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="n">isnew</span> <span class="ow">and</span> <span class="n">passwordin1</span> <span class="o">!=</span> <span class="n">passwordin2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s">&#39;Passwords are not identical, please try again&#39;</span><span class="p">,</span> <span class="s">&#39;hard&#39;</span><span class="p">,</span>
+                    <span class="n">box_title</span><span class="o">=</span><span class="s">&#39;Password mismatch&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c"># All checks passed, create digest</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">digest</span><span class="o">.</span><span class="n">digest</span><span class="p">(</span><span class="n">label</span> <span class="o">+</span> <span class="n">passwordin1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">fg</span><span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span> <span class="n">readonlybackground</span><span class="o">=</span><span class="s">&quot;green&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passwordout</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="GUI.toggleCheck"><a class="viewcode-back" href="../../devdoc.html#dispass.gui.GUI.toggleCheck">[docs]</a>    <span class="k">def</span> <span class="nf">toggleCheck</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Toggle checking of input password&#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isnew</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c"># Disable double check (default)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">passwordin2</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">passwordin2</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">DISABLED</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c"># Password is new, allow for double checking passwordin</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">passwordin2</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">NORMAL</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="GUI.clearInput"><a class="viewcode-back" href="../../devdoc.html#dispass.gui.GUI.clearInput">[docs]</a>    <span class="k">def</span> <span class="nf">clearInput</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Clear all input fields&#39;&#39;&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passwordin1</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passwordin2</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passwordout</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;- No password generated -&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">fg</span><span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span> <span class="n">readonlybackground</span><span class="o">=</span><span class="s">&quot;gray&quot;</span><span class="p">)</span>
+
+<span class="c"># GUI # Create Widgets</span></div>
+<div class="viewcode-block" id="GUI.createWidgets"><a class="viewcode-back" href="../../devdoc.html#dispass.gui.GUI.createWidgets">[docs]</a>    <span class="k">def</span> <span class="nf">createWidgets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Create and align widgets&#39;&#39;&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">passwordout</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passwordout</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;- No password generated -&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">isnew</span> <span class="o">=</span> <span class="n">IntVar</span><span class="p">()</span>
+
+        <span class="n">ttitle</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">versionStr</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getFont</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+        <span class="n">wisnew</span> <span class="o">=</span> <span class="n">Checkbutton</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getFont</span><span class="p">(),</span>
+                <span class="n">text</span><span class="o">=</span><span class="s">&quot;This is a new password, that I have not used before&quot;</span><span class="p">,</span>
+                <span class="n">variable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">isnew</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">toggleCheck</span><span class="p">)</span>
+        <span class="n">tlabel</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s">&#39;Label&#39;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getFont</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">tpasswordin1</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s">&#39;Password&#39;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getFont</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">tpasswordin2</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s">&#39;Password (again)&#39;</span><span class="p">,</span>
+                <span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getFont</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getFont</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passwordin1</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getFont</span><span class="p">(),</span>
+                <span class="n">show</span><span class="o">=</span><span class="s">&quot;*&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passwordin2</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getFont</span><span class="p">(),</span>
+                <span class="n">show</span><span class="o">=</span><span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="n">DISABLED</span><span class="p">)</span>
+        <span class="n">genbutton</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s">&quot;Generate password&quot;</span><span class="p">,</span>
+                <span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getFont</span><span class="p">(),</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">validateAndShow</span><span class="p">)</span>
+        <span class="n">clrbutton</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s">&quot;Clear fields&quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getFont</span><span class="p">(),</span>
+                <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">clearInput</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getFont</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+                <span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">passwordout</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s">&quot;readonly&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span>
+                <span class="n">readonlybackground</span><span class="o">=</span><span class="s">&quot;gray&quot;</span><span class="p">)</span>
+
+        <span class="c"># Layout widgets in a grid</span>
+        <span class="n">ttitle</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">N</span><span class="o">+</span><span class="n">S</span><span class="o">+</span><span class="n">E</span><span class="o">+</span><span class="n">W</span><span class="p">,</span> <span class="n">columnspan</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">wisnew</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">N</span><span class="o">+</span><span class="n">S</span><span class="o">+</span><span class="n">E</span><span class="o">+</span><span class="n">W</span><span class="p">,</span> <span class="n">columnspan</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">tlabel</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">N</span><span class="o">+</span><span class="n">S</span><span class="o">+</span><span class="n">E</span><span class="o">+</span><span class="n">W</span><span class="p">)</span>
+        <span class="n">tpasswordin1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">N</span><span class="o">+</span><span class="n">S</span><span class="o">+</span><span class="n">E</span><span class="o">+</span><span class="n">W</span><span class="p">)</span>
+        <span class="n">tpasswordin2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">N</span><span class="o">+</span><span class="n">S</span><span class="o">+</span><span class="n">E</span><span class="o">+</span><span class="n">W</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">N</span><span class="o">+</span><span class="n">S</span><span class="o">+</span><span class="n">E</span><span class="o">+</span><span class="n">W</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passwordin1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">N</span><span class="o">+</span><span class="n">S</span><span class="o">+</span><span class="n">E</span><span class="o">+</span><span class="n">W</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passwordin2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">N</span><span class="o">+</span><span class="n">S</span><span class="o">+</span><span class="n">E</span><span class="o">+</span><span class="n">W</span><span class="p">)</span>
+        <span class="n">genbutton</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">N</span><span class="o">+</span><span class="n">S</span><span class="o">+</span><span class="n">E</span><span class="o">+</span><span class="n">W</span><span class="p">,</span> <span class="n">columnspan</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">clrbutton</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">N</span><span class="o">+</span><span class="n">S</span><span class="o">+</span><span class="n">E</span><span class="o">+</span><span class="n">W</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">N</span><span class="o">+</span><span class="n">S</span><span class="o">+</span><span class="n">E</span><span class="o">+</span><span class="n">W</span><span class="p">,</span> <span class="n">columnspan</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="c"># Initially, set focus on self.label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">DisPass 0.1a8 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2012, Benjamin Althues.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>User Documentation &mdash; DisPass 0.1a8 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1a8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="DisPass 0.1a8 documentation" href="#" />
+    <link rel="next" title="dispass.el Emacs wrapper" href="emacs.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="emacs.html" title="dispass.el Emacs wrapper"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">DisPass 0.1a8 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <p>Show all <a class="reference external" href="../../all.html">versions</a> | Language: <strong>English</strong></p>
+<div class="section" id="user-documentation">
+<h1>User Documentation<a class="headerlink" href="#user-documentation" title="Permalink to this headline">¶</a></h1>
+<p>DisPass is a passphrase generator for GNU/Linux, *BSD, MacOS X and Windows.
+It enables you to generate unique passphrases formed from a master password
+and a label, helping you get rid of the bad habit of using a single password
+for multiple websites. When using a different passphrase for every website,
+the chance of abuse of your password on other sites (when a website leaks it)
+is eliminated.
+Dispass is a console application, but also has a simple graphical interface.</p>
+<p>DisPass has several homes on the Internet:</p>
+<dl class="docutils">
+<dt>Main website</dt>
+<dd><a class="reference external" href="http://dispass.babab.nl">http://dispass.babab.nl</a></dd>
+<dt>The cheeseshop (PyPI) project page</dt>
+<dd><a class="reference external" href="http://pypi.python.org/pypi/DisPass/">http://pypi.python.org/pypi/DisPass/</a></dd>
+<dt>Github repository and Issue tracker</dt>
+<dd><a class="reference external" href="https://github.com/babab/DisPass/">https://github.com/babab/DisPass/</a></dd>
+<dt>Bitbucket repository</dt>
+<dd><a class="reference external" href="https://bitbucket.org/babab/dispass/">https://bitbucket.org/babab/dispass/</a></dd>
+</dl>
+<p>Here are some definitions which may help you understand the rest of the
+documentation better.</p>
+<dl class="docutils">
+<dt>label</dt>
+<dd>A label is a string that you use to identify the passphrase.
+This can be a domainname of the service the passphrase is used for,
+e.g. &#8216;google.com&#8217;.</dd>
+</dl>
+<p>Since this program asks for a password/passphrase to generate another
+password/passphrase, things may get a bit confusing. I&#8217;ve dediced to use the
+words &#8216;password&#8217; and &#8216;passphrase&#8217; diffently and consistent.</p>
+<dl class="docutils">
+<dt>password</dt>
+<dd>Use of the word &#8216;password&#8217; is dedicated to the input password, i.e. the
+password you are asked to enter and only you know. Whenever you read
+password, this is the one I mean.</dd>
+<dt>passphrase</dt>
+<dd>With &#8216;passphrase&#8217; I always mean the output passphrase, i.e. the passphrase
+that is unique and generated from a label and password</dd>
+</dl>
+<div class="section" id="downloading-installing">
+<h2>Downloading/Installing<a class="headerlink" href="#downloading-installing" title="Permalink to this headline">¶</a></h2>
+<p>A recent version of Python 2 is required for running dispass.</p>
+<div class="section" id="using-pip-to-download-from-the-python-package-index">
+<h3>Using pip to download from the Python Package Index<a class="headerlink" href="#using-pip-to-download-from-the-python-package-index" title="Permalink to this headline">¶</a></h3>
+<p>The recommended way is to download and install directly from the PyPI
+repository using pip:</p>
+<div class="highlight-python"><pre>$ sudo pip install dispass</pre>
+</div>
+<p>You must have python&#8217;s docutils installed in able to do so.
+This will install the dispass module in python&#8217;s dist-packages folder.
+You can now run dispass using the &#8216;dispass&#8217; and &#8216;gdispass&#8217; scripts
+placed under &#8216;/usr/local/bin/&#8217; or &#8216;/usr/bin/&#8217;.</p>
+<p>The PyPI project page is at <a class="reference external" href="http://pypi.python.org/pypi/DisPass/">http://pypi.python.org/pypi/DisPass/</a></p>
+</div>
+<div class="section" id="latest-development-version">
+<h3>Latest (development) version<a class="headerlink" href="#latest-development-version" title="Permalink to this headline">¶</a></h3>
+<p>Clone git repo:</p>
+<div class="highlight-python"><pre>$ git clone git://github.com/babab/DisPass.git
+$ cd dispass</pre>
+</div>
+<p>Then you can either:</p>
+<ol class="arabic">
+<li><p class="first">Install through pip:</p>
+<div class="highlight-python"><pre>$ python setup.py sdist
+$ sudo pip install dist/DisPass-&lt;version&gt;.tar.gz</pre>
+</div>
+</li>
+<li><p class="first">Install manually:</p>
+<div class="highlight-python"><pre>$ sudo python setup.py install</pre>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="upgrade-or-uninstall">
+<h2>Upgrade or uninstall<a class="headerlink" href="#upgrade-or-uninstall" title="Permalink to this headline">¶</a></h2>
+<p>You can easily upgrade to newer versions using pip:</p>
+<div class="highlight-python"><pre>$ sudo pip install dispass --upgrade</pre>
+</div>
+<p>If you have installed dispass using pip, you can easily uninstall at
+any moment:</p>
+<div class="highlight-python"><pre>$ sudo pip uninstall dispass</pre>
+</div>
+</div>
+<div class="section" id="using-the-command-line-app">
+<h2>Using the command line app<a class="headerlink" href="#using-the-command-line-app" title="Permalink to this headline">¶</a></h2>
+<p>When DisPass is executed as &#8216;gdispass&#8217; or &#8216;dispass -g&#8217;,
+the graphical version will be started.</p>
+<p>You can use dispass by entering your labels after the dispass command and/or
+you can store your labels in a textfile called a labelfile.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">USAGE:</th><td class="field-body"><p class="first">dispass [-cghoV] [-f labelfile]</p>
+<p>dispass [-co] [-l length] label [label2] [label3] [...]</p>
+<p class="last">gdispass</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Short options:</p>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-c</span></kbd></td>
+<td>use if this passphrase is new (check input PW)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-g</span></kbd></td>
+<td>start guided graphical version of DisPass</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-h</span></kbd></td>
+<td>show this help and exit</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-o</span></kbd></td>
+<td>output passphrases to stdout
+(instead of the more secure way of displaying via curses)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-V</span></kbd></td>
+<td>show full version information and exit</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-f <var>&lt;labelfile&gt;</var></span></kbd></td>
+<td>set location of labelfile (default: ~/.dispass)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-l <var>&lt;length&gt;</var></span></kbd></td>
+<td>set length of passphrase (default: 30, max: 171)</td></tr>
+</tbody>
+</table>
+<p>Long options:</p>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">--create</span></kbd></td>
+<td>use if this passphrase is new (check input PW)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--gui</span></kbd></td>
+<td>start guided graphical version of DisPass</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--help</span></kbd></td>
+<td>show this help and exit</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--output</span></kbd></td>
+<td>output passphrases to stdout
+(instead of the more secure way of displaying via curses)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--version</span></kbd></td>
+<td>show full version information and exit</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--file <var>&lt;labelfile&gt;</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>set location of labelfile (default: ~/.dispass)</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--length <var>&lt;length&gt;</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>set length of passphrase (default: 30, max: 171)</td></tr>
+</tbody>
+</table>
+<div class="section" id="using-dispass-to-create-one-or-more-passphrases">
+<h3>Using dispass to create one or more passphrases<a class="headerlink" href="#using-dispass-to-create-one-or-more-passphrases" title="Permalink to this headline">¶</a></h3>
+<p>You can start using dispass for e.g. google.com like this:</p>
+<div class="highlight-python"><pre>$ dispass -c google.com</pre>
+</div>
+<p>Now you will be asked to enter a password twice and after that your
+passphrase will be shown on the screen. This will now be the passphrase you
+will use for logging in to google.com
+It can be created everytime you need it by running:</p>
+<div class="highlight-python"><pre>$ dispass google.com</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">-c</span></tt> argument we used before was just a way to make sure to not make
+typos when creating passphrases for the first time. It is advised you use
+this everytime you create a passphrase for a new label.</p>
+<p>The passphrases created are 30 characters long by default, but some website&#8217;s
+may not validate such a long passphrase or you might want to make it even
+longer. You can easily set a desired passphrase length using the <tt class="docutils literal"><span class="pre">-l</span></tt> flag.
+If you wanted to make your google.com 18 chars you can run:</p>
+<div class="highlight-python"><pre>$ dispass -c -l 18 google.com</pre>
+</div>
+<p>Generating passphrases for multiple labels is just as easy:</p>
+<div class="highlight-python"><pre>$ dispass google.com yahoo.com</pre>
+</div>
+</div>
+<div class="section" id="using-a-labelfile">
+<h3>Using a labelfile<a class="headerlink" href="#using-a-labelfile" title="Permalink to this headline">¶</a></h3>
+<p>When dispass is run without arguments it will try to find a labelfile.
+The location of this file varies and depends on the platform type you use:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>GNU/Linux and Mac OS X</strong>: <tt class="docutils literal"><span class="pre">~/.dispass</span></tt></li>
+<li><strong>*BSD and other Unixen</strong>: <tt class="docutils literal"><span class="pre">~/.dispass</span></tt></li>
+<li><strong>Windows</strong>:   <tt class="docutils literal"><span class="pre">C:\Users\&lt;username&gt;\.dispass</span></tt></li>
+</ul>
+</div></blockquote>
+<p>You can start by copying the labelfile from skel/dot.dispass to this location
+and editing it by adding your own labels. Or you can just start writing the
+file from scratch which really isn&#8217;t a hard thing to do.</p>
+<p>The labels need to be specified on a single line with optional arguments.
+A typical labelfile might look like this:</p>
+<div class="highlight-python"><pre>google.com length=18
+yahoo.com</pre>
+</div>
+<p>Now, when running <tt class="docutils literal"><span class="pre">dispass</span></tt> without arguments it will create two
+passphrases with varying lengths.</p>
+<p>You can override the location of the labelfile using the <tt class="docutils literal"><span class="pre">-f</span></tt> flag.
+This can be a way for you to use different sets of labels/passphrases
+with a different &#8216;master&#8217; password for each set.</p>
+</div>
+</div>
+<div class="section" id="got-emacs-you-can-use-the-emacs-wrapper">
+<h2>Got Emacs? You can use the Emacs wrapper<a class="headerlink" href="#got-emacs-you-can-use-the-emacs-wrapper" title="Permalink to this headline">¶</a></h2>
+<p>If you have Emacs you can use the Emacs wrapper written by Tom Willemsen
+(ryuslash). Read more about it in the README of the &#8216;emacs/&#8217; folder.</p>
+</div>
+<div class="section" id="support-ideas-questions-suggestions">
+<h2>Support / ideas / questions / suggestions<a class="headerlink" href="#support-ideas-questions-suggestions" title="Permalink to this headline">¶</a></h2>
+<p>Please use the Issue tracker at github:
+<a class="reference external" href="https://github.com/babab/DisPass/issues">https://github.com/babab/DisPass/issues</a></p>
+<p>You can also visit #dispass at OFTC (irc.oftc.net) with your favorite
+IRC client.</p>
+</div>
+<div class="section" id="software-license">
+<h2>Software license<a class="headerlink" href="#software-license" title="Permalink to this headline">¶</a></h2>
+<p>Copyright (c) 2011-2012 Benjamin Althues &lt;<a class="reference external" href="mailto:benjamin&#37;&#52;&#48;babab&#46;nl">benjamin<span>&#64;</span>babab<span>&#46;</span>nl</a>&gt;</p>
+<p>Permission to use, copy, modify, and distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.</p>
+<p>THE SOFTWARE IS PROVIDED &#8220;AS IS&#8221; AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="emacs.html">dispass.el Emacs wrapper</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="emacs.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="emacs.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="devdoc.html">Developer documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="devdoc.html#module-dispass.dispass">dispass.dispass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devdoc.html#module-dispass.cli">dispass.cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devdoc.html#module-dispass.digest">dispass.digest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devdoc.html#module-dispass.gui">dispass.gui</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devdoc.html#module-dispass.labelfile">dispass.labelfile</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">User Documentation</a><ul>
+<li><a class="reference internal" href="#downloading-installing">Downloading/Installing</a><ul>
+<li><a class="reference internal" href="#using-pip-to-download-from-the-python-package-index">Using pip to download from the Python Package Index</a></li>
+<li><a class="reference internal" href="#latest-development-version">Latest (development) version</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#upgrade-or-uninstall">Upgrade or uninstall</a></li>
+<li><a class="reference internal" href="#using-the-command-line-app">Using the command line app</a><ul>
+<li><a class="reference internal" href="#using-dispass-to-create-one-or-more-passphrases">Using dispass to create one or more passphrases</a></li>
+<li><a class="reference internal" href="#using-a-labelfile">Using a labelfile</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#got-emacs-you-can-use-the-emacs-wrapper">Got Emacs? You can use the Emacs wrapper</a></li>
+<li><a class="reference internal" href="#support-ideas-questions-suggestions">Support / ideas / questions / suggestions</a></li>
+<li><a class="reference internal" href="#software-license">Software license</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="emacs.html"
+                        title="next chapter">dispass.el Emacs wrapper</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="emacs.html" title="dispass.el Emacs wrapper"
+             >next</a> |</li>
+        <li><a href="#">DisPass 0.1a8 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2012, Benjamin Althues.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

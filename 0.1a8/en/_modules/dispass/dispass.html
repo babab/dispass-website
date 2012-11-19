@@ -1,0 +1,221 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dispass.dispass &mdash; DisPass 0.1a8 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1a8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="DisPass 0.1a8 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">DisPass 0.1a8 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for dispass.dispass</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;Multi-platform console/gui passphrase generator&#39;&#39;&#39;</span>
+
+<span class="c"># Copyright (c) 2011-2012 Benjamin Althues &lt;benjamin@babab.nl&gt;</span>
+<span class="c">#</span>
+<span class="c"># Permission to use, copy, modify, and distribute this software for any</span>
+<span class="c"># purpose with or without fee is hereby granted, provided that the above</span>
+<span class="c"># copyright notice and this permission notice appear in all copies.</span>
+<span class="c">#</span>
+<span class="c"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot; AND THE AUTHOR DISCLAIMS ALL WARRANTIES</span>
+<span class="c"># WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF</span>
+<span class="c"># MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR</span>
+<span class="c"># ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES</span>
+<span class="c"># WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN</span>
+<span class="c"># ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF</span>
+<span class="c"># OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</span>
+
+<span class="n">__docformat__</span> <span class="o">=</span> <span class="s">&#39;restructuredtext&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&quot;Benjamin Althues&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s">&quot;Copyright (C) 2011-2012 Benjamin Althues&quot;</span>
+<span class="n">__version_info__</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;alpha&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s">&#39;0.1a8&#39;</span>
+<span class="n">versionStr</span> <span class="o">=</span> <span class="s">&#39;DisPass &#39;</span> <span class="o">+</span> <span class="n">__version__</span>
+
+<span class="kn">import</span> <span class="nn">getopt</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">cli</span>
+<span class="kn">import</span> <span class="nn">gui</span>
+<span class="kn">import</span> <span class="nn">labelfile</span>
+
+<div class="viewcode-block" id="usage"><a class="viewcode-back" href="../../devdoc.html#dispass.dispass.usage">[docs]</a><span class="k">def</span> <span class="nf">usage</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Print help / usage information&#39;&#39;&#39;</span>
+
+    <span class="k">print</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s"> - http://dispass.babab.nl/&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">versionStr</span><span class="p">)</span>
+    <span class="k">print</span>
+    <span class="k">print</span> <span class="s">&quot;When DisPass is executed as &#39;gdispass&#39; or &#39;dispass -g&#39;,&quot;</span>
+    <span class="k">print</span> <span class="s">&#39;the graphical version will be started.&#39;</span>
+    <span class="k">print</span>
+    <span class="k">print</span> <span class="s">&#39;USAGE: dispass [-cghoV] [-f labelfile]&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;       dispass [-co] [-l length] label [label2] [label3] [...]&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;       gdispass&#39;</span>
+    <span class="k">print</span>
+    <span class="k">print</span> <span class="s">&#39;Options:&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;-c, --create    use if this passphrase is new (check input PW)&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;-g, --gui       start guided graphical version of DisPass&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;-h, --help      show this help and exit&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;-o, --output    output passphrases to stdout (instead of the &#39;</span>
+    <span class="k">print</span> <span class="s">&#39;                more secure way of displaying via curses)&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;-V, --version   show full version information and exit&#39;</span>
+    <span class="k">print</span>
+    <span class="k">print</span> <span class="s">&#39;-f &lt;labelfile&gt;, --file=&lt;labelfile&gt;&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;                set location of labelfile (default: ~/.dispass)&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;-l &lt;length&gt;, --length=&lt;length&gt;&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;                set length of passphrase (default: 30, max: 171)&#39;</span>
+
+</div>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../devdoc.html#dispass.dispass.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Entry point and handler of command options and arguments</span>
+
+<span class="sd">    :Parameters:</span>
+<span class="sd">        - `argv`: List of command arguments</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">console</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">CLI</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">opts</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">getopt</span><span class="o">.</span><span class="n">getopt</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="s">&quot;cf:ghl:oV&quot;</span><span class="p">,</span>
+                <span class="p">[</span><span class="s">&quot;create&quot;</span><span class="p">,</span> <span class="s">&quot;file=&quot;</span><span class="p">,</span> <span class="s">&quot;gui&quot;</span><span class="p">,</span> <span class="s">&quot;help&quot;</span><span class="p">,</span> <span class="s">&quot;length=&quot;</span><span class="p">,</span> <span class="s">&quot;output&quot;</span><span class="p">,</span>
+                    <span class="s">&quot;version&quot;</span><span class="p">])</span>
+    <span class="k">except</span> <span class="n">getopt</span><span class="o">.</span><span class="n">GetoptError</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span>
+        <span class="k">print</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">),</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+        <span class="n">usage</span><span class="p">()</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="p">:</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="k">for</span> <span class="n">o</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">opts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-g&quot;</span><span class="p">,</span> <span class="s">&quot;--gui&quot;</span><span class="p">):</span>
+            <span class="n">gui</span><span class="o">.</span><span class="n">GUI</span><span class="p">()</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-c&quot;</span><span class="p">,</span> <span class="s">&quot;--create&quot;</span><span class="p">):</span>
+            <span class="n">console</span><span class="o">.</span><span class="n">setPrompt</span><span class="p">(</span><span class="n">promptDouble</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-l&quot;</span><span class="p">,</span> <span class="s">&quot;--length&quot;</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&#39;error: length must be a number</span><span class="se">\n</span><span class="s">&#39;</span>
+                <span class="n">usage</span><span class="p">()</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">console</span><span class="o">.</span><span class="n">setLength</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-f&quot;</span><span class="p">,</span> <span class="s">&quot;--file&quot;</span><span class="p">):</span>
+            <span class="n">lf</span> <span class="o">=</span> <span class="n">labelfile</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">file_location</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">lf</span><span class="o">.</span><span class="n">file_found</span><span class="p">:</span>
+                <span class="n">console</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="n">lf</span><span class="o">.</span><span class="n">labels</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&#39;error: could not load labelfile at &quot;</span><span class="si">%s</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&#39;</span> \
+                        <span class="o">%</span> <span class="n">lf</span><span class="o">.</span><span class="n">file_location</span>
+                <span class="n">usage</span><span class="p">()</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-o&quot;</span><span class="p">,</span> <span class="s">&quot;--output&quot;</span><span class="p">):</span>
+            <span class="n">console</span><span class="o">.</span><span class="n">setCurses</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-h&quot;</span><span class="p">,</span> <span class="s">&quot;--help&quot;</span><span class="p">):</span>
+            <span class="n">usage</span><span class="p">()</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-V&quot;</span><span class="p">,</span> <span class="s">&quot;--version&quot;</span><span class="p">):</span>
+            <span class="k">print</span> <span class="n">versionStr</span><span class="p">,</span> <span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">__version_info__</span><span class="p">,</span> <span class="s">&#39;running on&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&quot;unhandled option&quot;</span>
+
+    <span class="k">if</span> <span class="n">labels</span><span class="p">:</span>
+        <span class="n">console</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">lf</span> <span class="o">=</span> <span class="n">labelfile</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">lf</span><span class="o">.</span><span class="n">file_found</span><span class="p">:</span>
+            <span class="n">console</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="n">lf</span><span class="o">.</span><span class="n">labels</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&#39;error: could not load labelfile at </span><span class="si">%s</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">lf</span><span class="o">.</span><span class="n">file_location</span>
+            <span class="n">usage</span><span class="p">()</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">DisPass 0.1a8 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2012, Benjamin Althues.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

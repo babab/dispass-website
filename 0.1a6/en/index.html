@@ -1,0 +1,264 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>DisPass &mdash; DisPass 0.1a7 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1a7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="DisPass 0.1a7 documentation" href="#" />
+    <link rel="next" title="Developer documentation" href="devdoc.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="devdoc.html" title="Developer documentation"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">DisPass 0.1a7 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="dispass">
+<h1>DisPass<a class="headerlink" href="#dispass" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Benjamin Althues</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Copyright:</th><td class="field-body">Copyright 2011-2012, Benjamin Althues.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Date:</th><td class="field-body">2012/05/28</td>
+</tr>
+</tbody>
+</table>
+<p>DisPass is a passphrase generator for Windows and Unix / Linux.
+You can use it to create unique passwords for logging in to websites, servers
+or any other kind of thing that requires login.
+DisPass does not keep your passwords in a database but rather lets you
+generate a unique passphrase formed from a master password and a label.
+It is a command line app, but also has a simple graphical interface.</p>
+<div class="section" id="downloading-installing">
+<h2>Downloading/Installing<a class="headerlink" href="#downloading-installing" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="using-pip-to-download-from-the-python-package-index">
+<h3>Using pip to download from the Python Package Index<a class="headerlink" href="#using-pip-to-download-from-the-python-package-index" title="Permalink to this headline">¶</a></h3>
+<p>The recommended way is to download and install directly from the PyPI
+repository using pip.</p>
+<div class="highlight-python"><pre>$ sudo pip install dispass</pre>
+</div>
+<p>You must have python&#8217;s docutils installed in able to do so.
+This will install the dispass module in python&#8217;s dist-packages folder.
+You can now run dispass using the &#8216;dispass&#8217; and &#8216;gdispass&#8217; scripts
+placed under &#8216;/usr/local/bin/&#8217; or &#8216;/usr/bin/&#8217;.</p>
+<p>The PyPI project page is at <a class="reference external" href="http://pypi.python.org/pypi/DisPass/">http://pypi.python.org/pypi/DisPass/</a></p>
+</div>
+<div class="section" id="latest-development-version">
+<h3>Latest (development) version<a class="headerlink" href="#latest-development-version" title="Permalink to this headline">¶</a></h3>
+<p>Clone git repo:</p>
+<div class="highlight-python"><pre>$ git clone git://github.com/babab/DisPass.git
+$ cd dispass</pre>
+</div>
+<p>Then you can either</p>
+<ol class="arabic">
+<li><p class="first">Install through pip:</p>
+<div class="highlight-python"><pre>$ python setup.py sdist
+$ sudo pip install dist/DisPass-0.1a7.tar.gz</pre>
+</div>
+</li>
+<li><p class="first">Install manually:</p>
+<div class="highlight-python"><pre>$ sudo python setup.py install</pre>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="update-or-uninstall">
+<h2>Update or uninstall<a class="headerlink" href="#update-or-uninstall" title="Permalink to this headline">¶</a></h2>
+<p>You can easily upgrade to newer versions using pip:</p>
+<div class="highlight-python"><pre>$ sudo pip install dispass --upgrade</pre>
+</div>
+<p>If you have installed dispass using pip with,
+you can easily uninstall at any moment:</p>
+<div class="highlight-python"><pre>$ sudo pip uninstall dispass</pre>
+</div>
+</div>
+<div class="section" id="using-the-command-line-app">
+<h2>Using the command line app<a class="headerlink" href="#using-the-command-line-app" title="Permalink to this headline">¶</a></h2>
+<p><strong>label</strong></p>
+<p>The label is a string that you use to identify the password.
+i.e. this can be a domainname of the service the password is used for
+like &#8216;google.com&#8217;.</p>
+<p><strong>password</strong></p>
+<p>This is a master password that, together with the label is used to generate
+the passphrase.</p>
+<div class="section" id="unix-linux-mac">
+<h3>Unix/Linux/Mac<a class="headerlink" href="#unix-linux-mac" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>DisPass 0.1(posix) - http://dispass.babab.nl/
+
+When DisPass is executed as 'gdispass' or 'dispass -g',
+the graphical version will be started.
+
+USAGE: dispass [-co] label [label2] [label3] [...]
+       dispass -g | -h | -V
+       gdispass
+
+Options:
+-c, --create    use if this passphrase is new (check input PW)
+-g, --gui       start guided graphical version of DisPass
+-h, --help      show this help and exit
+-o, --output    output passphrases to stdout (instead of the
+                more secure way of displaying via curses)
+-V, --version   show full version information and exit</pre>
+</div>
+</div>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>DisPass 0.1(nt) - http://dispass.babab.nl/
+
+When DisPass is started without arguments, the graphical
+version will be started. To use the command line,
+submit one or more labels.
+
+USAGE: dispass [options] [label] [label2] [label3] [...]
+
+Options:
+-c, --create    use if this passphrase is new (check input PW)
+-h, --help      show this help and exit
+-V, --version   show full version information and exit</pre>
+</div>
+</div>
+</div>
+<div class="section" id="using-the-graphical-version">
+<h2>Using the graphical version<a class="headerlink" href="#using-the-graphical-version" title="Permalink to this headline">¶</a></h2>
+<p>No info yet.</p>
+</div>
+<div class="section" id="software-license">
+<h2>Software license<a class="headerlink" href="#software-license" title="Permalink to this headline">¶</a></h2>
+<p>Copyright (c) 2011-2012 Benjamin Althues &lt;<a class="reference external" href="mailto:benjamin&#37;&#52;&#48;babab&#46;nl">benjamin<span>&#64;</span>babab<span>&#46;</span>nl</a>&gt;</p>
+<p>Permission to use, copy, modify, and distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.</p>
+<p>THE SOFTWARE IS PROVIDED &#8220;AS IS&#8221; AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="devdoc.html">Developer documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="devdoc.html#module-dispass">Reference</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">DisPass</a><ul>
+<li><a class="reference internal" href="#downloading-installing">Downloading/Installing</a><ul>
+<li><a class="reference internal" href="#using-pip-to-download-from-the-python-package-index">Using pip to download from the Python Package Index</a></li>
+<li><a class="reference internal" href="#latest-development-version">Latest (development) version</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#update-or-uninstall">Update or uninstall</a></li>
+<li><a class="reference internal" href="#using-the-command-line-app">Using the command line app</a><ul>
+<li><a class="reference internal" href="#unix-linux-mac">Unix/Linux/Mac</a></li>
+<li><a class="reference internal" href="#windows">Windows</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-the-graphical-version">Using the graphical version</a></li>
+<li><a class="reference internal" href="#software-license">Software license</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="devdoc.html"
+                        title="next chapter">Developer documentation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="devdoc.html" title="Developer documentation"
+             >next</a> |</li>
+        <li><a href="#">DisPass 0.1a7 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2012, Benjamin Althues.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
