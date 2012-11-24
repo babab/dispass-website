@@ -1,1 +1,1 @@
-<?php header('Location: /0.1a8/en/');
+<?php header('Location: all.html');
