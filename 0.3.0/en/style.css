@@ -1,0 +1,78 @@
+body {
+    padding-top: 20px;
+}
+h1 small, h2 small, h3 small,
+h4 small, h5 small, h6 small {
+    color: black;
+}
+pre {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+pre.file {
+    color: #000000;
+    background-color: #FFFFFF;
+}
+.unstyled ul, .unstyled ol {
+    margin-left: 0px;
+    list-style: none outside none;
+}
+.inversed {
+    background-color: #EFEFEF;
+}
+.spacer {
+    height: 30px;
+}
+.spacer-small {
+    height: 10px;
+}
+.mleft30 {
+    margin-left: 30px;
+}
+.fullwidth {
+    width: 100%;
+}
+
+.jumbotron {
+    margin: 80px 0;
+    text-align: center;
+}
+.jumbotron h1 {
+    font-size: 100px;
+}
+.jumbotron .lead {
+    font-size: 24px;
+    line-height: 1.25;
+}
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.navbar .navbar-inner {
+    padding: 0;
+}
+.navbar .nav {
+    margin: 0;
+    display: table;
+    width: 100%;
+}
+.navbar .nav li {
+    display: table-cell;
+    width: 1%;
+    float: none;
+}
+.navbar .nav li a {
+    font-weight: bold;
+    text-align: center;
+    border-left: 1px solid rgba(255,255,255,.75);
+    border-right: 1px solid rgba(0,0,0,.1);
+}
+.navbar .nav li:first-child a {
+    border-left: 0;
+    border-radius: 3px 0 0 3px;
+}
+.navbar .nav li:last-child a {
+    border-right: 0;
+    border-radius: 0 3px 3px 0;
+}
