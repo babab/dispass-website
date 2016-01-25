@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dispass.algos &mdash; DisPass 0.3.0-dev documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.3.0-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="DisPass 0.3.0-dev documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">DisPass 0.3.0-dev documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for dispass.algos</h1><div class="highlight"><pre>
+<span class="c1"># Copyright (c) 2012-2016  Tom Willemse &lt;tom@ryuslash.org&gt;</span>
+<span class="c1"># Copyright (c) 2011-2016  Benjamin Althues &lt;benjamin@althu.es&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># Permission to use, copy, modify, and distribute this software for any</span>
+<span class="c1"># purpose with or without fee is hereby granted, provided that the above</span>
+<span class="c1"># copyright notice and this permission notice appear in all copies.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot; AND THE AUTHOR DISCLAIMS ALL WARRANTIES</span>
+<span class="c1"># WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF</span>
+<span class="c1"># MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR</span>
+<span class="c1"># ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES</span>
+<span class="c1"># WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN</span>
+<span class="c1"># ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF</span>
+<span class="c1"># OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</span>
+
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+
+<span class="n">algorithms</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;dispass1&#39;</span><span class="p">,</span> <span class="s1">&#39;dispass2&#39;</span><span class="p">)</span>
+<span class="sd">&#39;&#39;&#39;A tuple of registrered algorithms, used for validation of user input&#39;&#39;&#39;</span>
+
+
+<div class="viewcode-block" id="algoObject"><a class="viewcode-back" href="../../03-development-docs.html#dispass.algos.algoObject">[docs]</a><span class="k">def</span> <span class="nf">algoObject</span><span class="p">(</span><span class="n">algoname</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Return an algorithm object</span>
+
+<span class="sd">    :Parameters:</span>
+<span class="sd">        - `algoname`: String. Name of the algorithm</span>
+
+<span class="sd">    :Return:</span>
+<span class="sd">        - An algorithm object or False</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">algoname</span> <span class="o">==</span> <span class="s1">&#39;dispass1&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Dispass1</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">algoname</span> <span class="o">==</span> <span class="s1">&#39;dispass2&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Dispass2</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span></div>
+
+
+<div class="viewcode-block" id="Dispass1"><a class="viewcode-back" href="../../03-development-docs.html#dispass.algos.Dispass1">[docs]</a><span class="k">class</span> <span class="nc">Dispass1</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;Dispass1 algorithm</span>
+
+<span class="sd">    Tests:</span>
+
+<span class="sd">    &gt;&gt;&gt; dispass1 = Dispass1()</span>
+<span class="sd">    &gt;&gt;&gt; dispass1.digest(&#39;test&#39;, &#39;qqqqqqqq&#39;)</span>
+<span class="sd">    &#39;Y2Y4Y2Y0Yzg5Nzc1Yzc2MmI4OTU0ND&#39;</span>
+<span class="sd">    &gt;&gt;&gt; dispass1.digest(&#39;test2&#39;, &#39;qqqqqqqq&#39;, 50)</span>
+<span class="sd">    &#39;NmQzNjUzZTlhNTc4NWFlNTU5ZTVkZGQ5ZTc2NzliZjgzZDQ1Zj&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Dispass1.digest"><a class="viewcode-back" href="../../03-development-docs.html#dispass.algos.Dispass1.digest">[docs]</a>    <span class="k">def</span> <span class="nf">digest</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Create and return secure hash of message</span>
+
+<span class="sd">        A secure hash/message digest formed by hashing a string (formed by</span>
+<span class="sd">        concatenating label+password) with the sha512 algorithm, encoding</span>
+<span class="sd">        this hash with base64 and stripping it down to the first `length`</span>
+<span class="sd">        characters.</span>
+
+<span class="sd">        :Parameters:</span>
+<span class="sd">            - `label`: String. Labelname</span>
+<span class="sd">            - `password`: String. The input password</span>
+<span class="sd">            - `length`: Length of output hash (optional)</span>
+<span class="sd">            - `seqno`: Sequence number. Not used in Dispass1</span>
+
+<span class="sd">        :Return:</span>
+<span class="sd">            - The secure hash of `label` + `password`</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">sha</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha512</span><span class="p">()</span>
+        <span class="n">sha</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">password</span><span class="p">))</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">sha</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(),</span> <span class="s1">&#39;49&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[:</span><span class="n">length</span><span class="p">])</span></div></div>
+
+
+<div class="viewcode-block" id="Dispass2"><a class="viewcode-back" href="../../03-development-docs.html#dispass.algos.Dispass2">[docs]</a><span class="k">class</span> <span class="nc">Dispass2</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;Dispass2 algorithm</span>
+
+<span class="sd">    Tests:</span>
+
+<span class="sd">    &gt;&gt;&gt; dispass2 = Dispass2()</span>
+<span class="sd">    &gt;&gt;&gt; dispass2.digest(&#39;test&#39;, &#39;qqqqqqqq&#39;)</span>
+<span class="sd">    &#39;ZTdiNGNkYmQ2ZjFmNzc3NGFjZWEwMz&#39;</span>
+<span class="sd">    &gt;&gt;&gt; dispass2.digest(&#39;test2&#39;, &#39;qqqqqqqq&#39;, 50, 10)</span>
+<span class="sd">    &#39;NGEwNjMxMzZiMzljODVmODk4OWQ1ZmE4YTRlY2E4ODZkZjZlZW&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Dispass2.digest"><a class="viewcode-back" href="../../03-development-docs.html#dispass.algos.Dispass2.digest">[docs]</a>    <span class="k">def</span> <span class="nf">digest</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Create and return secure hash of message</span>
+
+<span class="sd">        A secure hash/message digest formed by hashing a string (formed by</span>
+<span class="sd">        concatenating label+seqno+password) with the sha512 algorithm, encoding</span>
+<span class="sd">        this hash with base64 and stripping it down to the first `length`</span>
+<span class="sd">        characters.</span>
+
+<span class="sd">        :Parameters:</span>
+<span class="sd">            - `label`: String. Labelname</span>
+<span class="sd">            - `password`: String. The input password</span>
+<span class="sd">            - `length`: Length of output hash (optional)</span>
+<span class="sd">            - `seqno`: Integer. Sequence number.</span>
+
+<span class="sd">        :Return:</span>
+<span class="sd">            - The secure hash of `label` + `seqno` + `password`</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">sha</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha512</span><span class="p">()</span>
+        <span class="n">sha</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">seqno</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">password</span><span class="p">))</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">sha</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(),</span> <span class="s1">&#39;49&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[:</span><span class="n">length</span><span class="p">])</span></div></div>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">DisPass 0.3.0-dev documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2011-2016  Benjamin Althues &amp; Tom Willemse.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+    </div>
+  </body>
+</html>

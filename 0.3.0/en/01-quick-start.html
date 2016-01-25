@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>1. Quick start &mdash; DisPass 0.3.0-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.3.0-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="DisPass 0.3.0-dev documentation" href="index.html" />
+    <link rel="next" title="2. User documentation" href="02-user-docs.html" />
+    <link rel="prev" title="DisPass" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="02-user-docs.html" title="2. User documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="DisPass"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DisPass 0.3.0-dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="quick-start">
+<h1>1. Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
+<p>These are quick instructions for the impatient, just wanting to check
+out DisPass. For full user documentation browse to the next section.</p>
+<div class="section" id="download">
+<h2>1.1. Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
+<p>Download DisPass from the Python Package Index with pip. As root, do the
+following</p>
+<div class="code console highlight-python"><div class="highlight"><pre><span class="c1"># pip install dispass</span>
+</pre></div>
+</div>
+<p>If you don&#8217;t have pip installed you can try easy_install:</p>
+<div class="code console highlight-python"><div class="highlight"><pre><span class="c1"># easy_install dispass</span>
+</pre></div>
+</div>
+<p>If you are using Archlinux, it is advised to <a class="reference external" href="https://aur.archlinux.org/packages.php?K=dispass">install dispass with pacman</a>.</p>
+</div>
+<div class="section" id="using-dispass-for-the-first-time">
+<h2>1.2. Using DisPass for the first time<a class="headerlink" href="#using-dispass-for-the-first-time" title="Permalink to this headline">¶</a></h2>
+<p>For this example we will set a passphrase to use for a google account.</p>
+<p>Create and save a label <code class="docutils literal"><span class="pre">google</span></code> to the labelfile:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ dispass add google
+</pre></div>
+</div>
+<p>Generate the passphrase for the first time. Since you will need to
+register the password with google we pass the <code class="docutils literal"><span class="pre">-v</span></code> flag to avoid
+typing errors while creating the passphrase for the first time:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ dispass generate -v google
+</pre></div>
+</div>
+</div>
+<div class="section" id="mini-screencast">
+<h2>1.3. Mini screencast<a class="headerlink" href="#mini-screencast" title="Permalink to this headline">¶</a></h2>
+<p>Checkout the following mini screencast. In this demo the label is added
+interactively.</p>
+<img alt="_images/dispass-mini-screencast.gif" src="_images/dispass-mini-screencast.gif" />
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">1. Quick start</a><ul>
+<li><a class="reference internal" href="#download">1.1. Download</a></li>
+<li><a class="reference internal" href="#using-dispass-for-the-first-time">1.2. Using DisPass for the first time</a></li>
+<li><a class="reference internal" href="#mini-screencast">1.3. Mini screencast</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">DisPass</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="02-user-docs.html"
+                        title="next chapter">2. User documentation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/01-quick-start.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="02-user-docs.html" title="2. User documentation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="DisPass"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DisPass 0.3.0-dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2011-2016  Benjamin Althues &amp; Tom Willemse.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+    </div>
+  </body>
+</html>

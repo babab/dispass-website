@@ -1,0 +1,429 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dispass.filehandler &mdash; DisPass 0.3.0-dev documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.3.0-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="DisPass 0.3.0-dev documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">DisPass 0.3.0-dev documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for dispass.filehandler</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;Dispass labelfile handler&#39;&#39;&#39;</span>
+
+<span class="c1"># Copyright (c) 2012-2016  Tom Willemse &lt;tom@ryuslash.org&gt;</span>
+<span class="c1"># Copyright (c) 2011-2016  Benjamin Althues &lt;benjamin@althu.es&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># Permission to use, copy, modify, and distribute this software for any</span>
+<span class="c1"># purpose with or without fee is hereby granted, provided that the above</span>
+<span class="c1"># copyright notice and this permission notice appear in all copies.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot; AND THE AUTHOR DISCLAIMS ALL WARRANTIES</span>
+<span class="c1"># WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF</span>
+<span class="c1"># MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR</span>
+<span class="c1"># ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES</span>
+<span class="c1"># WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN</span>
+<span class="c1"># ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF</span>
+<span class="c1"># OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">expanduser</span><span class="p">,</span> <span class="n">exists</span>
+
+<span class="kn">from</span> <span class="nn">dispass</span> <span class="kn">import</span> <span class="n">__version__</span>
+
+
+<div class="viewcode-block" id="Filehandler"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler">[docs]</a><span class="k">class</span> <span class="nc">Filehandler</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;Parsing of labelfiles and writing to labelfiles&#39;&#39;&#39;</span>
+
+    <span class="n">filehandle</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="sd">&#39;&#39;&#39;File object, set on init if labelfile is found&#39;&#39;&#39;</span>
+
+    <span class="n">file_found</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="sd">&#39;&#39;&#39;Boolean value set on init&#39;&#39;&#39;</span>
+
+    <span class="n">file_location</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="sd">&#39;&#39;&#39;String of labelfile location, set on init&#39;&#39;&#39;</span>
+
+    <span class="n">labelfile</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="sd">&#39;&#39;&#39;List of [(labelname, length, algorithm, seqno, disabled), ... ]&#39;&#39;&#39;</span>
+
+    <span class="n">longest_label</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="sd">&#39;&#39;&#39;Int. Length of the longest labelname of `labelfile`. Set on refresh()&#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">file_location</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Open file; if file is found: strip comments and parse()&#39;&#39;&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">settings</span>
+
+        <span class="k">if</span> <span class="n">file_location</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_location</span> <span class="o">=</span> <span class="n">expanduser</span><span class="p">(</span><span class="n">file_location</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_location</span> <span class="o">=</span> <span class="n">expanduser</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getDefaultFileLocation</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Filehandler.getDefaultFileLocation"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.getDefaultFileLocation">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultFileLocation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Scan default labelfile paths&quot;&quot;&quot;</span>
+
+        <span class="n">label_env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DISPASS_LABELFILE&#39;</span><span class="p">)</span>
+        <span class="n">std_env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;XDG_DATA_HOME&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;APPDATA&#39;</span><span class="p">)</span>
+        <span class="n">home_file</span> <span class="o">=</span> <span class="s1">&#39;~/.dispass/labels&#39;</span>
+
+        <span class="k">if</span> <span class="n">label_env</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">label_env</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">home_file</span><span class="p">)</span> <span class="ow">and</span> <span class="n">std_env</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">std_env</span> <span class="o">+</span> <span class="s1">&#39;/dispass/labels&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">home_file</span></div>
+
+<div class="viewcode-block" id="Filehandler.parse"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.parse">[docs]</a>    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Create dictionary {algorithm: (label, (length, seqno, disabled))}&#39;&#39;&#39;</span>
+
+        <span class="n">file_stripped</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filehandle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_location</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_found</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_found</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Strip comments and blank lines</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">filehandle</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="ow">and</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;#&#39;</span><span class="p">:</span>
+                <span class="n">file_stripped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_found</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filehandle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">file_stripped</span><span class="p">:</span>
+            <span class="n">wordlist</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">word</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                    <span class="n">wordlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wordlist</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+            <span class="n">labelname</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">passphrase_length</span>
+            <span class="n">seqno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">sequence_number</span>
+            <span class="n">algo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">algorithm</span>
+            <span class="n">disabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">disabled</span>
+
+            <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;length=&#39;</span> <span class="ow">in</span> <span class="n">arg</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;length=&#39;</span><span class="p">))</span>
+                    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                        <span class="k">print</span> <span class="s2">&quot;Warning: Invalid length in: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">line</span>
+                <span class="k">elif</span> <span class="s1">&#39;algo=&#39;</span> <span class="ow">in</span> <span class="n">arg</span><span class="p">:</span>
+                    <span class="n">algo</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;algo=&#39;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="s1">&#39;seqno=&#39;</span> <span class="ow">in</span> <span class="n">arg</span><span class="p">:</span>
+                    <span class="n">seqno</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;seqno=&#39;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="s1">&#39;disabled=&#39;</span> <span class="ow">in</span> <span class="n">arg</span><span class="p">:</span>
+                    <span class="n">disabled</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;disabled=&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">labelname</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">algo</span><span class="p">,</span> <span class="n">seqno</span><span class="p">,</span> <span class="n">disabled</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">labelname</span> <span class="o">==</span> <span class="n">label</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="n">label</span>
+
+<div class="viewcode-block" id="Filehandler.add"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">algo</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+            <span class="n">disabled</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Add label to `labelfile`&#39;&#39;&#39;</span>
+
+        <span class="n">length</span> <span class="o">=</span> <span class="n">length</span> <span class="k">if</span> <span class="n">length</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">passphrase_length</span>
+        <span class="n">algo</span> <span class="o">=</span> <span class="n">algo</span> <span class="k">if</span> <span class="n">algo</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">algorithm</span>
+        <span class="n">seqno</span> <span class="o">=</span> <span class="n">seqno</span> <span class="k">if</span> <span class="n">seqno</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">sequence_number</span>
+        <span class="n">disabled</span> <span class="o">=</span> <span class="n">disabled</span> <span class="k">if</span> <span class="n">disabled</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">disabled</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">labelname</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">labelname</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">algo</span><span class="p">,</span> <span class="n">seqno</span><span class="p">,</span> <span class="n">disabled</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">True</span></div>
+
+<div class="viewcode-block" id="Filehandler.update"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">algo</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+               <span class="n">disabled</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Update label in `labelfile`&#39;&#39;&#39;</span>
+
+        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">labelname</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">label</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="n">length</span> <span class="k">if</span> <span class="n">length</span> <span class="k">else</span> <span class="n">label</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                  <span class="s1">&#39;algo&#39;</span><span class="p">:</span> <span class="n">algo</span> <span class="k">if</span> <span class="n">algo</span> <span class="k">else</span> <span class="n">label</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                  <span class="s1">&#39;seqno&#39;</span><span class="p">:</span> <span class="n">seqno</span> <span class="k">if</span> <span class="n">seqno</span> <span class="k">else</span> <span class="n">label</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+                  <span class="s1">&#39;disabled&#39;</span><span class="p">:</span> <span class="n">disabled</span> <span class="k">if</span> <span class="n">disabled</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">label</span><span class="p">[</span><span class="mi">4</span><span class="p">]}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">labelname</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">labelname</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Filehandler.increment"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.increment">[docs]</a>    <span class="k">def</span> <span class="nf">increment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Increment sequence number of `labelfile`&#39;&#39;&#39;</span>
+
+        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">labelname</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">label</span> <span class="ow">or</span> <span class="n">label</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;dispass1&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">labelname</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">label</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Filehandler.disable"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.disable">[docs]</a>    <span class="k">def</span> <span class="nf">disable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Disable or enable a label&#39;&#39;&#39;</span>
+
+        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">labelname</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">label</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">labelname</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="n">disabled</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Filehandler.remove"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Remove label from `labelfile`&#39;&#39;&#39;</span>
+
+        <span class="n">removed</span> <span class="o">=</span> <span class="bp">False</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">labelname</span><span class="p">:</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">removed</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="k">break</span>
+
+        <span class="k">return</span> <span class="n">removed</span></div>
+
+<div class="viewcode-block" id="Filehandler.refresh"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Sort `labelfile` on labelname and get longest label&#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="n">sort</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">labelnames</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="p">:</span>
+            <span class="n">labelnames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">labelnames</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">longest_label</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">labelnames</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Filehandler.save"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Save `labelfile` to file&#39;&#39;&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+        <span class="n">labelfile</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;# Generated by DisPass {version} on {datetime}</span><span class="se">\n\n</span><span class="s1">&#39;</span>
+                     <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">__version__</span><span class="p">,</span>
+                             <span class="n">datetime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()))</span>
+        <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">label</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;dispass1&#39;</span><span class="p">:</span>
+                <span class="n">options</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;length={length}  algo={algo} disabled={disabled}&#39;</span>
+                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="n">label</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">algo</span><span class="o">=</span><span class="n">label</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                                   <span class="n">disabled</span><span class="o">=</span><span class="n">label</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">options</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;length={length}  algo={algo}  seqno={seqno} &#39;</span>
+                            <span class="s1">&#39;disabled={disabled}&#39;</span><span class="p">)</span>
+                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="n">label</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">algo</span><span class="o">=</span><span class="n">label</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                                   <span class="n">seqno</span><span class="o">=</span><span class="n">label</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">disabled</span><span class="o">=</span><span class="n">label</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+            <span class="n">labelfile</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;{label:{divlen}}  {options}</span><span class="se">\n</span><span class="s1">&#39;</span>
+                          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span>
+                                  <span class="n">divlen</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">longest_label</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filehandle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_location</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filehandle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">labelfile</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filehandle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">return</span> <span class="bp">True</span></div>
+
+<div class="viewcode-block" id="Filehandler.labeltup"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.labeltup">[docs]</a>    <span class="k">def</span> <span class="nf">labeltup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Get labeltup for `label`</span>
+
+<span class="sd">        :Parameters:</span>
+<span class="sd">            - `label`: The labelname</span>
+
+<span class="sd">        :Returns:</span>
+<span class="sd">            - A tuple with 5 values ``(label, length, algo, seqno, disabled))``:</span>
+<span class="sd">                - `label`: Label to use for passprase generation</span>
+<span class="sd">                - `length`: Length to use for passprase generation</span>
+<span class="sd">                - `algo`: Algorithm to use for passprase generation</span>
+<span class="sd">                - `seqno`: Sequence number to use for passprase generation</span>
+<span class="sd">                - `disabled`: Whether or not the passphrase is disabled</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">for</span> <span class="n">labeltup</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="n">labeltup</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="n">labeltup</span>
+        <span class="k">return</span> <span class="bp">False</span></div>
+
+<div class="viewcode-block" id="Filehandler.printLabels"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.printLabels">[docs]</a>    <span class="k">def</span> <span class="nf">printLabels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fixed_columns</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">labels_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">all_</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Print a formatted table of labelfile contents</span>
+
+<span class="sd">        :Parameters:</span>
+<span class="sd">            - `fixed_columns`: Boolean.</span>
+<span class="sd">            - `labels_only`: Boolean.</span>
+
+<span class="sd">        If `labels_only` is True, only the labelnames will be printed.</span>
+
+<span class="sd">        If `fixed_columns` is true the output will be optimized for easy</span>
+<span class="sd">        parsing by other programs and scripts by not printing the header</span>
+<span class="sd">        and always printing one entry on a single line using the</span>
+<span class="sd">        following positions:</span>
+
+<span class="sd">        * Column 1-50: labelname (50 chars)</span>
+<span class="sd">        * Column 52-54: length (3 chars wide)</span>
+<span class="sd">        * Column 56-70: hash algo (15 chars wide)</span>
+<span class="sd">        * Column 72-74: sequence number (3 chars wide)</span>
+<span class="sd">        * Column 76-77: disabled (1 char wide)</span>
+
+<span class="sd">        If fixed columns is false an ascii table is printed with a variable</span>
+<span class="sd">        width depending on the length of the longest label.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">labels_only</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">all_</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">label</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">label</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">fixed_columns</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">all_</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">label</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{:50} {:3} {:15} {:3} {}&#39;</span>
+                          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">50</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">label</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">3</span><span class="p">],</span>
+                                  <span class="n">label</span><span class="p">[</span><span class="mi">2</span><span class="p">][:</span><span class="mi">15</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">label</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+                                  <span class="s1">&#39;y&#39;</span> <span class="k">if</span> <span class="n">label</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;n&#39;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">divlen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">longest_label</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">divlen</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;+-{spacer:{fill}}-+--------+----------+--------+---+</span><span class="se">\n</span><span class="s1">&#39;</span>
+                  <span class="s1">&#39;| {title:{fill}} | Length | Algo     | Number | X |</span><span class="se">\n</span><span class="s1">&#39;</span>
+                  <span class="s1">&#39;+-{spacer:{fill}}-+--------+----------+--------+---+&#39;</span>
+                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spacer</span><span class="o">=</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="n">divlen</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Label&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">divlen</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">all_</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">label</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;| {:{fill}} |    {:3} | {:8} |      {:3&gt;} | {} |&#39;</span>
+                          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">label</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+                                  <span class="s1">&#39;y&#39;</span> <span class="k">if</span> <span class="n">label</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">divlen</span><span class="p">))</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;+-{:{fill}}-+--------+----------+--------+---+&#39;</span>
+                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="n">divlen</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">divlen</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Filehandler.promptForCreation"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.promptForCreation">[docs]</a>    <span class="k">def</span> <span class="nf">promptForCreation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Create the labelfile, optionally warning the user beforehand</span>
+
+<span class="sd">        :Parameters:</span>
+<span class="sd">            - `silent`: When True, the user will not be warned.</span>
+
+<span class="sd">        :Returns: Boolean. Indicating if the labelfile was created succesfully.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">silent</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">():</span>
+                <span class="k">return</span> <span class="bp">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;error: could not load labelfile at &quot;{loc}&quot;&#39;</span>
+              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">file_location</span><span class="p">))</span>
+        <span class="n">inp</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s1">&#39;Do you want to create it? Y/n &#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">inp</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">inp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">():</span>
+                <span class="k">print</span><span class="p">(</span><span class="s1">&#39;error: could not save to &quot;{loc}&quot;</span><span class="se">\n</span><span class="s1">&#39;</span>
+                      <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">file_location</span><span class="p">))</span>
+                <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">DisPass 0.3.0-dev documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2011-2016  Benjamin Althues &amp; Tom Willemse.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+    </div>
+  </body>
+</html>

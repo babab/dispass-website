@@ -1,0 +1,930 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3. Development documentation &mdash; DisPass 0.3.0-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.3.0-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="DisPass 0.3.0-dev documentation" href="index.html" />
+    <link rel="prev" title="2. User documentation" href="02-user-docs.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="02-user-docs.html" title="2. User documentation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DisPass 0.3.0-dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="development-documentation">
+<h1>3. Development documentation<a class="headerlink" href="#development-documentation" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
+</ul>
+<div class="section" id="core-modules">
+<h2>3.1. Core modules<a class="headerlink" href="#core-modules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="algos">
+<h3>3.1.1. algos<a class="headerlink" href="#algos" title="Permalink to this headline">¶</a></h3>
+<p>The algos module is the most important part of DisPass. The algorithms
+DisPass uses to create the passphrases are defined as separate classes
+in the <cite>dispass.algos</cite> module.</p>
+<span class="target" id="module-dispass.algos"></span><dl class="class">
+<dt id="dispass.algos.Dispass1">
+<em class="property">class </em><code class="descclassname">dispass.algos.</code><code class="descname">Dispass1</code><a class="reference internal" href="_modules/dispass/algos.html#Dispass1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.algos.Dispass1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dispass1 algorithm</p>
+<p>Tests:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dispass1</span> <span class="o">=</span> <span class="n">Dispass1</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dispass1</span><span class="o">.</span><span class="n">digest</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;qqqqqqqq&#39;</span><span class="p">)</span>
+<span class="go">&#39;Y2Y4Y2Y0Yzg5Nzc1Yzc2MmI4OTU0ND&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dispass1</span><span class="o">.</span><span class="n">digest</span><span class="p">(</span><span class="s1">&#39;test2&#39;</span><span class="p">,</span> <span class="s1">&#39;qqqqqqqq&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="go">&#39;NmQzNjUzZTlhNTc4NWFlNTU5ZTVkZGQ5ZTc2NzliZjgzZDQ1Zj&#39;</span>
+</pre></div>
+</div>
+<dl class="staticmethod">
+<dt id="dispass.algos.Dispass1.digest">
+<em class="property">static </em><code class="descname">digest</code><span class="sig-paren">(</span><em>label</em>, <em>password</em>, <em>length=30</em>, <em>seqno=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/algos.html#Dispass1.digest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.algos.Dispass1.digest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return secure hash of message</p>
+<p>A secure hash/message digest formed by hashing a string (formed by
+concatenating label+password) with the sha512 algorithm, encoding
+this hash with base64 and stripping it down to the first <cite>length</cite>
+characters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><cite>label</cite>: String. Labelname</li>
+<li><cite>password</cite>: String. The input password</li>
+<li><cite>length</cite>: Length of output hash (optional)</li>
+<li><cite>seqno</cite>: Sequence number. Not used in Dispass1</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><ul class="first last simple">
+<li>The secure hash of <cite>label</cite> + <cite>password</cite></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dispass.algos.Dispass2">
+<em class="property">class </em><code class="descclassname">dispass.algos.</code><code class="descname">Dispass2</code><a class="reference internal" href="_modules/dispass/algos.html#Dispass2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.algos.Dispass2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dispass2 algorithm</p>
+<p>Tests:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dispass2</span> <span class="o">=</span> <span class="n">Dispass2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dispass2</span><span class="o">.</span><span class="n">digest</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;qqqqqqqq&#39;</span><span class="p">)</span>
+<span class="go">&#39;ZTdiNGNkYmQ2ZjFmNzc3NGFjZWEwMz&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dispass2</span><span class="o">.</span><span class="n">digest</span><span class="p">(</span><span class="s1">&#39;test2&#39;</span><span class="p">,</span> <span class="s1">&#39;qqqqqqqq&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">&#39;NGEwNjMxMzZiMzljODVmODk4OWQ1ZmE4YTRlY2E4ODZkZjZlZW&#39;</span>
+</pre></div>
+</div>
+<dl class="staticmethod">
+<dt id="dispass.algos.Dispass2.digest">
+<em class="property">static </em><code class="descname">digest</code><span class="sig-paren">(</span><em>label</em>, <em>password</em>, <em>length=30</em>, <em>seqno=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/algos.html#Dispass2.digest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.algos.Dispass2.digest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return secure hash of message</p>
+<p>A secure hash/message digest formed by hashing a string (formed by
+concatenating label+seqno+password) with the sha512 algorithm, encoding
+this hash with base64 and stripping it down to the first <cite>length</cite>
+characters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><cite>label</cite>: String. Labelname</li>
+<li><cite>password</cite>: String. The input password</li>
+<li><cite>length</cite>: Length of output hash (optional)</li>
+<li><cite>seqno</cite>: Integer. Sequence number.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><ul class="first last simple">
+<li>The secure hash of <cite>label</cite> + <cite>seqno</cite> + <cite>password</cite></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="dispass.algos.algoObject">
+<code class="descclassname">dispass.algos.</code><code class="descname">algoObject</code><span class="sig-paren">(</span><em>algoname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/algos.html#algoObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.algos.algoObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an algorithm object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><cite>algoname</cite>: String. Name of the algorithm</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><ul class="first last simple">
+<li>An algorithm object or False</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="data">
+<dt id="dispass.algos.algorithms">
+<code class="descclassname">dispass.algos.</code><code class="descname">algorithms</code><em class="property"> = ('dispass1', 'dispass2')</em><a class="headerlink" href="#dispass.algos.algorithms" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tuple of registrered algorithms, used for validation of user input</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-dispass.common">
+<span id="common"></span><h3>3.1.2. common<a class="headerlink" href="#module-dispass.common" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="dispass.common.CommandBase">
+<em class="property">class </em><code class="descclassname">dispass.common.</code><code class="descname">CommandBase</code><span class="sig-paren">(</span><em>settings</em>, <em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/common.html#CommandBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.common.CommandBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for (sub)commands</p>
+<dl class="attribute">
+<dt id="dispass.common.CommandBase.description">
+<code class="descname">description</code><em class="property"> = ''</em><a class="headerlink" href="#dispass.common.CommandBase.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>String. Small description of subcommand</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.common.CommandBase.error">
+<code class="descname">error</code><em class="property"> = None</em><a class="headerlink" href="#dispass.common.CommandBase.error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Thrown by GetoptError when parsing illegal arguments.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.common.CommandBase.flags">
+<code class="descname">flags</code><em class="property"> = None</em><a class="headerlink" href="#dispass.common.CommandBase.flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dict of parsed options and corresponding arguments, if any.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.common.CommandBase.optionList">
+<code class="descname">optionList</code><em class="property"> = {}</em><a class="headerlink" href="#dispass.common.CommandBase.optionList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary of options (as list of 2-tuples).
+This will be transformed to an OrderedDict when initializing the object.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">optionList</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;show this help information&#39;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;dry-run&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span>
+                 <span class="s1">&#39;only print output without actually running&#39;</span><span class="p">)),</span>
+
+    <span class="c1"># To specify that an option requires an argument</span>
+    <span class="c1"># just add a string that describes it</span>
+    <span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;filename&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;use specified file&#39;</span><span class="p">)),</span>
+
+    <span class="c1"># Use an empty string to ommit short option</span>
+    <span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;show debug information&#39;</span><span class="p">)),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.common.CommandBase.parentFlags">
+<code class="descname">parentFlags</code><em class="property"> = None</em><a class="headerlink" href="#dispass.common.CommandBase.parentFlags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dict of registered <cite>flags</cite> of parent Command object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.common.CommandBase.registerParentFlag">
+<code class="descname">registerParentFlag</code><span class="sig-paren">(</span><em>optionName</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/common.html#CommandBase.registerParentFlag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.common.CommandBase.registerParentFlag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a flag of a parent command</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>optionName</cite>: String. Name of option</li>
+<li><cite>value</cite>: Mixed. Value of parsed flag`</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.common.CommandBase.usage">
+<code class="descname">usage</code><em class="property"> = None</em><a class="headerlink" href="#dispass.common.CommandBase.usage" title="Permalink to this definition">¶</a></dt>
+<dd><p>String with usage information</p>
+<p>The string is compiled using the values found for
+<cite>usagestr</cite>, <cite>description</cite>, <cite>optionList</cite> and <cite>usageTextExtra</cite>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.common.CommandBase.usageTextExtra">
+<code class="descname">usageTextExtra</code><em class="property"> = ''</em><a class="headerlink" href="#dispass.common.CommandBase.usageTextExtra" title="Permalink to this definition">¶</a></dt>
+<dd><p>String. Optional extra usage information</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.common.CommandBase.usagestr">
+<code class="descname">usagestr</code><em class="property"> = 'usage: dispass subcommand [options]'</em><a class="headerlink" href="#dispass.common.CommandBase.usagestr" title="Permalink to this definition">¶</a></dt>
+<dd><p>String. Usage synopsis</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-dispass.dispass">
+<span id="dispass"></span><h3>3.1.3. dispass<a class="headerlink" href="#module-dispass.dispass" title="Permalink to this headline">¶</a></h3>
+<p>Password manager for GNU/Linux, *BSD, MacOS X and Windows.</p>
+<dl class="class">
+<dt id="dispass.dispass.DispassCommand">
+<em class="property">class </em><code class="descclassname">dispass.dispass.</code><code class="descname">DispassCommand</code><span class="sig-paren">(</span><em>settings</em>, <em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/dispass.html#DispassCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.dispass.DispassCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main shell command object</p>
+<dl class="method">
+<dt id="dispass.dispass.DispassCommand.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/dispass.html#DispassCommand.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.dispass.DispassCommand.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <cite>run</cite> method of the main command</p>
+<p>This is the first point of entry that will parse the command and
+arguments given in the shell by the user, directing arguments to
+subcommands if applicable.</p>
+<p>The subcommands are imported in this method, since doing it in the
+module itself causes circular import problems. There is support for
+dynamically loading the modules, so you can define custom commands. The
+(main) subcommands get imported explicitly so that &#8216;freezing&#8217; apps like
+PyInstaller will correctly include the modules.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dispass.dispass.Settings">
+<em class="property">class </em><code class="descclassname">dispass.dispass.</code><code class="descname">Settings</code><a class="reference internal" href="_modules/dispass/dispass.html#Settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.dispass.Settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Global settings</p>
+<dl class="attribute">
+<dt id="dispass.dispass.Settings.algorithm">
+<code class="descname">algorithm</code><em class="property"> = 'dispass1'</em><a class="headerlink" href="#dispass.dispass.Settings.algorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>String. The algorithm to use, default is dispass1</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.dispass.Settings.disabled">
+<code class="descname">disabled</code><em class="property"> = False</em><a class="headerlink" href="#dispass.dispass.Settings.disabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bool. Default disabled state</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.dispass.Settings.passphrase_length">
+<code class="descname">passphrase_length</code><em class="property"> = 30</em><a class="headerlink" href="#dispass.dispass.Settings.passphrase_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Int. Default passphrase length</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.dispass.Settings.sequence_number">
+<code class="descname">sequence_number</code><em class="property"> = 1</em><a class="headerlink" href="#dispass.dispass.Settings.sequence_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Int. Default sequence number</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="dispass.dispass.verboseVersionInfo">
+<code class="descclassname">dispass.dispass.</code><code class="descname">verboseVersionInfo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/dispass.html#verboseVersionInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.dispass.verboseVersionInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string with verbose version information</p>
+<p>The string shows the version of DisPass and that of Python.
+It also displays the name of the operating system/platform name.</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="interface-modules">
+<h2>3.2. Interface modules<a class="headerlink" href="#interface-modules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-dispass.cli">
+<span id="cli"></span><h3>3.2.1. cli<a class="headerlink" href="#module-dispass.cli" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="dispass.cli.CLI">
+<em class="property">class </em><code class="descclassname">dispass.cli.</code><code class="descname">CLI</code><span class="sig-paren">(</span><em>filehandler</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/cli.html#CLI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.cli.CLI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Command Line Interface handling</p>
+<dl class="method">
+<dt id="dispass.cli.CLI.generate">
+<code class="descname">generate</code><span class="sig-paren">(</span><em>password</em>, <em>(label</em>, <em>length</em>, <em>algo</em>, <em>seqno)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/cli.html#CLI.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.cli.CLI.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate passphrase and store result in <cite>passphrases</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last">
+<li><p class="first"><cite>password</cite>: Password to use for passprase generation</p>
+</li>
+<li><dl class="first docutils">
+<dt><cite>labeltup</cite>: A tuple <cite>labeltup</cite> with 4 values:</dt>
+<dd><ul class="first last simple">
+<li><cite>label</cite>: Label to use for passprase generation</li>
+<li><cite>length</cite>: Length to use for passprase generation</li>
+<li><cite>algo</cite>: Algorithm to use for passprase generation</li>
+<li><cite>seqno</cite>: Sequence number to use for passprase generation</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.cli.CLI.output">
+<code class="descname">output</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/cli.html#CLI.output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.cli.CLI.output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output and flush passprase(s)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.cli.CLI.passphrases">
+<code class="descname">passphrases</code><em class="property"> = {}</em><a class="headerlink" href="#dispass.cli.CLI.passphrases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dict of labels and generated passphrases</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.cli.CLI.passwordPrompt">
+<code class="descname">passwordPrompt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/cli.html#CLI.passwordPrompt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.cli.CLI.passwordPrompt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prompt for password</p>
+<p>Use the <cite>getpass.getpass</cite> function to ask the user for the password
+and ensure it is 8 characters. The password will be asked twice if
+<cite>self.verifyPassword</cite> == <cite>True</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return:</th><td class="field-body">Password string.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.cli.CLI.scriptableIO">
+<code class="descname">scriptableIO</code><em class="property"> = False</em><a class="headerlink" href="#dispass.cli.CLI.scriptableIO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boolean. Optimize input/output for wrapping dispass</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.cli.CLI.setCurses">
+<code class="descname">setCurses</code><span class="sig-paren">(</span><em>useCurses</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/cli.html#CLI.setCurses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.cli.CLI.setCurses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optionally override <cite>self.useCurses</cite></p>
+<p>Instead of setting the instance variable <cite>self.useCurses</cite> directly, a
+setter is used to ensure it can only be set to <cite>True</cite> if the curses
+library is supported.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>useCurses</cite>: Boolean</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.cli.CLI.verifyPassword">
+<code class="descname">verifyPassword</code><em class="property"> = False</em><a class="headerlink" href="#dispass.cli.CLI.verifyPassword" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boolean. Prompt for password twice and save label to labelfile</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-dispass.gui">
+<span id="gui"></span><h3>3.2.2. gui<a class="headerlink" href="#module-dispass.gui" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="dispass.gui.GUI">
+<em class="property">class </em><code class="descclassname">dispass.gui.</code><code class="descname">GUI</code><span class="sig-paren">(</span><em>settings</em>, <em>filehandler</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/gui.html#GUI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.gui.GUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Houses all GUI related objects and interactions</p>
+<dl class="method">
+<dt id="dispass.gui.GUI.clearIO">
+<code class="descname">clearIO</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/gui.html#GUI.clearIO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.gui.GUI.clearIO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all input and output fields</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.gui.GUI.clearInput">
+<code class="descname">clearInput</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/gui.html#GUI.clearInput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.gui.GUI.clearInput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all input fields</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.gui.GUI.clearOutput">
+<code class="descname">clearOutput</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/gui.html#GUI.clearOutput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.gui.GUI.clearOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all output fields</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.gui.GUI.createWidgets">
+<code class="descname">createWidgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/gui.html#GUI.createWidgets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.gui.GUI.createWidgets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and align widgets</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.gui.GUI.filterLabels">
+<code class="descname">filterLabels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/gui.html#GUI.filterLabels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.gui.GUI.filterLabels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter labels according to what was typed into the entry.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.gui.GUI.font">
+<code class="descname">font</code><em class="property"> = 'Verdana'</em><a class="headerlink" href="#dispass.gui.GUI.font" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default font (Verdana)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.gui.GUI.fontsize">
+<code class="descname">fontsize</code><em class="property"> = 10</em><a class="headerlink" href="#dispass.gui.GUI.fontsize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default fontsize (10 pt.)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.gui.GUI.getFont">
+<code class="descname">getFont</code><span class="sig-paren">(</span><em>sizediff=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/gui.html#GUI.getFont"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.gui.GUI.getFont" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get <cite>font</cite> and <cite>fontsize</cite>, optionally differ from default <cite>fontsize</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><cite>sizediff</cite>: The difference in pt. from the default <cite>fontsize</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><ul class="first last simple">
+<li>Tuple of <cite>(font, fontsize)</cite> to be used when creating widgets</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.gui.GUI.labelFocusOut">
+<code class="descname">labelFocusOut</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/gui.html#GUI.labelFocusOut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.gui.GUI.labelFocusOut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set values of input fields according to the selected label.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.gui.GUI.labelSelected">
+<code class="descname">labelSelected</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/gui.html#GUI.labelSelected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.gui.GUI.labelSelected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change focus to password field.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.gui.GUI.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/gui.html#GUI.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.gui.GUI.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all input and output and focus label entry</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.gui.GUI.toggleCheck">
+<code class="descname">toggleCheck</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/gui.html#GUI.toggleCheck"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.gui.GUI.toggleCheck" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggle checking of input password</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.gui.GUI.validateAndShow">
+<code class="descname">validateAndShow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/gui.html#GUI.validateAndShow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.gui.GUI.validateAndShow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check user input</p>
+<p>Warn when user input is insufficient or wrong. Create digest and
+display the generated password if user input is OK.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.gui.GUI.warn">
+<code class="descname">warn</code><span class="sig-paren">(</span><em>message</em>, <em>warning_type='soft'</em>, <em>box_title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/gui.html#GUI.warn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.gui.GUI.warn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prototype for warning user</p>
+<blockquote>
+<div><ul class="simple">
+<li>soft warnings display a message in the passwordout field</li>
+<li>hard warnings do the same and also display a messagebox</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>message</cite>: The message string for warning the user</li>
+<li><cite>warning_type</cite>: Either &#8216;soft&#8217; (default value) or &#8216;hard&#8217;</li>
+<li><cite>box_title</cite>: Optional title for tkMessageBox on hard warnings</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-dispass.filehandler">
+<span id="filehandler"></span><h3>3.2.3. filehandler<a class="headerlink" href="#module-dispass.filehandler" title="Permalink to this headline">¶</a></h3>
+<p>Dispass labelfile handler</p>
+<dl class="class">
+<dt id="dispass.filehandler.Filehandler">
+<em class="property">class </em><code class="descclassname">dispass.filehandler.</code><code class="descname">Filehandler</code><span class="sig-paren">(</span><em>settings</em>, <em>file_location=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/filehandler.html#Filehandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.filehandler.Filehandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parsing of labelfiles and writing to labelfiles</p>
+<dl class="method">
+<dt id="dispass.filehandler.Filehandler.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>labelname</em>, <em>length=None</em>, <em>algo=None</em>, <em>seqno=None</em>, <em>disabled=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/filehandler.html#Filehandler.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.filehandler.Filehandler.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add label to <cite>labelfile</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.filehandler.Filehandler.disable">
+<code class="descname">disable</code><span class="sig-paren">(</span><em>labelname</em>, <em>disabled=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/filehandler.html#Filehandler.disable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.filehandler.Filehandler.disable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable or enable a label</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.filehandler.Filehandler.file_found">
+<code class="descname">file_found</code><em class="property"> = None</em><a class="headerlink" href="#dispass.filehandler.Filehandler.file_found" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boolean value set on init</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.filehandler.Filehandler.file_location">
+<code class="descname">file_location</code><em class="property"> = None</em><a class="headerlink" href="#dispass.filehandler.Filehandler.file_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>String of labelfile location, set on init</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.filehandler.Filehandler.filehandle">
+<code class="descname">filehandle</code><em class="property"> = None</em><a class="headerlink" href="#dispass.filehandler.Filehandler.filehandle" title="Permalink to this definition">¶</a></dt>
+<dd><p>File object, set on init if labelfile is found</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.filehandler.Filehandler.getDefaultFileLocation">
+<code class="descname">getDefaultFileLocation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/filehandler.html#Filehandler.getDefaultFileLocation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.filehandler.Filehandler.getDefaultFileLocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scan default labelfile paths</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.filehandler.Filehandler.increment">
+<code class="descname">increment</code><span class="sig-paren">(</span><em>labelname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/filehandler.html#Filehandler.increment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.filehandler.Filehandler.increment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increment sequence number of <cite>labelfile</cite></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.filehandler.Filehandler.labelfile">
+<code class="descname">labelfile</code><em class="property"> = []</em><a class="headerlink" href="#dispass.filehandler.Filehandler.labelfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of [(labelname, length, algorithm, seqno, disabled), ... ]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.filehandler.Filehandler.labeltup">
+<code class="descname">labeltup</code><span class="sig-paren">(</span><em>label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/filehandler.html#Filehandler.labeltup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.filehandler.Filehandler.labeltup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get labeltup for <cite>label</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><cite>label</cite>: The labelname</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="first last">
+<li><dl class="first docutils">
+<dt>A tuple with 5 values <code class="docutils literal"><span class="pre">(label,</span> <span class="pre">length,</span> <span class="pre">algo,</span> <span class="pre">seqno,</span> <span class="pre">disabled))</span></code>:</dt>
+<dd><ul class="first last simple">
+<li><cite>label</cite>: Label to use for passprase generation</li>
+<li><cite>length</cite>: Length to use for passprase generation</li>
+<li><cite>algo</cite>: Algorithm to use for passprase generation</li>
+<li><cite>seqno</cite>: Sequence number to use for passprase generation</li>
+<li><cite>disabled</cite>: Whether or not the passphrase is disabled</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dispass.filehandler.Filehandler.longest_label">
+<code class="descname">longest_label</code><em class="property"> = None</em><a class="headerlink" href="#dispass.filehandler.Filehandler.longest_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Int. Length of the longest labelname of <cite>labelfile</cite>. Set on refresh()</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.filehandler.Filehandler.parse">
+<code class="descname">parse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/filehandler.html#Filehandler.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.filehandler.Filehandler.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create dictionary {algorithm: (label, (length, seqno, disabled))}</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.filehandler.Filehandler.printLabels">
+<code class="descname">printLabels</code><span class="sig-paren">(</span><em>fixed_columns=False</em>, <em>labels_only=False</em>, <em>all_=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/filehandler.html#Filehandler.printLabels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.filehandler.Filehandler.printLabels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a formatted table of labelfile contents</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>fixed_columns</cite>: Boolean.</li>
+<li><cite>labels_only</cite>: Boolean.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If <cite>labels_only</cite> is True, only the labelnames will be printed.</p>
+<p>If <cite>fixed_columns</cite> is true the output will be optimized for easy
+parsing by other programs and scripts by not printing the header
+and always printing one entry on a single line using the
+following positions:</p>
+<ul class="simple">
+<li>Column 1-50: labelname (50 chars)</li>
+<li>Column 52-54: length (3 chars wide)</li>
+<li>Column 56-70: hash algo (15 chars wide)</li>
+<li>Column 72-74: sequence number (3 chars wide)</li>
+<li>Column 76-77: disabled (1 char wide)</li>
+</ul>
+<p>If fixed columns is false an ascii table is printed with a variable
+width depending on the length of the longest label.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.filehandler.Filehandler.promptForCreation">
+<code class="descname">promptForCreation</code><span class="sig-paren">(</span><em>silent=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/filehandler.html#Filehandler.promptForCreation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.filehandler.Filehandler.promptForCreation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the labelfile, optionally warning the user beforehand</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><cite>silent</cite>: When True, the user will not be warned.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Boolean. Indicating if the labelfile was created succesfully.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.filehandler.Filehandler.refresh">
+<code class="descname">refresh</code><span class="sig-paren">(</span><em>sort=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/filehandler.html#Filehandler.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.filehandler.Filehandler.refresh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort <cite>labelfile</cite> on labelname and get longest label</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.filehandler.Filehandler.remove">
+<code class="descname">remove</code><span class="sig-paren">(</span><em>labelname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/filehandler.html#Filehandler.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.filehandler.Filehandler.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove label from <cite>labelfile</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.filehandler.Filehandler.save">
+<code class="descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/filehandler.html#Filehandler.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.filehandler.Filehandler.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save <cite>labelfile</cite> to file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.filehandler.Filehandler.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>labelname</em>, <em>length=None</em>, <em>algo=None</em>, <em>seqno=None</em>, <em>disabled=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/filehandler.html#Filehandler.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.filehandler.Filehandler.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update label in <cite>labelfile</cite></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-dispass.interactive_editor">
+<span id="interactive-editor"></span><h3>3.2.4. interactive_editor<a class="headerlink" href="#module-dispass.interactive_editor" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="dispass.interactive_editor.InteractiveEditor">
+<em class="property">class </em><code class="descclassname">dispass.interactive_editor.</code><code class="descname">InteractiveEditor</code><span class="sig-paren">(</span><em>settings</em>, <em>filehandler</em>, <em>interactive=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/interactive_editor.html#InteractiveEditor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.interactive_editor.InteractiveEditor" title="Permalink to this definition">¶</a></dt>
+<dd><p>User interface for altering labelfiles</p>
+<dl class="attribute">
+<dt id="dispass.interactive_editor.InteractiveEditor.filehandler">
+<code class="descname">filehandler</code><em class="property"> = None</em><a class="headerlink" href="#dispass.interactive_editor.InteractiveEditor.filehandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filehandler object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dispass.interactive_editor.InteractiveEditor.read_label">
+<code class="descname">read_label</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/interactive_editor.html#InteractiveEditor.read_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.interactive_editor.InteractiveEditor.read_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep bugging the user for a label until they crack and give us
+one.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="subcommands">
+<h2>3.3. Subcommands<a class="headerlink" href="#subcommands" title="Permalink to this headline">¶</a></h2>
+<p>Subcommands are defined in the <cite>dispass.commands</cite> package as separate modules
+containing a class derived from <cite>dispass.common.BaseCommand</cite>.</p>
+<div class="section" id="module-dispass.commands.add">
+<span id="add"></span><h3>3.3.1. add<a class="headerlink" href="#module-dispass.commands.add" title="Permalink to this headline">¶</a></h3>
+<p>Subcommand module <cite>add</cite>; contains only a single class <cite>Command</cite></p>
+<dl class="class">
+<dt id="dispass.commands.add.Command">
+<em class="property">class </em><code class="descclassname">dispass.commands.add.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>settings</em>, <em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/add.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.add.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new label to the labelfile and generate passphrase.</p>
+<dl class="method">
+<dt id="dispass.commands.add.Command.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/add.html#Command.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.add.Command.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse labels and add them using <cite>FileHandler.add</cite>.</p>
+<p>When the -i flag is passed, add them using <cite>InteractiveEditor.add</cite></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-dispass.commands.generate">
+<span id="generate"></span><h3>3.3.2. generate<a class="headerlink" href="#module-dispass.commands.generate" title="Permalink to this headline">¶</a></h3>
+<p>Subcommand module <cite>generate</cite>; contains only a single class <cite>Command</cite></p>
+<dl class="class">
+<dt id="dispass.commands.generate.Command">
+<em class="property">class </em><code class="descclassname">dispass.commands.generate.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>settings</em>, <em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/generate.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.generate.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate passphrases for one or more labels</p>
+<dl class="method">
+<dt id="dispass.commands.generate.Command.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/generate.html#Command.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.generate.Command.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the various arguments and output passphrases for each label</p>
+<p>Each positional argument is a label. For each label, it will try to
+find (via <cite>FileHandler.labletup</cite>) if it is in the labelfile so other
+settings for the label can be applied. If it is not found, the default
+settings object defined as <cite>dispass.dispass.settings</cite> will be used. The
+parameters can be overridden through the various optargs.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="id1">
+<h3>3.3.3. gui<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-dispass.commands.gui"></span></div>
+<div class="section" id="module-dispass.commands.help">
+<span id="help"></span><h3>3.3.4. help<a class="headerlink" href="#module-dispass.commands.help" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="module-dispass.commands.increment">
+<span id="increment"></span><h3>3.3.5. increment<a class="headerlink" href="#module-dispass.commands.increment" title="Permalink to this headline">¶</a></h3>
+<p>Subcommand module <cite>increment</cite>; contains only a single class <cite>Command</cite></p>
+<dl class="class">
+<dt id="dispass.commands.increment.Command">
+<em class="property">class </em><code class="descclassname">dispass.commands.increment.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>settings</em>, <em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/increment.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.increment.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increment the sequence number of a label</p>
+<dl class="method">
+<dt id="dispass.commands.increment.Command.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/increment.html#Command.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.increment.Command.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the arguments and increment using <cite>FileHandler.increment</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-dispass.commands.list">
+<span id="list"></span><h3>3.3.6. list<a class="headerlink" href="#module-dispass.commands.list" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="rm">
+<h3>3.3.7. rm<a class="headerlink" href="#rm" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="module-dispass.commands.version">
+<span id="version"></span><h3>3.3.8. version<a class="headerlink" href="#module-dispass.commands.version" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">3. Development documentation</a><ul>
+<li><a class="reference internal" href="#core-modules">3.1. Core modules</a><ul>
+<li><a class="reference internal" href="#algos">3.1.1. algos</a></li>
+<li><a class="reference internal" href="#module-dispass.common">3.1.2. common</a></li>
+<li><a class="reference internal" href="#module-dispass.dispass">3.1.3. dispass</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#interface-modules">3.2. Interface modules</a><ul>
+<li><a class="reference internal" href="#module-dispass.cli">3.2.1. cli</a></li>
+<li><a class="reference internal" href="#module-dispass.gui">3.2.2. gui</a></li>
+<li><a class="reference internal" href="#module-dispass.filehandler">3.2.3. filehandler</a></li>
+<li><a class="reference internal" href="#module-dispass.interactive_editor">3.2.4. interactive_editor</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#subcommands">3.3. Subcommands</a><ul>
+<li><a class="reference internal" href="#module-dispass.commands.add">3.3.1. add</a></li>
+<li><a class="reference internal" href="#module-dispass.commands.generate">3.3.2. generate</a></li>
+<li><a class="reference internal" href="#id1">3.3.3. gui</a></li>
+<li><a class="reference internal" href="#module-dispass.commands.help">3.3.4. help</a></li>
+<li><a class="reference internal" href="#module-dispass.commands.increment">3.3.5. increment</a></li>
+<li><a class="reference internal" href="#module-dispass.commands.list">3.3.6. list</a></li>
+<li><a class="reference internal" href="#rm">3.3.7. rm</a></li>
+<li><a class="reference internal" href="#module-dispass.commands.version">3.3.8. version</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="02-user-docs.html"
+                        title="previous chapter">2. User documentation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/03-development-docs.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="02-user-docs.html" title="2. User documentation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DisPass 0.3.0-dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2011-2016  Benjamin Althues &amp; Tom Willemse.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+    </div>
+  </body>
+</html>
