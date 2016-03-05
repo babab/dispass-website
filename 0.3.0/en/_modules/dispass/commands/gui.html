@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dispass.commands.increment &mdash; DisPass 0.3.0 documentation</title>
+  <title>dispass.commands.gui &mdash; DisPass 0.3.0 documentation</title>
   
 
   
@@ -122,7 +122,7 @@
       
           <li><a href="../../index.html">Module code</a> &raquo;</li>
       
-    <li>dispass.commands.increment</li>
+    <li>dispass.commands.gui</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -134,8 +134,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for dispass.commands.increment</h1><div class="highlight"><pre>
-<span></span><span class="sd">&#39;&#39;&#39;Subcommand module `increment`; contains only a single class `Command`&#39;&#39;&#39;</span>
+  <h1>Source code for dispass.commands.gui</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;Subcommand module `gui`; contains only a single class `Command`&#39;&#39;&#39;</span>
 
 <span class="c1"># Copyright (c) 2012-2016  Tom Willemse &lt;tom@ryuslash.org&gt;</span>
 <span class="c1"># Copyright (c) 2011-2016  Benjamin Althues &lt;benjamin@althu.es&gt;</span>
@@ -158,52 +158,40 @@
 <span class="kn">from</span> <span class="nn">dispass.filehandler</span> <span class="kn">import</span> <span class="n">Filehandler</span>
 
 
-<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../07-api-reference.html#dispass.commands.increment.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">CommandBase</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Increment the sequence number of a label&#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../07-api-reference.html#dispass.commands.gui.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">CommandBase</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Start the graphical version of DisPass&#39;&#39;&#39;</span>
 
-    <span class="n">usagestr</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s1">&#39;usage: dispass increment [-n] [-s] &lt;label&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="s1">&#39;       dispass increment [-h]&#39;</span>
-    <span class="p">)</span>
+    <span class="n">usagestr</span> <span class="o">=</span> <span class="s1">&#39;usage: dispass gui [-h]&#39;</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Start the graphical version of DisPass.&#39;</span>
+    <span class="n">optionList</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;show this help information&#39;</span><span class="p">)),)</span>
 
-    <span class="n">description</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s1">&#39;Increment the sequence number of a label&#39;</span>
-    <span class="p">)</span>
+<div class="viewcode-block" id="Command.run"><a class="viewcode-back" href="../../../07-api-reference.html#dispass.commands.gui.Command.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Entry point and handler of command options and arguments&#39;&#39;&#39;</span>
 
-    <span class="n">optionList</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="p">(</span><span class="s1">&#39;help&#39;</span><span class="p">,</span>    <span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;show this help information&#39;</span><span class="p">)),</span>
-        <span class="p">(</span><span class="s1">&#39;dry-run&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;do not actually update label in labelfile&#39;</span><span class="p">)),</span>
-        <span class="p">(</span><span class="s1">&#39;silent&#39;</span><span class="p">,</span>  <span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;do not print success message&#39;</span><span class="p">)),</span>
-    <span class="p">)</span>
-
-<div class="viewcode-block" id="Command.run"><a class="viewcode-back" href="../../../07-api-reference.html#dispass.commands.increment.Command.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;Parse the arguments and increment using `FileHandler.increment`.&#39;&#39;&#39;</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parentFlags</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]:</span>
-            <span class="n">lf</span> <span class="o">=</span> <span class="n">Filehandler</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">file_location</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parentFlags</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">lf</span> <span class="o">=</span> <span class="n">Filehandler</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;help&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;help&#39;</span><span class="p">]:</span>
             <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
             <span class="k">return</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">lf</span><span class="o">.</span><span class="n">file_found</span><span class="p">:</span>
-            <span class="c1"># File not found? No possible label to increment.</span>
-            <span class="k">return</span> <span class="mi">1</span>
-
-        <span class="n">labelname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-        <span class="k">if</span> <span class="n">lf</span><span class="o">.</span><span class="n">increment</span><span class="p">(</span><span class="n">labelname</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;silent&#39;</span><span class="p">]:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Label &#39;{name}&#39; incremented&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">labelname</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parentFlags</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]:</span>
+            <span class="n">lf</span> <span class="o">=</span> <span class="n">Filehandler</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span>
+                             <span class="n">file_location</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parentFlags</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;silent&#39;</span><span class="p">]:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Label &#39;{name}&#39; could not be incremented&quot;</span>
-                      <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">labelname</span><span class="p">))</span>
+            <span class="n">lf</span> <span class="o">=</span> <span class="n">Filehandler</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;dry-run&#39;</span><span class="p">]:</span>
-            <span class="n">lf</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">dispass.gui</span> <span class="kn">import</span> <span class="n">GUI</span>
+            <span class="n">g</span> <span class="o">=</span> <span class="n">GUI</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">lf</span><span class="p">)</span>
+            <span class="n">g</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Could not find Tkinter, this is a package needed &#39;</span>
+                  <span class="s1">&#39;for using</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="s1">&#39;the graphical version of dispass.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                  <span class="s1">&#39;To install, search for a python-tk package for&#39;</span>
+                  <span class="s1">&#39; your OS.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                  <span class="s1">&#39;Arch Linux     </span><span class="se">\t\t</span><span class="s1"># pacman -S python-tk</span><span class="se">\n</span><span class="s1">&#39;</span>
+                  <span class="s1">&#39;Debian / Ubuntu</span><span class="se">\t\t</span><span class="s1">$ sudo apt-get install &#39;</span>
+                  <span class="s1">&#39;python-tk</span><span class="se">\n</span><span class="s1">&#39;</span>
+                  <span class="s1">&#39;OpenBSD        </span><span class="se">\t\t</span><span class="s1"># pkg_add -i python-tk&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">2</span></div></div>
 </pre></div>
 
            </div>

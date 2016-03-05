@@ -1,65 +1,175 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>3. Development documentation &mdash; DisPass 0.3.0-dev documentation</title>
-    
-    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.3.0-dev',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="DisPass 0.3.0-dev documentation" href="index.html" />
-    <link rel="prev" title="2. User documentation" href="02-user-docs.html" /> 
-  </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="02-user-docs.html" title="2. User documentation"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">DisPass 0.3.0-dev documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API Reference &mdash; DisPass 0.3.0 documentation</title>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="DisPass 0.3.0 documentation" href="index.html"/>
+        <link rel="prev" title="Related projects" href="06-development.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DisPass
+          
+
+          
+          </a>
+
+          
             
-  <div class="section" id="development-documentation">
-<h1>3. Development documentation<a class="headerlink" href="#development-documentation" title="Permalink to this headline">¶</a></h1>
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="01-quick-start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-installing.html">Downloading/Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-using-dispass.html">Using dispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-using-gdispass.html">Using gdispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-development.html">Related projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-development.html#development">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-development.html#software-license">Software license</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#core-modules">Core modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dispass-algos">dispass.algos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dispass.dispass">dispass.dispass</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#interface-modules">Interface modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-dispass.cli">dispass.cli</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dispass.gui">dispass.gui</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dispass.filehandler">dispass.filehandler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dispass.interactive_editor">dispass.interactive_editor</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#subcommand-modules">Subcommand modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-dispass.commands.add">dispass.commands.add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dispass.commands.generate">dispass.commands.generate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dispass.commands.gui">dispass.commands.gui</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dispass.commands.help">dispass.commands.help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dispass.commands.increment">dispass.commands.increment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dispass.commands.list">dispass.commands.list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dispass.commands.remove">dispass.commands.remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dispass.commands.version">dispass.commands.version</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">DisPass</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/07-api-reference.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
 <li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
 </ul>
 <div class="section" id="core-modules">
-<h2>3.1. Core modules<a class="headerlink" href="#core-modules" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="algos">
-<h3>3.1.1. algos<a class="headerlink" href="#algos" title="Permalink to this headline">¶</a></h3>
+<h2>Core modules<a class="headerlink" href="#core-modules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dispass-algos">
+<h3>dispass.algos<a class="headerlink" href="#dispass-algos" title="Permalink to this headline">¶</a></h3>
 <p>The algos module is the most important part of DisPass. The algorithms
 DisPass uses to create the passphrases are defined as separate classes
 in the <cite>dispass.algos</cite> module.</p>
@@ -68,7 +178,7 @@ in the <cite>dispass.algos</cite> module.</p>
 <em class="property">class </em><code class="descclassname">dispass.algos.</code><code class="descname">Dispass1</code><a class="reference internal" href="_modules/dispass/algos.html#Dispass1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.algos.Dispass1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dispass1 algorithm</p>
 <p>Tests:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dispass1</span> <span class="o">=</span> <span class="n">Dispass1</span><span class="p">()</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dispass1</span> <span class="o">=</span> <span class="n">Dispass1</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dispass1</span><span class="o">.</span><span class="n">digest</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;qqqqqqqq&#39;</span><span class="p">)</span>
 <span class="go">&#39;Y2Y4Y2Y0Yzg5Nzc1Yzc2MmI4OTU0ND&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dispass1</span><span class="o">.</span><span class="n">digest</span><span class="p">(</span><span class="s1">&#39;test2&#39;</span><span class="p">,</span> <span class="s1">&#39;qqqqqqqq&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
@@ -111,7 +221,7 @@ characters.</p>
 <em class="property">class </em><code class="descclassname">dispass.algos.</code><code class="descname">Dispass2</code><a class="reference internal" href="_modules/dispass/algos.html#Dispass2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.algos.Dispass2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dispass2 algorithm</p>
 <p>Tests:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dispass2</span> <span class="o">=</span> <span class="n">Dispass2</span><span class="p">()</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dispass2</span> <span class="o">=</span> <span class="n">Dispass2</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dispass2</span><span class="o">.</span><span class="n">digest</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;qqqqqqqq&#39;</span><span class="p">)</span>
 <span class="go">&#39;ZTdiNGNkYmQ2ZjFmNzc3NGFjZWEwMz&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dispass2</span><span class="o">.</span><span class="n">digest</span><span class="p">(</span><span class="s1">&#39;test2&#39;</span><span class="p">,</span> <span class="s1">&#39;qqqqqqqq&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
@@ -178,105 +288,12 @@ characters.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-dispass.common">
-<span id="common"></span><h3>3.1.2. common<a class="headerlink" href="#module-dispass.common" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="dispass.common.CommandBase">
-<em class="property">class </em><code class="descclassname">dispass.common.</code><code class="descname">CommandBase</code><span class="sig-paren">(</span><em>settings</em>, <em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/common.html#CommandBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.common.CommandBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for (sub)commands</p>
-<dl class="attribute">
-<dt id="dispass.common.CommandBase.description">
-<code class="descname">description</code><em class="property"> = ''</em><a class="headerlink" href="#dispass.common.CommandBase.description" title="Permalink to this definition">¶</a></dt>
-<dd><p>String. Small description of subcommand</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="dispass.common.CommandBase.error">
-<code class="descname">error</code><em class="property"> = None</em><a class="headerlink" href="#dispass.common.CommandBase.error" title="Permalink to this definition">¶</a></dt>
-<dd><p>Thrown by GetoptError when parsing illegal arguments.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="dispass.common.CommandBase.flags">
-<code class="descname">flags</code><em class="property"> = None</em><a class="headerlink" href="#dispass.common.CommandBase.flags" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dict of parsed options and corresponding arguments, if any.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="dispass.common.CommandBase.optionList">
-<code class="descname">optionList</code><em class="property"> = {}</em><a class="headerlink" href="#dispass.common.CommandBase.optionList" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dictionary of options (as list of 2-tuples).
-This will be transformed to an OrderedDict when initializing the object.</p>
-<p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">optionList</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="p">(</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;show this help information&#39;</span><span class="p">)),</span>
-    <span class="p">(</span><span class="s1">&#39;dry-run&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span>
-                 <span class="s1">&#39;only print output without actually running&#39;</span><span class="p">)),</span>
-
-    <span class="c1"># To specify that an option requires an argument</span>
-    <span class="c1"># just add a string that describes it</span>
-    <span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;filename&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;use specified file&#39;</span><span class="p">)),</span>
-
-    <span class="c1"># Use an empty string to ommit short option</span>
-    <span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;show debug information&#39;</span><span class="p">)),</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="dispass.common.CommandBase.parentFlags">
-<code class="descname">parentFlags</code><em class="property"> = None</em><a class="headerlink" href="#dispass.common.CommandBase.parentFlags" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dict of registered <cite>flags</cite> of parent Command object.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="dispass.common.CommandBase.registerParentFlag">
-<code class="descname">registerParentFlag</code><span class="sig-paren">(</span><em>optionName</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/common.html#CommandBase.registerParentFlag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.common.CommandBase.registerParentFlag" title="Permalink to this definition">¶</a></dt>
-<dd><p>Register a flag of a parent command</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><cite>optionName</cite>: String. Name of option</li>
-<li><cite>value</cite>: Mixed. Value of parsed flag`</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="dispass.common.CommandBase.usage">
-<code class="descname">usage</code><em class="property"> = None</em><a class="headerlink" href="#dispass.common.CommandBase.usage" title="Permalink to this definition">¶</a></dt>
-<dd><p>String with usage information</p>
-<p>The string is compiled using the values found for
-<cite>usagestr</cite>, <cite>description</cite>, <cite>optionList</cite> and <cite>usageTextExtra</cite>.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="dispass.common.CommandBase.usageTextExtra">
-<code class="descname">usageTextExtra</code><em class="property"> = ''</em><a class="headerlink" href="#dispass.common.CommandBase.usageTextExtra" title="Permalink to this definition">¶</a></dt>
-<dd><p>String. Optional extra usage information</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="dispass.common.CommandBase.usagestr">
-<code class="descname">usagestr</code><em class="property"> = 'usage: dispass subcommand [options]'</em><a class="headerlink" href="#dispass.common.CommandBase.usagestr" title="Permalink to this definition">¶</a></dt>
-<dd><p>String. Usage synopsis</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
 <div class="section" id="module-dispass.dispass">
-<span id="dispass"></span><h3>3.1.3. dispass<a class="headerlink" href="#module-dispass.dispass" title="Permalink to this headline">¶</a></h3>
+<span id="dispass-dispass"></span><h3>dispass.dispass<a class="headerlink" href="#module-dispass.dispass" title="Permalink to this headline">¶</a></h3>
 <p>Password manager for GNU/Linux, *BSD, MacOS X and Windows.</p>
 <dl class="class">
 <dt id="dispass.dispass.DispassCommand">
-<em class="property">class </em><code class="descclassname">dispass.dispass.</code><code class="descname">DispassCommand</code><span class="sig-paren">(</span><em>settings</em>, <em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/dispass.html#DispassCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.dispass.DispassCommand" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dispass.dispass.</code><code class="descname">DispassCommand</code><span class="sig-paren">(</span><em>argv=['-b', 'html', '-d', '_build/doctrees', '.', '_build/html']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/dispass.html#DispassCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.dispass.DispassCommand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main shell command object</p>
 <dl class="method">
 <dt id="dispass.dispass.DispassCommand.run">
@@ -335,16 +352,16 @@ It also displays the name of the operating system/platform name.</p>
 </div>
 </div>
 <div class="section" id="interface-modules">
-<h2>3.2. Interface modules<a class="headerlink" href="#interface-modules" title="Permalink to this headline">¶</a></h2>
+<h2>Interface modules<a class="headerlink" href="#interface-modules" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-dispass.cli">
-<span id="cli"></span><h3>3.2.1. cli<a class="headerlink" href="#module-dispass.cli" title="Permalink to this headline">¶</a></h3>
+<span id="dispass-cli"></span><h3>dispass.cli<a class="headerlink" href="#module-dispass.cli" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="dispass.cli.CLI">
 <em class="property">class </em><code class="descclassname">dispass.cli.</code><code class="descname">CLI</code><span class="sig-paren">(</span><em>filehandler</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/cli.html#CLI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.cli.CLI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Command Line Interface handling</p>
 <dl class="method">
 <dt id="dispass.cli.CLI.generate">
-<code class="descname">generate</code><span class="sig-paren">(</span><em>password</em>, <em>(label</em>, <em>length</em>, <em>algo</em>, <em>seqno)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/cli.html#CLI.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.cli.CLI.generate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">generate</code><span class="sig-paren">(</span><em>password</em>, <em>labeltup</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/cli.html#CLI.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.cli.CLI.generate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate passphrase and store result in <cite>passphrases</cite></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -354,12 +371,13 @@ It also displays the name of the operating system/platform name.</p>
 <li><p class="first"><cite>password</cite>: Password to use for passprase generation</p>
 </li>
 <li><dl class="first docutils">
-<dt><cite>labeltup</cite>: A tuple <cite>labeltup</cite> with 4 values:</dt>
+<dt><cite>labeltup</cite>: A tuple <cite>labeltup</cite> with 5 values:</dt>
 <dd><ul class="first last simple">
 <li><cite>label</cite>: Label to use for passprase generation</li>
 <li><cite>length</cite>: Length to use for passprase generation</li>
 <li><cite>algo</cite>: Algorithm to use for passprase generation</li>
 <li><cite>seqno</cite>: Sequence number to use for passprase generation</li>
+<li><cite>disabled</cite>: Whether or not the label is disabled</li>
 </ul>
 </dd>
 </dl>
@@ -436,7 +454,7 @@ library is supported.</p>
 
 </div>
 <div class="section" id="module-dispass.gui">
-<span id="gui"></span><h3>3.2.2. gui<a class="headerlink" href="#module-dispass.gui" title="Permalink to this headline">¶</a></h3>
+<span id="dispass-gui"></span><h3>dispass.gui<a class="headerlink" href="#module-dispass.gui" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="dispass.gui.GUI">
 <em class="property">class </em><code class="descclassname">dispass.gui.</code><code class="descname">GUI</code><span class="sig-paren">(</span><em>settings</em>, <em>filehandler</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/gui.html#GUI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.gui.GUI" title="Permalink to this definition">¶</a></dt>
@@ -566,7 +584,7 @@ display the generated password if user input is OK.</p>
 
 </div>
 <div class="section" id="module-dispass.filehandler">
-<span id="filehandler"></span><h3>3.2.3. filehandler<a class="headerlink" href="#module-dispass.filehandler" title="Permalink to this headline">¶</a></h3>
+<span id="dispass-filehandler"></span><h3>dispass.filehandler<a class="headerlink" href="#module-dispass.filehandler" title="Permalink to this headline">¶</a></h3>
 <p>Dispass labelfile handler</p>
 <dl class="class">
 <dt id="dispass.filehandler.Filehandler">
@@ -635,7 +653,7 @@ display the generated password if user input is OK.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="first last">
 <li><dl class="first docutils">
-<dt>A tuple with 5 values <code class="docutils literal"><span class="pre">(label,</span> <span class="pre">length,</span> <span class="pre">algo,</span> <span class="pre">seqno,</span> <span class="pre">disabled))</span></code>:</dt>
+<dt>A tuple with 5 values <code class="docutils literal"><span class="pre">(label,</span> <span class="pre">length,</span> <span class="pre">algo,</span> <span class="pre">seqno,</span> <span class="pre">disabled))</span></code></dt>
 <dd><ul class="first last simple">
 <li><cite>label</cite>: Label to use for passprase generation</li>
 <li><cite>length</cite>: Length to use for passprase generation</li>
@@ -745,7 +763,7 @@ width depending on the length of the longest label.</p>
 
 </div>
 <div class="section" id="module-dispass.interactive_editor">
-<span id="interactive-editor"></span><h3>3.2.4. interactive_editor<a class="headerlink" href="#module-dispass.interactive_editor" title="Permalink to this headline">¶</a></h3>
+<span id="dispass-interactive-editor"></span><h3>dispass.interactive_editor<a class="headerlink" href="#module-dispass.interactive_editor" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="dispass.interactive_editor.InteractiveEditor">
 <em class="property">class </em><code class="descclassname">dispass.interactive_editor.</code><code class="descname">InteractiveEditor</code><span class="sig-paren">(</span><em>settings</em>, <em>filehandler</em>, <em>interactive=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/interactive_editor.html#InteractiveEditor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.interactive_editor.InteractiveEditor" title="Permalink to this definition">¶</a></dt>
@@ -767,16 +785,16 @@ one.</p>
 
 </div>
 </div>
-<div class="section" id="subcommands">
-<h2>3.3. Subcommands<a class="headerlink" href="#subcommands" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="subcommand-modules">
+<h2>Subcommand modules<a class="headerlink" href="#subcommand-modules" title="Permalink to this headline">¶</a></h2>
 <p>Subcommands are defined in the <cite>dispass.commands</cite> package as separate modules
-containing a class derived from <cite>dispass.common.BaseCommand</cite>.</p>
+containing a class derived from <cite>pycommand.CommandBase</cite>.</p>
 <div class="section" id="module-dispass.commands.add">
-<span id="add"></span><h3>3.3.1. add<a class="headerlink" href="#module-dispass.commands.add" title="Permalink to this headline">¶</a></h3>
+<span id="dispass-commands-add"></span><h3>dispass.commands.add<a class="headerlink" href="#module-dispass.commands.add" title="Permalink to this headline">¶</a></h3>
 <p>Subcommand module <cite>add</cite>; contains only a single class <cite>Command</cite></p>
 <dl class="class">
 <dt id="dispass.commands.add.Command">
-<em class="property">class </em><code class="descclassname">dispass.commands.add.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>settings</em>, <em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/add.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.add.Command" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dispass.commands.add.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>argv=['-b', 'html', '-d', '_build/doctrees', '.', '_build/html']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/add.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.add.Command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a new label to the labelfile and generate passphrase.</p>
 <dl class="method">
 <dt id="dispass.commands.add.Command.run">
@@ -789,11 +807,11 @@ containing a class derived from <cite>dispass.common.BaseCommand</cite>.</p>
 
 </div>
 <div class="section" id="module-dispass.commands.generate">
-<span id="generate"></span><h3>3.3.2. generate<a class="headerlink" href="#module-dispass.commands.generate" title="Permalink to this headline">¶</a></h3>
+<span id="dispass-commands-generate"></span><h3>dispass.commands.generate<a class="headerlink" href="#module-dispass.commands.generate" title="Permalink to this headline">¶</a></h3>
 <p>Subcommand module <cite>generate</cite>; contains only a single class <cite>Command</cite></p>
 <dl class="class">
 <dt id="dispass.commands.generate.Command">
-<em class="property">class </em><code class="descclassname">dispass.commands.generate.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>settings</em>, <em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/generate.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.generate.Command" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dispass.commands.generate.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>argv=['-b', 'html', '-d', '_build/doctrees', '.', '_build/html']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/generate.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.generate.Command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate passphrases for one or more labels</p>
 <dl class="method">
 <dt id="dispass.commands.generate.Command.run">
@@ -809,18 +827,38 @@ parameters can be overridden through the various optargs.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="id1">
-<h3>3.3.3. gui<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<span class="target" id="module-dispass.commands.gui"></span></div>
+<div class="section" id="module-dispass.commands.gui">
+<span id="dispass-commands-gui"></span><h3>dispass.commands.gui<a class="headerlink" href="#module-dispass.commands.gui" title="Permalink to this headline">¶</a></h3>
+<p>Subcommand module <cite>gui</cite>; contains only a single class <cite>Command</cite></p>
+<dl class="class">
+<dt id="dispass.commands.gui.Command">
+<em class="property">class </em><code class="descclassname">dispass.commands.gui.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>argv=['-b', 'html', '-d', '_build/doctrees', '.', '_build/html']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/gui.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.gui.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the graphical version of DisPass</p>
+<dl class="method">
+<dt id="dispass.commands.gui.Command.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/gui.html#Command.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.gui.Command.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Entry point and handler of command options and arguments</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-dispass.commands.help">
-<span id="help"></span><h3>3.3.4. help<a class="headerlink" href="#module-dispass.commands.help" title="Permalink to this headline">¶</a></h3>
+<span id="dispass-commands-help"></span><h3>dispass.commands.help<a class="headerlink" href="#module-dispass.commands.help" title="Permalink to this headline">¶</a></h3>
+<p>Subcommand module <cite>help</cite>; contains only a single class <cite>Command</cite></p>
+<dl class="class">
+<dt id="dispass.commands.help.Command">
+<em class="property">class </em><code class="descclassname">dispass.commands.help.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>argv=['-b', 'html', '-d', '_build/doctrees', '.', '_build/html']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/help.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.help.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show help information</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-dispass.commands.increment">
-<span id="increment"></span><h3>3.3.5. increment<a class="headerlink" href="#module-dispass.commands.increment" title="Permalink to this headline">¶</a></h3>
+<span id="dispass-commands-increment"></span><h3>dispass.commands.increment<a class="headerlink" href="#module-dispass.commands.increment" title="Permalink to this headline">¶</a></h3>
 <p>Subcommand module <cite>increment</cite>; contains only a single class <cite>Command</cite></p>
 <dl class="class">
 <dt id="dispass.commands.increment.Command">
-<em class="property">class </em><code class="descclassname">dispass.commands.increment.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>settings</em>, <em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/increment.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.increment.Command" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dispass.commands.increment.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>argv=['-b', 'html', '-d', '_build/doctrees', '.', '_build/html']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/increment.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.increment.Command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Increment the sequence number of a label</p>
 <dl class="method">
 <dt id="dispass.commands.increment.Command.run">
@@ -832,99 +870,102 @@ parameters can be overridden through the various optargs.</p>
 
 </div>
 <div class="section" id="module-dispass.commands.list">
-<span id="list"></span><h3>3.3.6. list<a class="headerlink" href="#module-dispass.commands.list" title="Permalink to this headline">¶</a></h3>
+<span id="dispass-commands-list"></span><h3>dispass.commands.list<a class="headerlink" href="#module-dispass.commands.list" title="Permalink to this headline">¶</a></h3>
+<p>Subcommand module <cite>list</cite>; contains only a single class <cite>Command</cite></p>
+<dl class="class">
+<dt id="dispass.commands.list.Command">
+<em class="property">class </em><code class="descclassname">dispass.commands.list.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>argv=['-b', 'html', '-d', '_build/doctrees', '.', '_build/html']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/list.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.list.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a formatted table of labelfile contents</p>
+</dd></dl>
+
 </div>
-<div class="section" id="rm">
-<h3>3.3.7. rm<a class="headerlink" href="#rm" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="module-dispass.commands.remove">
+<span id="dispass-commands-remove"></span><h3>dispass.commands.remove<a class="headerlink" href="#module-dispass.commands.remove" title="Permalink to this headline">¶</a></h3>
+<p>Subcommand module <cite>remove</cite>; contains only a single class <cite>Command</cite></p>
+<dl class="class">
+<dt id="dispass.commands.remove.Command">
+<em class="property">class </em><code class="descclassname">dispass.commands.remove.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>argv=['-b', 'html', '-d', '_build/doctrees', '.', '_build/html']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/remove.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.remove.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove label from labelfile</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-dispass.commands.version">
-<span id="version"></span><h3>3.3.8. version<a class="headerlink" href="#module-dispass.commands.version" title="Permalink to this headline">¶</a></h3>
+<span id="dispass-commands-version"></span><h3>dispass.commands.version<a class="headerlink" href="#module-dispass.commands.version" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="dispass.commands.version.Command">
+<em class="property">class </em><code class="descclassname">dispass.commands.version.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>argv=['-b', 'html', '-d', '_build/doctrees', '.', '_build/html']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dispass/commands/version.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dispass.commands.version.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show full version information</p>
+</dd></dl>
+
 </div>
 </div>
 </div>
 
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">3. Development documentation</a><ul>
-<li><a class="reference internal" href="#core-modules">3.1. Core modules</a><ul>
-<li><a class="reference internal" href="#algos">3.1.1. algos</a></li>
-<li><a class="reference internal" href="#module-dispass.common">3.1.2. common</a></li>
-<li><a class="reference internal" href="#module-dispass.dispass">3.1.3. dispass</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#interface-modules">3.2. Interface modules</a><ul>
-<li><a class="reference internal" href="#module-dispass.cli">3.2.1. cli</a></li>
-<li><a class="reference internal" href="#module-dispass.gui">3.2.2. gui</a></li>
-<li><a class="reference internal" href="#module-dispass.filehandler">3.2.3. filehandler</a></li>
-<li><a class="reference internal" href="#module-dispass.interactive_editor">3.2.4. interactive_editor</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#subcommands">3.3. Subcommands</a><ul>
-<li><a class="reference internal" href="#module-dispass.commands.add">3.3.1. add</a></li>
-<li><a class="reference internal" href="#module-dispass.commands.generate">3.3.2. generate</a></li>
-<li><a class="reference internal" href="#id1">3.3.3. gui</a></li>
-<li><a class="reference internal" href="#module-dispass.commands.help">3.3.4. help</a></li>
-<li><a class="reference internal" href="#module-dispass.commands.increment">3.3.5. increment</a></li>
-<li><a class="reference internal" href="#module-dispass.commands.list">3.3.6. list</a></li>
-<li><a class="reference internal" href="#rm">3.3.7. rm</a></li>
-<li><a class="reference internal" href="#module-dispass.commands.version">3.3.8. version</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="06-development.html" class="btn btn-neutral" title="Related projects" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="02-user-docs.html"
-                        title="previous chapter">2. User documentation</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/03-development-docs.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016  Benjamin Althues &amp; Tom Willemse.
+
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="02-user-docs.html" title="2. User documentation"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">DisPass 0.3.0-dev documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer" role="contentinfo">
-        &copy; Copyright 2011-2016  Benjamin Althues &amp; Tom Willemse.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
-    </div>
-  </body>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

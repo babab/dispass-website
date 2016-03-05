@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction &mdash; DisPass 0.3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="DisPass 0.3.0 documentation" href="index.html"/>
+        <link rel="next" title="Downloading/Installing" href="03-installing.html"/>
+        <link rel="prev" title="Quick start" href="01-quick-start.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DisPass
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="01-quick-start.html">Quick start</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#resources">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#labelfile">Labelfile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="03-installing.html">Downloading/Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-using-dispass.html">Using dispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-using-gdispass.html">Using gdispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-development.html">Related projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-development.html#development">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-development.html#software-license">Software license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-api-reference.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">DisPass</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/02-introduction.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="resources">
+<h2>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://dispass.org">Main website</a></li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/DisPass/">Python Package Index (PyPI) page</a></li>
+<li><a class="reference external" href="https://waffle.io/babab/DisPass">Waffle.io board</a></li>
+<li><a class="reference external" href="https://github.com/babab/dispass/">Github repository and Issue tracker</a></li>
+<li><a class="reference external" href="https://bitbucket.org/babab/dispass/">Bitbucket repository</a></li>
+</ul>
+</div>
+<div class="section" id="definitions">
+<h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h2>
+<p>Here are some definitions which may help you understand the rest of the
+documentation better.</p>
+<dl class="docutils">
+<dt>label</dt>
+<dd>A label is a string that you use to identify the passphrase.
+This can be a domainname of the service the passphrase is used for,
+e.g. &#8216;google.com&#8217;.</dd>
+</dl>
+<p>Since this program asks for a password/passphrase to generate another
+password/passphrase, things may get a bit confusing. I&#8217;ve dediced to use the
+words &#8216;password&#8217; and &#8216;passphrase&#8217; diffently and consistent.</p>
+<dl class="docutils">
+<dt>password</dt>
+<dd>Use of the word &#8216;password&#8217; is dedicated to the input password, i.e. the
+password you are asked to enter and only you know. Whenever you read
+password, this is the one I mean. The password needs to be at least 8
+characters long and does not have a maximum length.</dd>
+<dt>passphrase</dt>
+<dd>With &#8216;passphrase&#8217; I always mean the output passphrase, i.e. the passphrase
+that is unique and generated from a label, password and sequence number.
+Generated passphrases are 30 characters long. The length can be optionally
+changed.</dd>
+</dl>
+</div>
+<div class="section" id="labelfile">
+<h2>Labelfile<a class="headerlink" href="#labelfile" title="Permalink to this headline">¶</a></h2>
+<p>DisPass does not store your passwords or passphrases, but it does store
+labels and their settings (algorithm, length and sequence_number) for
+convenience. However, please keep in mind that you should try to name
+labels in a way that you can easily &#8216;dispass generate&#8217; a passphrase on
+any computer/device that has DisPass at any given moment without having
+your labelfile at hand.</p>
+<p>When dispass is run without arguments it will try to find a labelfile.
+The location of this file varies and depends on the platform type you use,
+the file flag and the environment variables that may be set:</p>
+<p>You can override the location of the labelfile using the
+<code class="docutils literal"><span class="pre">-f</span> <span class="pre">&lt;labelfile&gt;,</span> <span class="pre">--file=&lt;labelfile&gt;</span></code> flag. This can be a way for you
+to use different sets of labels/passphrases with a different &#8216;master&#8217;
+password for each set.</p>
+<ol class="arabic simple">
+<li>If -f flag is given, that value is used.</li>
+<li>If environment var DISPASS_LABELFILE is set, that value is used.</li>
+<li>If environment var XDG_DATA_HOME is set,
+<code class="docutils literal"><span class="pre">$XDG_DATA_HOME/dispass/labels</span></code> is used.</li>
+<li>If none of the above applies, the labelfile will default to the following
+locations:<ul>
+<li><strong>GNU/Linux and Mac OS X</strong>: <code class="docutils literal"><span class="pre">~/.dispass/labels</span></code></li>
+<li><strong>*BSD and other Unixen</strong>: <code class="docutils literal"><span class="pre">~/.dispass/labels</span></code></li>
+<li><strong>Windows</strong>:   <code class="docutils literal"><span class="pre">C:\Users\&lt;username&gt;\dispass\labels</span></code></li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="03-installing.html" class="btn btn-neutral float-right" title="Downloading/Installing" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="01-quick-start.html" class="btn btn-neutral" title="Quick start" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016  Benjamin Althues &amp; Tom Willemse.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

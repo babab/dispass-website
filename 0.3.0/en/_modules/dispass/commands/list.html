@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dispass.commands.increment &mdash; DisPass 0.3.0 documentation</title>
+  <title>dispass.commands.list &mdash; DisPass 0.3.0 documentation</title>
   
 
   
@@ -122,7 +122,7 @@
       
           <li><a href="../../index.html">Module code</a> &raquo;</li>
       
-    <li>dispass.commands.increment</li>
+    <li>dispass.commands.list</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -134,8 +134,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for dispass.commands.increment</h1><div class="highlight"><pre>
-<span></span><span class="sd">&#39;&#39;&#39;Subcommand module `increment`; contains only a single class `Command`&#39;&#39;&#39;</span>
+  <h1>Source code for dispass.commands.list</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;Subcommand module `list`; contains only a single class `Command`&#39;&#39;&#39;</span>
 
 <span class="c1"># Copyright (c) 2012-2016  Tom Willemse &lt;tom@ryuslash.org&gt;</span>
 <span class="c1"># Copyright (c) 2011-2016  Benjamin Althues &lt;benjamin@althu.es&gt;</span>
@@ -158,52 +158,49 @@
 <span class="kn">from</span> <span class="nn">dispass.filehandler</span> <span class="kn">import</span> <span class="n">Filehandler</span>
 
 
-<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../07-api-reference.html#dispass.commands.increment.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">CommandBase</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Increment the sequence number of a label&#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../07-api-reference.html#dispass.commands.list.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">CommandBase</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Print a formatted table of labelfile contents&#39;&#39;&#39;</span>
 
-    <span class="n">usagestr</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s1">&#39;usage: dispass increment [-n] [-s] &lt;label&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="s1">&#39;       dispass increment [-h]&#39;</span>
-    <span class="p">)</span>
-
+    <span class="n">usagestr</span> <span class="o">=</span> <span class="s1">&#39;usage: dispass list [-h] [-n] [--script]&#39;</span>
     <span class="n">description</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s1">&#39;Increment the sequence number of a label&#39;</span>
-    <span class="p">)</span>
+        <span class="s1">&#39;Print a formatted table of labelfile contents</span><span class="se">\n\n</span><span class="s1">&#39;</span>
 
+        <span class="s1">&#39;If --script is passed the output will be optimized for easy</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;parsing by other programs and scripts by not printing the header</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;and always printing one entry on a single line using the</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;following positions:</span><span class="se">\n\n</span><span class="s1">&#39;</span>
+
+        <span class="s1">&#39;Column  1-50: labelname        50 chars wide</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;Column 52-54: length            3 chars wide</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;Column 56-70: hash algo        15 chars wide</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;Column 72-74: sequence number   3 chars wide</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;Column 76-77: disabled          1 char wide&#39;</span>
+    <span class="p">)</span>
     <span class="n">optionList</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="p">(</span><span class="s1">&#39;help&#39;</span><span class="p">,</span>    <span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;show this help information&#39;</span><span class="p">)),</span>
-        <span class="p">(</span><span class="s1">&#39;dry-run&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;do not actually update label in labelfile&#39;</span><span class="p">)),</span>
-        <span class="p">(</span><span class="s1">&#39;silent&#39;</span><span class="p">,</span>  <span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;do not print success message&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>         <span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;include disabled labels&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;help&#39;</span><span class="p">,</span>        <span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;show this help information&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;names-only&#39;</span><span class="p">,</span>  <span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;only print names of the labels&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">,</span>      <span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;output in fixed columns&#39;</span><span class="p">)),</span>
     <span class="p">)</span>
 
-<div class="viewcode-block" id="Command.run"><a class="viewcode-back" href="../../../07-api-reference.html#dispass.commands.increment.Command.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;Parse the arguments and increment using `FileHandler.increment`.&#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;help&#39;</span><span class="p">]:</span>
+            <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
+            <span class="k">return</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parentFlags</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]:</span>
             <span class="n">lf</span> <span class="o">=</span> <span class="n">Filehandler</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">file_location</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parentFlags</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">lf</span> <span class="o">=</span> <span class="n">Filehandler</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;help&#39;</span><span class="p">]:</span>
-            <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
-            <span class="k">return</span>
-
         <span class="k">if</span> <span class="ow">not</span> <span class="n">lf</span><span class="o">.</span><span class="n">file_found</span><span class="p">:</span>
-            <span class="c1"># File not found? No possible label to increment.</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;error: could not load labelfile at &quot;{loc}&quot;&#39;</span>
+                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">lf</span><span class="o">.</span><span class="n">file_location</span><span class="p">))</span>
             <span class="k">return</span> <span class="mi">1</span>
 
-        <span class="n">labelname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-        <span class="k">if</span> <span class="n">lf</span><span class="o">.</span><span class="n">increment</span><span class="p">(</span><span class="n">labelname</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;silent&#39;</span><span class="p">]:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Label &#39;{name}&#39; incremented&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">labelname</span><span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;silent&#39;</span><span class="p">]:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Label &#39;{name}&#39; could not be incremented&quot;</span>
-                      <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">labelname</span><span class="p">))</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;dry-run&#39;</span><span class="p">]:</span>
-            <span class="n">lf</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div></div>
+        <span class="n">lf</span><span class="o">.</span><span class="n">printLabels</span><span class="p">(</span><span class="n">fixed_columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;script&#39;</span><span class="p">],</span>
+                       <span class="n">labels_only</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;names-only&#39;</span><span class="p">],</span>
+                       <span class="n">all_</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;all&#39;</span><span class="p">])</span></div>
 </pre></div>
 
            </div>

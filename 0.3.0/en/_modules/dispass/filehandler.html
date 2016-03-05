@@ -1,54 +1,141 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>dispass.filehandler &mdash; DisPass 0.3.0-dev documentation</title>
-    
-    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '0.3.0-dev',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="DisPass 0.3.0-dev documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" /> 
-  </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">DisPass 0.3.0-dev documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
-      </ul>
-    </div>  
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dispass.filehandler &mdash; DisPass 0.3.0 documentation</title>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="DisPass 0.3.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> DisPass
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../01-quick-start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03-installing.html">Downloading/Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-using-dispass.html">Using dispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-using-gdispass.html">Using gdispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-development.html">Related projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-development.html#development">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06-development.html#software-license">Software license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07-api-reference.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">DisPass</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>dispass.filehandler</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <h1>Source code for dispass.filehandler</h1><div class="highlight"><pre>
-<span class="sd">&#39;&#39;&#39;Dispass labelfile handler&#39;&#39;&#39;</span>
+<span></span><span class="sd">&#39;&#39;&#39;Dispass labelfile handler&#39;&#39;&#39;</span>
 
 <span class="c1"># Copyright (c) 2012-2016  Tom Willemse &lt;tom@ryuslash.org&gt;</span>
 <span class="c1"># Copyright (c) 2011-2016  Benjamin Althues &lt;benjamin@althu.es&gt;</span>
@@ -72,7 +159,7 @@
 <span class="kn">from</span> <span class="nn">dispass</span> <span class="kn">import</span> <span class="n">__version__</span>
 
 
-<div class="viewcode-block" id="Filehandler"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler">[docs]</a><span class="k">class</span> <span class="nc">Filehandler</span><span class="p">:</span>
+<div class="viewcode-block" id="Filehandler"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler">[docs]</a><span class="k">class</span> <span class="nc">Filehandler</span><span class="p">:</span>
     <span class="sd">&#39;&#39;&#39;Parsing of labelfiles and writing to labelfiles&#39;&#39;&#39;</span>
 
     <span class="n">filehandle</span> <span class="o">=</span> <span class="bp">None</span>
@@ -102,7 +189,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Filehandler.getDefaultFileLocation"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.getDefaultFileLocation">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultFileLocation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.getDefaultFileLocation"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.getDefaultFileLocation">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultFileLocation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Scan default labelfile paths&quot;&quot;&quot;</span>
 
         <span class="n">label_env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DISPASS_LABELFILE&#39;</span><span class="p">)</span>
@@ -116,7 +203,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">home_file</span></div>
 
-<div class="viewcode-block" id="Filehandler.parse"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.parse">[docs]</a>    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.parse"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.parse">[docs]</a>    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Create dictionary {algorithm: (label, (length, seqno, disabled))}&#39;&#39;&#39;</span>
 
         <span class="n">file_stripped</span> <span class="o">=</span> <span class="p">[]</span>
@@ -161,7 +248,7 @@
                     <span class="k">try</span><span class="p">:</span>
                         <span class="n">length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;length=&#39;</span><span class="p">))</span>
                     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                        <span class="k">print</span> <span class="s2">&quot;Warning: Invalid length in: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">line</span>
+                        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Warning: Invalid length in: &#39;{}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
                 <span class="k">elif</span> <span class="s1">&#39;algo=&#39;</span> <span class="ow">in</span> <span class="n">arg</span><span class="p">:</span>
                     <span class="n">algo</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;algo=&#39;</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="s1">&#39;seqno=&#39;</span> <span class="ow">in</span> <span class="n">arg</span><span class="p">:</span>
@@ -178,7 +265,7 @@
             <span class="k">if</span> <span class="n">labelname</span> <span class="o">==</span> <span class="n">label</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">label</span>
 
-<div class="viewcode-block" id="Filehandler.add"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">algo</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+<div class="viewcode-block" id="Filehandler.add"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">algo</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
             <span class="n">disabled</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Add label to `labelfile`&#39;&#39;&#39;</span>
 
@@ -193,7 +280,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">labelname</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">algo</span><span class="p">,</span> <span class="n">seqno</span><span class="p">,</span> <span class="n">disabled</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">True</span></div>
 
-<div class="viewcode-block" id="Filehandler.update"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">algo</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+<div class="viewcode-block" id="Filehandler.update"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">algo</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                <span class="n">disabled</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Update label in `labelfile`&#39;&#39;&#39;</span>
 
@@ -209,7 +296,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">labelname</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">labelname</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Filehandler.increment"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.increment">[docs]</a>    <span class="k">def</span> <span class="nf">increment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.increment"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.increment">[docs]</a>    <span class="k">def</span> <span class="nf">increment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Increment sequence number of `labelfile`&#39;&#39;&#39;</span>
 
         <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">labelname</span><span class="p">)</span>
@@ -219,7 +306,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">labelname</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">label</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Filehandler.disable"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.disable">[docs]</a>    <span class="k">def</span> <span class="nf">disable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.disable"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.disable">[docs]</a>    <span class="k">def</span> <span class="nf">disable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Disable or enable a label&#39;&#39;&#39;</span>
 
         <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">labelname</span><span class="p">)</span>
@@ -229,7 +316,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">labelname</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="n">disabled</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Filehandler.remove"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.remove"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Remove label from `labelfile`&#39;&#39;&#39;</span>
 
         <span class="n">removed</span> <span class="o">=</span> <span class="bp">False</span>
@@ -242,7 +329,7 @@
 
         <span class="k">return</span> <span class="n">removed</span></div>
 
-<div class="viewcode-block" id="Filehandler.refresh"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.refresh"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Sort `labelfile` on labelname and get longest label&#39;&#39;&#39;</span>
 
         <span class="k">if</span> <span class="n">sort</span><span class="p">:</span>
@@ -253,7 +340,7 @@
         <span class="k">if</span> <span class="n">labelnames</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">longest_label</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">labelnames</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Filehandler.save"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.save"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Save `labelfile` to file&#39;&#39;&#39;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
@@ -282,14 +369,14 @@
 
         <span class="k">return</span> <span class="bp">True</span></div>
 
-<div class="viewcode-block" id="Filehandler.labeltup"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.labeltup">[docs]</a>    <span class="k">def</span> <span class="nf">labeltup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.labeltup"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.labeltup">[docs]</a>    <span class="k">def</span> <span class="nf">labeltup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Get labeltup for `label`</span>
 
 <span class="sd">        :Parameters:</span>
 <span class="sd">            - `label`: The labelname</span>
 
 <span class="sd">        :Returns:</span>
-<span class="sd">            - A tuple with 5 values ``(label, length, algo, seqno, disabled))``:</span>
+<span class="sd">            - A tuple with 5 values ``(label, length, algo, seqno, disabled))``</span>
 <span class="sd">                - `label`: Label to use for passprase generation</span>
 <span class="sd">                - `length`: Length to use for passprase generation</span>
 <span class="sd">                - `algo`: Algorithm to use for passprase generation</span>
@@ -303,7 +390,7 @@
                 <span class="k">return</span> <span class="n">labeltup</span>
         <span class="k">return</span> <span class="bp">False</span></div>
 
-<div class="viewcode-block" id="Filehandler.printLabels"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.printLabels">[docs]</a>    <span class="k">def</span> <span class="nf">printLabels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fixed_columns</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">labels_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">all_</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.printLabels"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.printLabels">[docs]</a>    <span class="k">def</span> <span class="nf">printLabels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fixed_columns</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">labels_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">all_</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Print a formatted table of labelfile contents</span>
 
 <span class="sd">        :Parameters:</span>
@@ -343,12 +430,17 @@
                                   <span class="s1">&#39;y&#39;</span> <span class="k">if</span> <span class="n">label</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;n&#39;</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">divlen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">longest_label</span>
+
             <span class="k">if</span> <span class="ow">not</span> <span class="n">divlen</span><span class="p">:</span>
                 <span class="k">return</span>
+
+            <span class="n">divtitle</span> <span class="o">=</span> <span class="s1">&#39;Label&#39;</span>
+            <span class="n">divlen</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">divlen</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">divtitle</span><span class="p">))</span>
+
             <span class="k">print</span><span class="p">(</span><span class="s1">&#39;+-{spacer:{fill}}-+--------+----------+--------+---+</span><span class="se">\n</span><span class="s1">&#39;</span>
                   <span class="s1">&#39;| {title:{fill}} | Length | Algo     | Number | X |</span><span class="se">\n</span><span class="s1">&#39;</span>
                   <span class="s1">&#39;+-{spacer:{fill}}-+--------+----------+--------+---+&#39;</span>
-                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spacer</span><span class="o">=</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="n">divlen</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Label&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">divlen</span><span class="p">))</span>
+                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spacer</span><span class="o">=</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="n">divlen</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">divtitle</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">divlen</span><span class="p">))</span>
 
             <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">all_</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">label</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
@@ -358,7 +450,7 @@
             <span class="k">print</span><span class="p">(</span><span class="s1">&#39;+-{:{fill}}-+--------+----------+--------+---+&#39;</span>
                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="n">divlen</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">divlen</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Filehandler.promptForCreation"><a class="viewcode-back" href="../../03-development-docs.html#dispass.filehandler.Filehandler.promptForCreation">[docs]</a>    <span class="k">def</span> <span class="nf">promptForCreation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.promptForCreation"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.promptForCreation">[docs]</a>    <span class="k">def</span> <span class="nf">promptForCreation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Create the labelfile, optionally warning the user beforehand</span>
 
 <span class="sd">        :Parameters:</span>
@@ -377,6 +469,11 @@
         <span class="n">inp</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s1">&#39;Do you want to create it? Y/n &#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">inp</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">inp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+            <span class="c1"># create directories for file_location if they don&#39;t exist</span>
+            <span class="nb">dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_location</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="nb">dir</span><span class="p">)</span>
+            <span class="c1"># save file</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">():</span>
                 <span class="k">print</span><span class="p">(</span><span class="s1">&#39;error: could not save to &quot;{loc}&quot;</span><span class="se">\n</span><span class="s1">&#39;</span>
                       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">file_location</span><span class="p">))</span>
@@ -386,44 +483,63 @@
         <span class="k">return</span> <span class="bp">True</span></div></div>
 </pre></div>
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">DisPass 0.3.0-dev documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer" role="contentinfo">
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
         &copy; Copyright 2011-2016  Benjamin Althues &amp; Tom Willemse.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
-    </div>
-  </body>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quick start &mdash; DisPass 0.3.0 documentation</title>
+  <title>Downloading/Installing &mdash; DisPass 0.3.0 documentation</title>
   
 
   
@@ -31,8 +31,8 @@
 
   
     <link rel="top" title="DisPass 0.3.0 documentation" href="index.html"/>
-        <link rel="next" title="Introduction" href="02-introduction.html"/>
-        <link rel="prev" title="DisPass" href="index.html"/> 
+        <link rel="next" title="Using dispass" href="04-using-dispass.html"/>
+        <link rel="prev" title="Introduction" href="02-introduction.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -82,14 +82,14 @@
             
             
                 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Quick start</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#download">Download</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#using-dispass-for-the-first-time">Using DisPass for the first time</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mini-screencast">Mini screencast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-quick-start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Downloading/Installing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#using-pip-to-download-from-the-python-package-index">Using pip to download from the Python Package Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#latest-development-version">Latest (development) version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#upgrade-or-uninstall-with-pip">Upgrade or uninstall with pip</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="02-introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-installing.html">Downloading/Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04-using-dispass.html">Using dispass</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05-using-gdispass.html">Using gdispass</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06-development.html">Related projects</a></li>
@@ -126,11 +126,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Quick start</li>
+    <li>Downloading/Installing</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/01-quick-start.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/03-installing.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -140,40 +140,66 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="quick-start">
-<h1>Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
-<p>These are quick instructions for the impatient, just wanting to check
-out DisPass. For full user documentation browse to the next sections.</p>
-<div class="section" id="download">
-<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
-<p>Download DisPass from the Python Package Index with pip. As root (using
-sudo), do the following:</p>
+  <div class="section" id="downloading-installing">
+<h1>Downloading/Installing<a class="headerlink" href="#downloading-installing" title="Permalink to this headline">¶</a></h1>
+<p>Python 2.7 is required for running dispass.</p>
+<p>If you are using Archlinux, it is advised to install dispass
+<a class="reference external" href="https://aur.archlinux.org/packages.php?K=dispass">from the AUR</a>.</p>
+<div class="section" id="using-pip-to-download-from-the-python-package-index">
+<h2>Using pip to download from the Python Package Index<a class="headerlink" href="#using-pip-to-download-from-the-python-package-index" title="Permalink to this headline">¶</a></h2>
+<p>The recommended way is to download and install directly from the PyPI
+repository using pip:</p>
 <div class="code console highlight-python"><div class="highlight"><pre><span></span>sudo pip install dispass
 </pre></div>
 </div>
-<p>If you are using Archlinux, it is advised to install dispass
-<a class="reference external" href="https://aur.archlinux.org/packages.php?K=dispass">from the AUR</a>.</p>
+<p>This will install the dispass module in python&#8217;s dist-packages folder.
+You can now use dispass by executing the <code class="docutils literal"><span class="pre">dispass</span></code> and/or <code class="docutils literal"><span class="pre">gdispass</span></code>
+scripts placed under &#8216;/usr/local/bin/&#8217; or &#8216;/usr/bin/&#8217;.</p>
+<p>The PyPI project page is at <a class="reference external" href="http://pypi.python.org/pypi/DisPass/">http://pypi.python.org/pypi/DisPass/</a></p>
 </div>
-<div class="section" id="using-dispass-for-the-first-time">
-<h2>Using DisPass for the first time<a class="headerlink" href="#using-dispass-for-the-first-time" title="Permalink to this headline">¶</a></h2>
-<p>For this example we will create a passphrase to use for a google account.</p>
-<p>Create and save a label <code class="docutils literal"><span class="pre">google</span></code> to the labelfile:</p>
-<div class="code console highlight-python"><div class="highlight"><pre><span></span>dispass add google
+<div class="section" id="latest-development-version">
+<h2>Latest (development) version<a class="headerlink" href="#latest-development-version" title="Permalink to this headline">¶</a></h2>
+<p>Clone git repo:</p>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>git clone git://github.com/dispass/dispass.git
+cd dispass
 </pre></div>
 </div>
-<p>Generate the passphrase for the first time. Since you will need to
-register the passphrase with google we pass the <code class="docutils literal"><span class="pre">--verify</span></code> flag
-or simply <code class="docutils literal"><span class="pre">-v</span></code> to avoid typing errors in the input password while
-creating the resulting passphrase for the first time:</p>
-<div class="code console highlight-python"><div class="highlight"><pre><span></span>dispass generate --verify google
+<p>Then you can either (in order of my personal preference):</p>
+<ol class="arabic simple">
+<li>Install using the Makefile, this will perform all the steps in
+option 2 (below):</li>
+</ol>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>sudo make install
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Install manually through pip, and install manpage:</li>
+</ol>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>python setup.py sdist
+sudo pip install dist/DisPass-&lt;version&gt;.tar.gz
+sudo gzip -c dispass.1 &gt; dispass.1.gz
+sudo mv dispass.1.gz /usr/share/man/man1/
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Install manually (no manpage):</li>
+</ol>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>sudo python setup.py install
 </pre></div>
 </div>
 </div>
-<div class="section" id="mini-screencast">
-<h2>Mini screencast<a class="headerlink" href="#mini-screencast" title="Permalink to this headline">¶</a></h2>
-<p>Checkout the following mini screencast. In this demo the label is added
-interactively.</p>
-<script type="text/javascript" src="https://asciinema.org/a/38378.js" id="asciicast-38378" async></script></div>
+<div class="section" id="upgrade-or-uninstall-with-pip">
+<h2>Upgrade or uninstall with pip<a class="headerlink" href="#upgrade-or-uninstall-with-pip" title="Permalink to this headline">¶</a></h2>
+<p>You can easily upgrade to newer versions using pip:</p>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>sudo pip install --upgrade dispass
+</pre></div>
+</div>
+<p>If you have installed dispass using pip, you can easily uninstall at
+any moment by running:</p>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>sudo pip uninstall dispass
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -183,10 +209,10 @@ interactively.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="02-introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="04-using-dispass.html" class="btn btn-neutral float-right" title="Using dispass" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="DisPass" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="02-introduction.html" class="btn btn-neutral" title="Introduction" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

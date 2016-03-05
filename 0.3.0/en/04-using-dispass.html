@@ -1,0 +1,422 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using dispass &mdash; DisPass 0.3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="DisPass 0.3.0 documentation" href="index.html"/>
+        <link rel="next" title="Using gdispass" href="05-using-gdispass.html"/>
+        <link rel="prev" title="Downloading/Installing" href="03-installing.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DisPass
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="01-quick-start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-installing.html">Downloading/Installing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Using dispass</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dispass">dispass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dispass-add">dispass add</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dispass-disable">dispass disable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dispass-enable">dispass enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dispass-generate">dispass generate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dispass-gui">dispass gui</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dispass-increment">dispass increment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dispass-list">dispass list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dispass-remove">dispass remove</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dispass-update">dispass update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dispass-version">dispass version</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="05-using-gdispass.html">Using gdispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-development.html">Related projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-development.html#development">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-development.html#software-license">Software license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-api-reference.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">DisPass</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Using dispass</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/04-using-dispass.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-dispass">
+<h1>Using dispass<a class="headerlink" href="#using-dispass" title="Permalink to this headline">¶</a></h1>
+<p>You can start using dispass for e.g. google.com like this:</p>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>dispass generate google.com
+</pre></div>
+</div>
+<p>The passphrases created are 30 characters long by default, but some
+website&#8217;s may not validate such a long passphrase or you might want to
+make it even longer. You can easily set a desired passphrase length
+using the <code class="docutils literal"><span class="pre">-l</span></code> flag. Hotmail passwords are limited to 16 characters:</p>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>dispass generate -l 18 hotmail
+</pre></div>
+</div>
+<p>Generating passphrases for multiple labels is just as easy:</p>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>dispass generate google hotmail YaHo0 &quot;P0551bly*a81t)H4rd2rmbr&quot;
+</pre></div>
+</div>
+<p>Labels are case-sensitive and digits and special characters can be used.
+You should try to name labels in a way that you can easily &#8216;dispass&#8217; a
+passphrase on any computer/device that has DisPass at any given moment.
+You are encouraged to store your labels in a labelfile for convenience
+though.</p>
+<div class="section" id="dispass">
+<h2>dispass<a class="headerlink" href="#dispass" title="Permalink to this headline">¶</a></h2>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>usage: dispass [options] &lt;command&gt; [&lt;args&gt;]
+
+Commands:
+   add          add a new label to labelfile
+   disable      disable a label without throwing it away
+   enable       enable a label
+   generate     generate passphrases for one or more labels
+   gui          start the graphical version of DisPass
+   help         show this help information
+   increment    increment the sequence number of a label
+   list         print a formatted table of labelfile contents
+   remove       remove label from labelfile
+   update       update length, algo or seqno of a label
+   version      show full version information
+
+Options:
+-f &lt;labelfile&gt;, --file=&lt;labelfile&gt;  override labelfile
+-h, --help                          show this help information
+-V, --version                       show full version information
+
+See &#39;dispass help &lt;command&gt;&#39; for more information on a specific command.
+</pre></div>
+</div>
+</div>
+<div class="section" id="dispass-add">
+<h2>dispass add<a class="headerlink" href="#dispass-add" title="Permalink to this headline">¶</a></h2>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>usage: dispass add [-g] [-n] [-s] &lt;labelspec&gt; [&lt;labelspec2&gt;] [...]
+       dispass add [-i] [-g] [-h]
+
+Add a new label to the labelfile and generate passphrase.
+The labelspec looks like this:
+
+    label[:size[:algorithm[:sequence_number]]]
+
+Options:
+-i, --interactive  add label in an interactive manner
+-g, --generate     immediately generate passphrase after adding it
+-h, --help         show this help information
+-n, --dry-run      do not actually add label to labelfile
+-s, --silent       do not print success message
+</pre></div>
+</div>
+</div>
+<div class="section" id="dispass-disable">
+<h2>dispass disable<a class="headerlink" href="#dispass-disable" title="Permalink to this headline">¶</a></h2>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>usage: dispass disable &lt;label&gt;
+
+Disable a label without throwing it away
+
+Options:
+-h, --help     show this help information
+-n, --dry-run  do not actually update label in labelfile
+-s, --silent   do not print success message
+</pre></div>
+</div>
+</div>
+<div class="section" id="dispass-enable">
+<h2>dispass enable<a class="headerlink" href="#dispass-enable" title="Permalink to this headline">¶</a></h2>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>usage: dispass enable &lt;label&gt;
+
+Enable a label
+
+Options:
+-h, --help     show this help information
+-n, --dry-run  do not actually update label in labelfile
+-s, --silent   do not print success message
+</pre></div>
+</div>
+</div>
+<div class="section" id="dispass-generate">
+<h2>dispass generate<a class="headerlink" href="#dispass-generate" title="Permalink to this headline">¶</a></h2>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>usage: dispass generate [options] &lt;label&gt; [&lt;label2&gt;] [&lt;label3&gt;] [...]
+
+Generate passphrases for one or more labels
+
+Use the &#39;-v&#39; flag to ask for password twice to avoid typing errors
+
+Options:
+-h, --help                            show this help information
+-v, --verify                          verify password
+-l &lt;length&gt;, --length=&lt;length&gt;        length of passphrase
+-a &lt;algorithm&gt;, --algo=&lt;algorithm&gt;    algorithm to use for generation
+-s &lt;seqno&gt;, --seqno=&lt;seqno&gt;           sequence number to use for generation
+-p &lt;password&gt;, --password=&lt;password&gt;  password to use for generation
+-o, --stdout                          output passphrase(s) directly to stdout
+--silent                              do not show a prompt when errors occur
+</pre></div>
+</div>
+</div>
+<div class="section" id="dispass-gui">
+<h2>dispass gui<a class="headerlink" href="#dispass-gui" title="Permalink to this headline">¶</a></h2>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>usage: dispass gui [-h]
+
+Start the graphical version of DisPass.
+
+Options:
+-h, --help  show this help information
+</pre></div>
+</div>
+</div>
+<div class="section" id="dispass-increment">
+<h2>dispass increment<a class="headerlink" href="#dispass-increment" title="Permalink to this headline">¶</a></h2>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>usage: dispass increment [-n] [-s] &lt;label&gt;
+       dispass increment [-h]
+
+Increment the sequence number of a label
+
+Options:
+-h, --help     show this help information
+-n, --dry-run  do not actually update label in labelfile
+-s, --silent   do not print success message
+</pre></div>
+</div>
+</div>
+<div class="section" id="dispass-list">
+<h2>dispass list<a class="headerlink" href="#dispass-list" title="Permalink to this headline">¶</a></h2>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>usage: dispass list [-h] [-n] [--script]
+
+Print a formatted table of labelfile contents
+
+If --script is passed the output will be optimized for easy
+parsing by other programs and scripts by not printing the header
+and always printing one entry on a single line using the
+following positions:
+
+Column  1-50: labelname        50 chars wide
+Column 52-54: length            3 chars wide
+Column 56-70: hash algo        15 chars wide
+Column 72-74: sequence number   3 chars wide
+Column 76-77: disabled          1 char wide
+
+Options:
+-a, --all         include disabled labels
+-h, --help        show this help information
+-n, --names-only  only print names of the labels
+--script          output in fixed columns
+</pre></div>
+</div>
+</div>
+<div class="section" id="dispass-remove">
+<h2>dispass remove<a class="headerlink" href="#dispass-remove" title="Permalink to this headline">¶</a></h2>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>usage: dispass remove [-n] [-s] &lt;labelname&gt; [&lt;labelname2&gt;] [...]
+       dispass remove [-i] [-h]
+
+Remove label from labelfile
+
+Options:
+-i, --interactive  remove label in an interactive manner
+-h, --help         show this help information
+-n, --dry-run      do not actually remove label from labelfile
+-s, --silent       do not print success message
+</pre></div>
+</div>
+</div>
+<div class="section" id="dispass-update">
+<h2>dispass update<a class="headerlink" href="#dispass-update" title="Permalink to this headline">¶</a></h2>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>usage: dispass update [-n] [-s] &lt;label&gt; [&lt;size&gt;]:[&lt;algorithm&gt;]:[&lt;sequence_number&gt;]
+       dispass update [-h]
+
+Update information for a label
+
+Options:
+-h, --help     show this help information
+-n, --dry-run  do not actually update label in labelfile
+-s, --silent   do not print success message
+</pre></div>
+</div>
+</div>
+<div class="section" id="dispass-version">
+<h2>dispass version<a class="headerlink" href="#dispass-version" title="Permalink to this headline">¶</a></h2>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>usage: dispass version
+
+Show full version information
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="05-using-gdispass.html" class="btn btn-neutral float-right" title="Using gdispass" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="03-installing.html" class="btn btn-neutral" title="Downloading/Installing" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2016  Benjamin Althues &amp; Tom Willemse.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
