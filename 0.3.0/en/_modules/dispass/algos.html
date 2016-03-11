@@ -81,15 +81,15 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../01-quick-start.html">Quick start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../02-introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../03-installing.html">Downloading/Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../04-using-dispass.html">Using dispass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../05-using-gdispass.html">Using gdispass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../06-development.html">Related projects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../06-development.html#development">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../06-development.html#software-license">Software license</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../07-api-reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick-start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Downloading/Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using-dispass.html">Using dispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using-gdispass.html">Using gdispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Related projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#development">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#software-license">Software license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-reference.html">API Reference</a></li>
 </ul>
 
             
@@ -157,7 +157,7 @@
 <span class="sd">&#39;&#39;&#39;A tuple of registrered algorithms, used for validation of user input&#39;&#39;&#39;</span>
 
 
-<div class="viewcode-block" id="algoObject"><a class="viewcode-back" href="../../07-api-reference.html#dispass.algos.algoObject">[docs]</a><span class="k">def</span> <span class="nf">algoObject</span><span class="p">(</span><span class="n">algoname</span><span class="p">):</span>
+<div class="viewcode-block" id="algoObject"><a class="viewcode-back" href="../../api-reference.html#dispass.algos.algoObject">[docs]</a><span class="k">def</span> <span class="nf">algoObject</span><span class="p">(</span><span class="n">algoname</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Return an algorithm object</span>
 
 <span class="sd">    :Parameters:</span>
@@ -175,7 +175,7 @@
         <span class="k">return</span> <span class="bp">False</span></div>
 
 
-<div class="viewcode-block" id="Dispass1"><a class="viewcode-back" href="../../07-api-reference.html#dispass.algos.Dispass1">[docs]</a><span class="k">class</span> <span class="nc">Dispass1</span><span class="p">:</span>
+<div class="viewcode-block" id="Dispass1"><a class="viewcode-back" href="../../api-reference.html#dispass.algos.Dispass1">[docs]</a><span class="k">class</span> <span class="nc">Dispass1</span><span class="p">:</span>
     <span class="sd">&#39;&#39;&#39;Dispass1 algorithm</span>
 
 <span class="sd">    Tests:</span>
@@ -188,7 +188,7 @@
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Dispass1.digest"><a class="viewcode-back" href="../../07-api-reference.html#dispass.algos.Dispass1.digest">[docs]</a>    <span class="k">def</span> <span class="nf">digest</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Dispass1.digest"><a class="viewcode-back" href="../../api-reference.html#dispass.algos.Dispass1.digest">[docs]</a>    <span class="k">def</span> <span class="nf">digest</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Create and return secure hash of message</span>
 
 <span class="sd">        A secure hash/message digest formed by hashing a string (formed by</span>
@@ -213,7 +213,7 @@
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[:</span><span class="n">length</span><span class="p">])</span></div></div>
 
 
-<div class="viewcode-block" id="Dispass2"><a class="viewcode-back" href="../../07-api-reference.html#dispass.algos.Dispass2">[docs]</a><span class="k">class</span> <span class="nc">Dispass2</span><span class="p">:</span>
+<div class="viewcode-block" id="Dispass2"><a class="viewcode-back" href="../../api-reference.html#dispass.algos.Dispass2">[docs]</a><span class="k">class</span> <span class="nc">Dispass2</span><span class="p">:</span>
     <span class="sd">&#39;&#39;&#39;Dispass2 algorithm</span>
 
 <span class="sd">    Tests:</span>
@@ -226,7 +226,7 @@
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Dispass2.digest"><a class="viewcode-back" href="../../07-api-reference.html#dispass.algos.Dispass2.digest">[docs]</a>    <span class="k">def</span> <span class="nf">digest</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="Dispass2.digest"><a class="viewcode-back" href="../../api-reference.html#dispass.algos.Dispass2.digest">[docs]</a>    <span class="k">def</span> <span class="nf">digest</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Create and return secure hash of message</span>
 
 <span class="sd">        A secure hash/message digest formed by hashing a string (formed by</span>

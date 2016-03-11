@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="DisPass 0.3.0 documentation" href="index.html"/>
-        <link rel="next" title="Introduction" href="02-introduction.html"/>
+        <link rel="next" title="Introduction" href="introduction.html"/>
         <link rel="prev" title="DisPass" href="index.html"/> 
 
   
@@ -88,14 +88,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#mini-screencast">Mini screencast</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="02-introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-installing.html">Downloading/Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-using-dispass.html">Using dispass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-using-gdispass.html">Using gdispass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-development.html">Related projects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-development.html#development">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-development.html#software-license">Software license</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-api-reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Downloading/Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-dispass.html">Using dispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-gdispass.html">Using gdispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Related projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html#development">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html#software-license">Software license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-reference.html">API Reference</a></li>
 </ul>
 
             
@@ -130,7 +130,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/01-quick-start.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/quick-start.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -157,17 +157,22 @@ sudo), do the following:</p>
 <div class="section" id="using-dispass-for-the-first-time">
 <h2>Using DisPass for the first time<a class="headerlink" href="#using-dispass-for-the-first-time" title="Permalink to this headline">¶</a></h2>
 <p>For this example we will create a passphrase to use for a google account.</p>
-<p>Create and save a label <code class="docutils literal"><span class="pre">google</span></code> to the labelfile:</p>
+<ol class="arabic">
+<li><p class="first">Create and save a label <code class="docutils literal"><span class="pre">google</span></code> to the labelfile:</p>
 <div class="code console highlight-python"><div class="highlight"><pre><span></span>dispass add google
 </pre></div>
 </div>
-<p>Generate the passphrase for the first time. Since you will need to
+</li>
+<li><p class="first">Generate the passphrase for the first time. Since you will need to
 register the passphrase with google we pass the <code class="docutils literal"><span class="pre">--verify</span></code> flag
-or simply <code class="docutils literal"><span class="pre">-v</span></code> to avoid typing errors in the input password while
-creating the resulting passphrase for the first time:</p>
+or simply <code class="docutils literal"><span class="pre">-v</span></code> so DisPass asks us to verify the password and we
+can avoid typing errors in the input password while creating the
+resulting passphrase for the first time:</p>
 <div class="code console highlight-python"><div class="highlight"><pre><span></span>dispass generate --verify google
 </pre></div>
 </div>
+</li>
+</ol>
 </div>
 <div class="section" id="mini-screencast">
 <h2>Mini screencast<a class="headerlink" href="#mini-screencast" title="Permalink to this headline">¶</a></h2>
@@ -183,7 +188,7 @@ interactively.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="02-introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="DisPass" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

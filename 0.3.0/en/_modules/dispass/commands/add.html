@@ -81,15 +81,15 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../01-quick-start.html">Quick start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../02-introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../03-installing.html">Downloading/Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../04-using-dispass.html">Using dispass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../05-using-gdispass.html">Using gdispass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../06-development.html">Related projects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../06-development.html#development">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../06-development.html#software-license">Software license</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../07-api-reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick-start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installing.html">Downloading/Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using-dispass.html">Using dispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using-gdispass.html">Using gdispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">Related projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html#development">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html#software-license">Software license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api-reference.html">API Reference</a></li>
 </ul>
 
             
@@ -161,7 +161,7 @@
 <span class="kn">from</span> <span class="nn">dispass.interactive_editor</span> <span class="kn">import</span> <span class="n">InteractiveEditor</span>
 
 
-<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../07-api-reference.html#dispass.commands.add.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">CommandBase</span><span class="p">):</span>
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../api-reference.html#dispass.commands.add.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">CommandBase</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Add a new label to the labelfile and generate passphrase.&#39;&#39;&#39;</span>
     <span class="n">usagestr</span> <span class="o">=</span> <span class="p">(</span>
         <span class="s1">&#39;usage: dispass add [-g] [-n] [-s] &lt;labelspec&gt; [&lt;labelspec2&gt;] [...]</span><span class="se">\n</span><span class="s1">&#39;</span>
@@ -181,7 +181,7 @@
         <span class="p">(</span><span class="s1">&#39;silent&#39;</span><span class="p">,</span>  <span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;do not print success message&#39;</span><span class="p">)),</span>
     <span class="p">)</span>
 
-<div class="viewcode-block" id="Command.run"><a class="viewcode-back" href="../../../07-api-reference.html#dispass.commands.add.Command.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Command.run"><a class="viewcode-back" href="../../../api-reference.html#dispass.commands.add.Command.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Parse labels and add them using `FileHandler.add`.</span>
 
 <span class="sd">        When the -i flag is passed, add them using `InteractiveEditor.add`</span>

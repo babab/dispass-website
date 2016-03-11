@@ -81,15 +81,15 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../01-quick-start.html">Quick start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../02-introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../03-installing.html">Downloading/Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../04-using-dispass.html">Using dispass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../05-using-gdispass.html">Using gdispass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../06-development.html">Related projects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../06-development.html#development">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../06-development.html#software-license">Software license</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../07-api-reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick-start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Downloading/Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using-dispass.html">Using dispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using-gdispass.html">Using gdispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Related projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#development">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#software-license">Software license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-reference.html">API Reference</a></li>
 </ul>
 
             
@@ -159,7 +159,7 @@
 <span class="kn">from</span> <span class="nn">dispass</span> <span class="kn">import</span> <span class="n">__version__</span>
 
 
-<div class="viewcode-block" id="Filehandler"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler">[docs]</a><span class="k">class</span> <span class="nc">Filehandler</span><span class="p">:</span>
+<div class="viewcode-block" id="Filehandler"><a class="viewcode-back" href="../../api-reference.html#dispass.filehandler.Filehandler">[docs]</a><span class="k">class</span> <span class="nc">Filehandler</span><span class="p">:</span>
     <span class="sd">&#39;&#39;&#39;Parsing of labelfiles and writing to labelfiles&#39;&#39;&#39;</span>
 
     <span class="n">filehandle</span> <span class="o">=</span> <span class="bp">None</span>
@@ -189,7 +189,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Filehandler.getDefaultFileLocation"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.getDefaultFileLocation">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultFileLocation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.getDefaultFileLocation"><a class="viewcode-back" href="../../api-reference.html#dispass.filehandler.Filehandler.getDefaultFileLocation">[docs]</a>    <span class="k">def</span> <span class="nf">getDefaultFileLocation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Scan default labelfile paths&quot;&quot;&quot;</span>
 
         <span class="n">label_env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DISPASS_LABELFILE&#39;</span><span class="p">)</span>
@@ -203,7 +203,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">home_file</span></div>
 
-<div class="viewcode-block" id="Filehandler.parse"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.parse">[docs]</a>    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.parse"><a class="viewcode-back" href="../../api-reference.html#dispass.filehandler.Filehandler.parse">[docs]</a>    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Create dictionary {algorithm: (label, (length, seqno, disabled))}&#39;&#39;&#39;</span>
 
         <span class="n">file_stripped</span> <span class="o">=</span> <span class="p">[]</span>
@@ -265,7 +265,7 @@
             <span class="k">if</span> <span class="n">labelname</span> <span class="o">==</span> <span class="n">label</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">label</span>
 
-<div class="viewcode-block" id="Filehandler.add"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">algo</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+<div class="viewcode-block" id="Filehandler.add"><a class="viewcode-back" href="../../api-reference.html#dispass.filehandler.Filehandler.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">algo</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
             <span class="n">disabled</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Add label to `labelfile`&#39;&#39;&#39;</span>
 
@@ -280,7 +280,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">labelfile</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">labelname</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">algo</span><span class="p">,</span> <span class="n">seqno</span><span class="p">,</span> <span class="n">disabled</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">True</span></div>
 
-<div class="viewcode-block" id="Filehandler.update"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">algo</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+<div class="viewcode-block" id="Filehandler.update"><a class="viewcode-back" href="../../api-reference.html#dispass.filehandler.Filehandler.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">algo</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                <span class="n">disabled</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Update label in `labelfile`&#39;&#39;&#39;</span>
 
@@ -296,7 +296,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">labelname</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">labelname</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Filehandler.increment"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.increment">[docs]</a>    <span class="k">def</span> <span class="nf">increment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.increment"><a class="viewcode-back" href="../../api-reference.html#dispass.filehandler.Filehandler.increment">[docs]</a>    <span class="k">def</span> <span class="nf">increment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Increment sequence number of `labelfile`&#39;&#39;&#39;</span>
 
         <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">labelname</span><span class="p">)</span>
@@ -306,7 +306,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">labelname</span><span class="p">,</span> <span class="n">seqno</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">label</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Filehandler.disable"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.disable">[docs]</a>    <span class="k">def</span> <span class="nf">disable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.disable"><a class="viewcode-back" href="../../api-reference.html#dispass.filehandler.Filehandler.disable">[docs]</a>    <span class="k">def</span> <span class="nf">disable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Disable or enable a label&#39;&#39;&#39;</span>
 
         <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">labelname</span><span class="p">)</span>
@@ -316,7 +316,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">labelname</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="n">disabled</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Filehandler.remove"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.remove"><a class="viewcode-back" href="../../api-reference.html#dispass.filehandler.Filehandler.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labelname</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Remove label from `labelfile`&#39;&#39;&#39;</span>
 
         <span class="n">removed</span> <span class="o">=</span> <span class="bp">False</span>
@@ -329,7 +329,7 @@
 
         <span class="k">return</span> <span class="n">removed</span></div>
 
-<div class="viewcode-block" id="Filehandler.refresh"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.refresh"><a class="viewcode-back" href="../../api-reference.html#dispass.filehandler.Filehandler.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Sort `labelfile` on labelname and get longest label&#39;&#39;&#39;</span>
 
         <span class="k">if</span> <span class="n">sort</span><span class="p">:</span>
@@ -340,7 +340,7 @@
         <span class="k">if</span> <span class="n">labelnames</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">longest_label</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">labelnames</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Filehandler.save"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.save"><a class="viewcode-back" href="../../api-reference.html#dispass.filehandler.Filehandler.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Save `labelfile` to file&#39;&#39;&#39;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
@@ -369,7 +369,7 @@
 
         <span class="k">return</span> <span class="bp">True</span></div>
 
-<div class="viewcode-block" id="Filehandler.labeltup"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.labeltup">[docs]</a>    <span class="k">def</span> <span class="nf">labeltup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.labeltup"><a class="viewcode-back" href="../../api-reference.html#dispass.filehandler.Filehandler.labeltup">[docs]</a>    <span class="k">def</span> <span class="nf">labeltup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Get labeltup for `label`</span>
 
 <span class="sd">        :Parameters:</span>
@@ -377,10 +377,10 @@
 
 <span class="sd">        :Returns:</span>
 <span class="sd">            - A tuple with 5 values ``(label, length, algo, seqno, disabled))``</span>
-<span class="sd">                - `label`: Label to use for passprase generation</span>
-<span class="sd">                - `length`: Length to use for passprase generation</span>
-<span class="sd">                - `algo`: Algorithm to use for passprase generation</span>
-<span class="sd">                - `seqno`: Sequence number to use for passprase generation</span>
+<span class="sd">                - `label`: Label to use for passphrase generation</span>
+<span class="sd">                - `length`: Length to use for passphrase generation</span>
+<span class="sd">                - `algo`: Algorithm to use for passphrase generation</span>
+<span class="sd">                - `seqno`: Sequence number to use for passphrase generation</span>
 <span class="sd">                - `disabled`: Whether or not the passphrase is disabled</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -390,7 +390,7 @@
                 <span class="k">return</span> <span class="n">labeltup</span>
         <span class="k">return</span> <span class="bp">False</span></div>
 
-<div class="viewcode-block" id="Filehandler.printLabels"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.printLabels">[docs]</a>    <span class="k">def</span> <span class="nf">printLabels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fixed_columns</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">labels_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">all_</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.printLabels"><a class="viewcode-back" href="../../api-reference.html#dispass.filehandler.Filehandler.printLabels">[docs]</a>    <span class="k">def</span> <span class="nf">printLabels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fixed_columns</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">labels_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">all_</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Print a formatted table of labelfile contents</span>
 
 <span class="sd">        :Parameters:</span>
@@ -450,7 +450,7 @@
             <span class="k">print</span><span class="p">(</span><span class="s1">&#39;+-{:{fill}}-+--------+----------+--------+---+&#39;</span>
                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="n">divlen</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">divlen</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Filehandler.promptForCreation"><a class="viewcode-back" href="../../07-api-reference.html#dispass.filehandler.Filehandler.promptForCreation">[docs]</a>    <span class="k">def</span> <span class="nf">promptForCreation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Filehandler.promptForCreation"><a class="viewcode-back" href="../../api-reference.html#dispass.filehandler.Filehandler.promptForCreation">[docs]</a>    <span class="k">def</span> <span class="nf">promptForCreation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Create the labelfile, optionally warning the user beforehand</span>
 
 <span class="sd">        :Parameters:</span>

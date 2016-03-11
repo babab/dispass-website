@@ -81,15 +81,15 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../01-quick-start.html">Quick start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../02-introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../03-installing.html">Downloading/Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../04-using-dispass.html">Using dispass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../05-using-gdispass.html">Using gdispass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../06-development.html">Related projects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../06-development.html#development">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../06-development.html#software-license">Software license</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../07-api-reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick-start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Downloading/Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using-dispass.html">Using dispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using-gdispass.html">Using gdispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Related projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#development">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#software-license">Software license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-reference.html">API Reference</a></li>
 </ul>
 
             
@@ -176,7 +176,7 @@
 <span class="n">versionStr</span> <span class="o">=</span> <span class="s1">&#39;g</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">dispass_version</span>
 
 
-<div class="viewcode-block" id="GUI"><a class="viewcode-back" href="../../07-api-reference.html#dispass.gui.GUI">[docs]</a><span class="k">class</span> <span class="nc">GUI</span><span class="p">(</span><span class="n">Frame</span><span class="p">):</span>
+<div class="viewcode-block" id="GUI"><a class="viewcode-back" href="../../api-reference.html#dispass.gui.GUI">[docs]</a><span class="k">class</span> <span class="nc">GUI</span><span class="p">(</span><span class="n">Frame</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Houses all GUI related objects and interactions&#39;&#39;&#39;</span>
 
     <span class="n">font</span> <span class="o">=</span> <span class="s2">&quot;Verdana&quot;</span>
@@ -204,7 +204,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">createWidgets</span><span class="p">()</span>
 
-<div class="viewcode-block" id="GUI.getFont"><a class="viewcode-back" href="../../07-api-reference.html#dispass.gui.GUI.getFont">[docs]</a>    <span class="k">def</span> <span class="nf">getFont</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sizediff</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="GUI.getFont"><a class="viewcode-back" href="../../api-reference.html#dispass.gui.GUI.getFont">[docs]</a>    <span class="k">def</span> <span class="nf">getFont</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sizediff</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Get `font` and `fontsize`, optionally differ from default `fontsize`</span>
 
 <span class="sd">        :Parameters:</span>
@@ -216,7 +216,7 @@
 
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fontsize</span> <span class="o">+</span> <span class="n">sizediff</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="GUI.warn"><a class="viewcode-back" href="../../07-api-reference.html#dispass.gui.GUI.warn">[docs]</a>    <span class="k">def</span> <span class="nf">warn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">warning_type</span><span class="o">=</span><span class="s1">&#39;soft&#39;</span><span class="p">,</span> <span class="n">box_title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="GUI.warn"><a class="viewcode-back" href="../../api-reference.html#dispass.gui.GUI.warn">[docs]</a>    <span class="k">def</span> <span class="nf">warn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">warning_type</span><span class="o">=</span><span class="s1">&#39;soft&#39;</span><span class="p">,</span> <span class="n">box_title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Prototype for warning user</span>
 
 <span class="sd">         * soft warnings display a message in the passwordout field</span>
@@ -238,7 +238,7 @@
             <span class="n">tkMessageBox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="n">box_title</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div>
 
 <span class="c1"># GUI # Event actions</span>
-<div class="viewcode-block" id="GUI.validateAndShow"><a class="viewcode-back" href="../../07-api-reference.html#dispass.gui.GUI.validateAndShow">[docs]</a>    <span class="k">def</span> <span class="nf">validateAndShow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GUI.validateAndShow"><a class="viewcode-back" href="../../api-reference.html#dispass.gui.GUI.validateAndShow">[docs]</a>    <span class="k">def</span> <span class="nf">validateAndShow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Check user input</span>
 
 <span class="sd">        Warn when user input is insufficient or wrong. Create digest and</span>
@@ -288,7 +288,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">select_range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="GUI.toggleCheck"><a class="viewcode-back" href="../../07-api-reference.html#dispass.gui.GUI.toggleCheck">[docs]</a>    <span class="k">def</span> <span class="nf">toggleCheck</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GUI.toggleCheck"><a class="viewcode-back" href="../../api-reference.html#dispass.gui.GUI.toggleCheck">[docs]</a>    <span class="k">def</span> <span class="nf">toggleCheck</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Toggle checking of input password&#39;&#39;&#39;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isnew</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -299,7 +299,7 @@
             <span class="c1"># Password is new, allow for double checking passwordin</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">passwordin2</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">NORMAL</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="GUI.clearInput"><a class="viewcode-back" href="../../07-api-reference.html#dispass.gui.GUI.clearInput">[docs]</a>    <span class="k">def</span> <span class="nf">clearInput</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GUI.clearInput"><a class="viewcode-back" href="../../api-reference.html#dispass.gui.GUI.clearInput">[docs]</a>    <span class="k">def</span> <span class="nf">clearInput</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Clear all input fields&#39;&#39;&#39;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">lengthVar</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">passphrase_length</span><span class="p">)</span>
@@ -309,24 +309,24 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">passwordin2</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">algorithm</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="GUI.clearOutput"><a class="viewcode-back" href="../../07-api-reference.html#dispass.gui.GUI.clearOutput">[docs]</a>    <span class="k">def</span> <span class="nf">clearOutput</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GUI.clearOutput"><a class="viewcode-back" href="../../api-reference.html#dispass.gui.GUI.clearOutput">[docs]</a>    <span class="k">def</span> <span class="nf">clearOutput</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Clear all output fields&#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">passwordout</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;- No password generated -&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">fg</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">readonlybackground</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="GUI.clearIO"><a class="viewcode-back" href="../../07-api-reference.html#dispass.gui.GUI.clearIO">[docs]</a>    <span class="k">def</span> <span class="nf">clearIO</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GUI.clearIO"><a class="viewcode-back" href="../../api-reference.html#dispass.gui.GUI.clearIO">[docs]</a>    <span class="k">def</span> <span class="nf">clearIO</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Clear all input and output fields&#39;&#39;&#39;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">clearInput</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clearOutput</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="GUI.reset"><a class="viewcode-back" href="../../07-api-reference.html#dispass.gui.GUI.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GUI.reset"><a class="viewcode-back" href="../../api-reference.html#dispass.gui.GUI.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Clear all input and output and focus label entry&#39;&#39;&#39;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">clearIO</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="GUI.labelFocusOut"><a class="viewcode-back" href="../../07-api-reference.html#dispass.gui.GUI.labelFocusOut">[docs]</a>    <span class="k">def</span> <span class="nf">labelFocusOut</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<div class="viewcode-block" id="GUI.labelFocusOut"><a class="viewcode-back" href="../../api-reference.html#dispass.gui.GUI.labelFocusOut">[docs]</a>    <span class="k">def</span> <span class="nf">labelFocusOut</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Set values of input fields according to the selected label.&#39;&#39;&#39;</span>
         <span class="n">labelspec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labelspecs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
         <span class="k">if</span> <span class="n">labelspec</span><span class="p">:</span>
@@ -334,11 +334,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">labelspec</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sequenceVar</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">labelspec</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="GUI.labelSelected"><a class="viewcode-back" href="../../07-api-reference.html#dispass.gui.GUI.labelSelected">[docs]</a>    <span class="k">def</span> <span class="nf">labelSelected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<div class="viewcode-block" id="GUI.labelSelected"><a class="viewcode-back" href="../../api-reference.html#dispass.gui.GUI.labelSelected">[docs]</a>    <span class="k">def</span> <span class="nf">labelSelected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Change focus to password field.&#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">passwordin1</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="GUI.filterLabels"><a class="viewcode-back" href="../../07-api-reference.html#dispass.gui.GUI.filterLabels">[docs]</a>    <span class="k">def</span> <span class="nf">filterLabels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GUI.filterLabels"><a class="viewcode-back" href="../../api-reference.html#dispass.gui.GUI.filterLabels">[docs]</a>    <span class="k">def</span> <span class="nf">filterLabels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Filter labels according to what was typed into the entry.&#39;&#39;&#39;</span>
         <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
@@ -349,7 +349,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">labelspecs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
 
 <span class="c1"># GUI # Create Widgets</span>
-<div class="viewcode-block" id="GUI.createWidgets"><a class="viewcode-back" href="../../07-api-reference.html#dispass.gui.GUI.createWidgets">[docs]</a>    <span class="k">def</span> <span class="nf">createWidgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GUI.createWidgets"><a class="viewcode-back" href="../../api-reference.html#dispass.gui.GUI.createWidgets">[docs]</a>    <span class="k">def</span> <span class="nf">createWidgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Create and align widgets&#39;&#39;&#39;</span>
 
         <span class="n">top</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">winfo_toplevel</span><span class="p">()</span>

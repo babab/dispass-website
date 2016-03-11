@@ -31,8 +31,8 @@
 
   
     <link rel="top" title="DisPass 0.3.0 documentation" href="index.html"/>
-        <link rel="next" title="API Reference" href="07-api-reference.html"/>
-        <link rel="prev" title="Using gdispass" href="05-using-gdispass.html"/> 
+        <link rel="next" title="API Reference" href="api-reference.html"/>
+        <link rel="prev" title="Using gdispass" href="using-gdispass.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -82,17 +82,18 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="01-quick-start.html">Quick start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02-introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-installing.html">Downloading/Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-using-dispass.html">Using dispass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-using-gdispass.html">Using gdispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Downloading/Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-dispass.html">Using dispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-gdispass.html">Using gdispass</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Related projects</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dispass-el">dispass.el</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cdispass">cDisPass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#libdispass">libdispass</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#development">Development</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#support-ideas-questions-suggestions">Support / ideas / questions / suggestions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#acknowledgements">Acknowledgements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#change-log">Change Log</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#v0-3-0-to-be-released">v0.3.0 - to be released</a><ul>
@@ -109,7 +110,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#software-license">Software license</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-api-reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-reference.html">API Reference</a></li>
 </ul>
 
             
@@ -144,7 +145,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/06-development.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/development.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -156,27 +157,46 @@
             
   <div class="section" id="related-projects">
 <h1>Related projects<a class="headerlink" href="#related-projects" title="Permalink to this headline">¶</a></h1>
+<p>There are three related projects of DisPass, all are created by Tom
+Willemse (<a class="reference external" href="https://ryuslash.org/">https://ryuslash.org/</a>).</p>
 <div class="section" id="dispass-el">
 <h2>dispass.el<a class="headerlink" href="#dispass-el" title="Permalink to this headline">¶</a></h2>
-<p>Got Emacs? You can use the Emacs wrapper.</p>
-<p>If you have Emacs you can use the Emacs wrapper created and maintained by
-Tom Willemsen (ryuslash).</p>
-<p>You can find it at: <a class="reference external" href="http://ryuslash.org/projects/dispass.el.html">http://ryuslash.org/projects/dispass.el.html</a></p>
+<p>dispass.el is an emacs wrapper around DisPass.</p>
+<ul class="simple">
+<li>Website: <a class="reference external" href="http://ryuslash.org/projects/dispass.el.html">http://ryuslash.org/projects/dispass.el.html</a></li>
+<li>Github: <a class="reference external" href="https://github.com/ryuslash/dispass.el">https://github.com/ryuslash/dispass.el</a></li>
+</ul>
+</div>
+<div class="section" id="cdispass">
+<h2>cDisPass<a class="headerlink" href="#cdispass" title="Permalink to this headline">¶</a></h2>
+<p>cdispass is a JavaScript-based wrapper around DisPass for the Conkeror
+Web Browser.</p>
+<ul class="simple">
+<li>Github: <a class="reference external" href="https://github.com/ryuslash/dispass.el">https://github.com/ryuslash/dispass.el</a></li>
+</ul>
+</div>
+<div class="section" id="libdispass">
+<h2>libdispass<a class="headerlink" href="#libdispass" title="Permalink to this headline">¶</a></h2>
+<p>C library of DisPass algorithms</p>
+<ul class="simple">
+<li>Github: <a class="reference external" href="https://github.com/ryuslash/libdispass">https://github.com/ryuslash/libdispass</a></li>
+</ul>
 </div>
 </div>
 <div class="section" id="development">
 <h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="support-ideas-questions-suggestions">
-<h2>Support / ideas / questions / suggestions<a class="headerlink" href="#support-ideas-questions-suggestions" title="Permalink to this headline">¶</a></h2>
-<p>Issue tracker at Github: <a class="reference external" href="https://github.com/babab/dispass/issues">https://github.com/babab/dispass/issues</a></p>
-<p>You can also visit #dispass at Freenode (chat.freenode.net) with your favorite
-IRC client.</p>
-</div>
+<p>Please use Github and/or the Waffle.io board for bug reports, questions
+or submitting pull-requests. You can also discuss #dispass on IRC.</p>
+<ul class="simple">
+<li>Agile project management: <a class="reference external" href="https://waffle.io/babab/DisPass">https://waffle.io/babab/DisPass</a></li>
+<li>Issue tracker at Github: <a class="reference external" href="https://github.com/babab/dispass/issues">https://github.com/babab/dispass/issues</a></li>
+<li>IRC: #dispass at Freenode and OFTC</li>
+</ul>
 <div class="section" id="acknowledgements">
 <h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h2>
-<p>Many thanks go out to Tom (ryuslash) Willemsen for valuable contributions to
-gdispass and the new algorithm. He also wrote an awesome wrapper for Emacs so
-you can use DisPass in your favorite editor.</p>
+<p>Many thanks go out to Tom (ryuslash) Willemse for valuable contributions
+to <cite>gdispass</cite> and the new <cite>dispass2</cite> algorithm. He also wrote
+<cite>dispass.el</cite>, <cite>cDisPass</cite> and <cite>libdispass</cite>.</p>
 </div>
 <div class="section" id="change-log">
 <h2>Change Log<a class="headerlink" href="#change-log" title="Permalink to this headline">¶</a></h2>
@@ -242,7 +262,7 @@ help command for that.</li>
 <li>Add support for multiple algorithms</li>
 <li>Add new algorithm Dispass2</li>
 <li>Add -a, &#8211;algo option for specifying algorithm</li>
-<li>Add -n, &#8211;number option for specifying sequence no</li>
+<li>Add -n, &#8211;number option for specifying sequence number</li>
 <li>Add label length selection in gui</li>
 <li>Add label/parameters selection in gui</li>
 <li>Add interactive labelfile editor &#8216;dispass-label&#8217;</li>
@@ -258,16 +278,16 @@ help command for that.</li>
 <li>Add dispass-label for managing labelfiles</li>
 <li>Use separate text for manpage instead of README</li>
 <li>Add option to lookup a lable in with &#8216;-s&#8217; switch</li>
-<li>Require a min. password length of 8 chars in cli</li>
+<li>Require a minimum password length of 8 chars in CLI</li>
 <li>Rename ChangeLog -&gt; ChangeLog.rst</li>
 <li>Make DisPass run from Python shell without exiting</li>
-<li>Remove dispass.el emacs wrapper, maintained separately by Tom Willemsen</li>
+<li>Remove dispass.el emacs wrapper, maintained separately by Tom Willemse</li>
 </ul>
 </div>
 <div class="section" id="v0-1-alpha-8-released-june-21st-2012">
 <h3>v0.1-alpha-8 - released June 21st, 2012<a class="headerlink" href="#v0-1-alpha-8-released-june-21st-2012" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Add dispass.el emacs wrapper, authored by Tom Willemsen (ryuslash)</li>
+<li>Add dispass.el emacs wrapper, authored by Tom Willemse (ryuslash)</li>
 <li>Allow generating a list of passphrases with varying lengths</li>
 <li>Add labelfile handler and skel/dot.dispass</li>
 <li>Add -f &lt;labelfile&gt;, &#8211;file=&lt;labelfile&gt; option</li>
@@ -328,10 +348,10 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="07-api-reference.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="api-reference.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="05-using-gdispass.html" class="btn btn-neutral" title="Using gdispass" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="using-gdispass.html" class="btn btn-neutral" title="Using gdispass" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
