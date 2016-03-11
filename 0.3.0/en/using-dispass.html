@@ -89,6 +89,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#basic-usage">Basic usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#label-specifications">Label specifications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#adding-a-label">Adding a label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#incrementing-sequence-numbers">Incrementing sequence numbers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#subcommands">Subcommands</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#dispass-add">dispass add</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dispass-disable">dispass disable</a></li>
@@ -187,7 +188,7 @@ your hotmail password.</p>
 <ul class="simple">
 <li>length (the length of the passphrase)</li>
 <li>algorithm (the algorithm to use)</li>
-<li>seqno (sequence number, not used in dispass1 algorithm)</li>
+<li>sequence number (not used in default algorithm)</li>
 </ul>
 <p>The <strong>labelspec</strong> looks like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">label</span><span class="p">[:</span><span class="n">size</span><span class="p">[:</span><span class="n">algorithm</span><span class="p">[:</span><span class="n">sequence_number</span><span class="p">]]]</span>
@@ -196,9 +197,35 @@ your hotmail password.</p>
 </div>
 <div class="section" id="adding-a-label">
 <h2>Adding a label<a class="headerlink" href="#adding-a-label" title="Permalink to this headline">¶</a></h2>
-<p>You can add a new label with a length of 16 and generate the passphrase
-in one go:</p>
-<div class="code console highlight-python"><div class="highlight"><pre><span></span>dispass add hotmail:16
+<p>You can save a new <code class="docutils literal"><span class="pre">hotmail</span></code> label with a length of 16 and generate the
+passphrase in one go:</p>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>dispass add -g hotmail:16
+</pre></div>
+</div>
+<p>The next time you generate a passphrase for <code class="docutils literal"><span class="pre">hotmail</span></code> using:</p>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>dispass generate hotmail
+</pre></div>
+</div>
+<p>it will return the same passphrase as before (with a length of 16
+characters).</p>
+</div>
+<div class="section" id="incrementing-sequence-numbers">
+<h2>Incrementing sequence numbers<a class="headerlink" href="#incrementing-sequence-numbers" title="Permalink to this headline">¶</a></h2>
+<p>You might want to change the passphrase you enter into some system.
+Of course, you can do this simply by using a different label, e.g.:
+<code class="docutils literal"><span class="pre">Hotmail</span></code> or <code class="docutils literal"><span class="pre">hotmail-2</span></code>. You don&#8217;t have to though.</p>
+<p>DisPass supports dealing with this situation in the <em>dispass2</em> algorithm.
+It basically gives you an option of <em>bumping</em> a passphrase by simply
+incrementing a <strong>sequence number</strong>.</p>
+<p>To use sequence numbers with the hotmail label from before you can
+update it to use the dispass2 algorithm with sequence number 1:</p>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>dispass update hotmail 16:dispass2:1
+dispass generate hotmail
+</pre></div>
+</div>
+<p>The next time you want to use a different passphrase, you can simply use</p>
+<div class="code console highlight-python"><div class="highlight"><pre><span></span>dispass increment hotmail
+dispass generate hotmail
 </pre></div>
 </div>
 </div>
