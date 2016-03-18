@@ -137,6 +137,30 @@
             
   <div class="section" id="using-gdispass">
 <h1>Using gdispass<a class="headerlink" href="#using-gdispass" title="Permalink to this headline">¶</a></h1>
+<p>Before you start using <code class="docutils literal"><span class="pre">gDispass</span></code>, make sure that the Tkinter
+library is available. Here are some instructions to help you along:</p>
+<dl class="docutils">
+<dt>Debian / Ubuntu</dt>
+<dd><p class="first">Make sure the <code class="docutils literal"><span class="pre">python-tk</span></code> package is installed:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span></span>sudo apt-get install python-tk
+</pre></div>
+</div>
+</dd>
+<dt>OpenBSD</dt>
+<dd><p class="first">Make sure the <code class="docutils literal"><span class="pre">python-tk</span></code> package is installed:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span></span>pkg_add -i python-tk
+</pre></div>
+</div>
+</dd>
+<dt>Archlinux</dt>
+<dd><p class="first">The Tkinter Python library is included in the <code class="docutils literal"><span class="pre">python2</span></code> package,
+to make it work you need to be sure the <code class="docutils literal"><span class="pre">tk</span></code> package is
+installed:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span></span>sudo pacman -S tk
+</pre></div>
+</div>
+</dd>
+</dl>
 <p>You can start using gDisPass by running the <code class="docutils literal"><span class="pre">gdispass</span></code> executable.
 Fill in a name for the label that you can easily remember.</p>
 <p>To generate a passphrase for a new label, i.e. a label that you have
