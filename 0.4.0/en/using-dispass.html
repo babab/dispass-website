@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using dispass &mdash; DisPass 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using gdispass" href="using-gdispass.html" />
+    <link rel="prev" title="Downloading/Installing" href="installing.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DisPass
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Downloading/Installing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using dispass</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-usage">Basic usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#label-specifications">Label specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-a-label">Adding a label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#incrementing-sequence-numbers">Incrementing sequence numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#subcommands">Subcommands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dispass-add">dispass add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dispass-disable">dispass disable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dispass-enable">dispass enable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dispass-generate">dispass generate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dispass-gui">dispass gui</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dispass-help">dispass help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dispass-increment">dispass increment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dispass-list">dispass list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dispass-remove">dispass remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dispass-update">dispass update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dispass-version">dispass version</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="using-gdispass.html">Using gdispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Related projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html#development">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html#change-log">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html#software-license">Software license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-reference.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DisPass</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Using dispass</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/using-dispass.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-dispass">
+<h1>Using dispass<a class="headerlink" href="#using-dispass" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="basic-usage">
+<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
+<p>You can start using dispass for e.g. google.com like this:</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dispass</span> <span class="n">generate</span> <span class="n">google</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<p>The passphrases created are 30 characters long by default, but some
+websites may not validate such a long passphrase or you might want to
+make it even longer. You can easily set a desired passphrase length
+using the <code class="docutils literal notranslate"><span class="pre">-l</span></code> flag. Hotmail passwords are limited to 16 characters:</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dispass</span> <span class="n">generate</span> <span class="o">-</span><span class="n">l</span> <span class="mi">16</span> <span class="n">hotmail</span>
+</pre></div>
+</div>
+<p>Generating passphrases for multiple labels is just as easy:</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dispass</span> <span class="n">generate</span> <span class="n">google</span> <span class="n">hotmail</span> <span class="n">YaHo0</span> <span class="s2">&quot;P0551bly*a81t)H4rd2rmbr&quot;</span>
+</pre></div>
+</div>
+<p>Labels are case-sensitive and digits and special characters can be used.
+You should try to name labels in a way that you can easily generate a
+passphrase on any computer/device that has DisPass at any given moment.</p>
+</div>
+<div class="section" id="label-specifications">
+<h2>Label specifications<a class="headerlink" href="#label-specifications" title="Permalink to this headline">¶</a></h2>
+<p>While the above works fine without storing any information, you are
+encouraged to store your labels in a labelfile for convenience. That
+way, you don’t have to use the <code class="docutils literal notranslate"><span class="pre">-l</span> <span class="pre">16</span></code> option everytime you create
+your hotmail password.</p>
+<p>Labels have a specification that consists of the following parameters:</p>
+<ul class="simple">
+<li>length (the length of the passphrase)</li>
+<li>algorithm (the algorithm to use)</li>
+<li>sequence number (not used in default algorithm)</li>
+</ul>
+<p>The <strong>labelspec</strong> looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="p">[:</span><span class="n">size</span><span class="p">[:</span><span class="n">algorithm</span><span class="p">[:</span><span class="n">sequence_number</span><span class="p">]]]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-a-label">
+<h2>Adding a label<a class="headerlink" href="#adding-a-label" title="Permalink to this headline">¶</a></h2>
+<p>You can save a new <code class="docutils literal notranslate"><span class="pre">hotmail</span></code> label with a length of 16 and generate the
+passphrase in one go:</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dispass</span> <span class="n">add</span> <span class="o">-</span><span class="n">g</span> <span class="n">hotmail</span><span class="p">:</span><span class="mi">16</span>
+</pre></div>
+</div>
+<p>The next time you generate a passphrase for <code class="docutils literal notranslate"><span class="pre">hotmail</span></code> using:</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dispass</span> <span class="n">generate</span> <span class="n">hotmail</span>
+</pre></div>
+</div>
+<p>it will return the same passphrase as before (with a length of 16
+characters).</p>
+</div>
+<div class="section" id="incrementing-sequence-numbers">
+<h2>Incrementing sequence numbers<a class="headerlink" href="#incrementing-sequence-numbers" title="Permalink to this headline">¶</a></h2>
+<p>You might want to change the passphrase you enter into some system.
+Of course, you can do this simply by using a different label, e.g.:
+<code class="docutils literal notranslate"><span class="pre">Hotmail</span></code> or <code class="docutils literal notranslate"><span class="pre">hotmail-2</span></code>. You don’t have to though.</p>
+<p>DisPass supports dealing with this situation in the <em>dispass2</em> algorithm.
+It basically gives you an option of <em>bumping</em> a passphrase by simply
+incrementing a <strong>sequence number</strong>.</p>
+<p>To use sequence numbers with the hotmail label from before you can
+update it to use the dispass2 algorithm with sequence number 1:</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dispass</span> <span class="n">update</span> <span class="n">hotmail</span> <span class="mi">16</span><span class="p">:</span><span class="n">dispass2</span><span class="p">:</span><span class="mi">1</span>
+<span class="n">dispass</span> <span class="n">generate</span> <span class="n">hotmail</span>
+</pre></div>
+</div>
+<p>The next time you want to use a different passphrase, you can simply use</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dispass</span> <span class="n">increment</span> <span class="n">hotmail</span>
+<span class="n">dispass</span> <span class="n">generate</span> <span class="n">hotmail</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="subcommands">
+<h2>Subcommands<a class="headerlink" href="#subcommands" title="Permalink to this headline">¶</a></h2>
+<p>DisPass has many commands around managing the labels. You can see all
+available subcommands and options of dispass by running <code class="docutils literal notranslate"><span class="pre">dispass</span>
+<span class="pre">--help</span></code> or just running <code class="docutils literal notranslate"><span class="pre">dispass</span></code> wihout any arguments.</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">dispass</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">command</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">args</span><span class="o">&gt;</span><span class="p">]</span>
+
+<span class="n">Commands</span><span class="p">:</span>
+   <span class="n">add</span>          <span class="n">add</span> <span class="n">a</span> <span class="n">new</span> <span class="n">label</span> <span class="n">to</span> <span class="n">labelfile</span>
+   <span class="n">disable</span>      <span class="n">disable</span> <span class="n">a</span> <span class="n">label</span> <span class="n">without</span> <span class="n">throwing</span> <span class="n">it</span> <span class="n">away</span>
+   <span class="n">enable</span>       <span class="n">enable</span> <span class="n">a</span> <span class="n">label</span>
+   <span class="n">generate</span>     <span class="n">generate</span> <span class="n">passphrases</span> <span class="k">for</span> <span class="n">one</span> <span class="ow">or</span> <span class="n">more</span> <span class="n">labels</span>
+   <span class="n">gui</span>          <span class="n">start</span> <span class="n">the</span> <span class="n">graphical</span> <span class="n">version</span> <span class="n">of</span> <span class="n">DisPass</span>
+   <span class="n">help</span>         <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">information</span>
+   <span class="n">increment</span>    <span class="n">increment</span> <span class="n">the</span> <span class="n">sequence</span> <span class="n">number</span> <span class="n">of</span> <span class="n">a</span> <span class="n">label</span>
+   <span class="nb">list</span>         <span class="nb">print</span> <span class="n">a</span> <span class="n">formatted</span> <span class="n">table</span> <span class="n">of</span> <span class="n">labelfile</span> <span class="n">contents</span>
+   <span class="n">remove</span>       <span class="n">remove</span> <span class="n">label</span> <span class="kn">from</span> <span class="nn">labelfile</span>
+   <span class="n">update</span>       <span class="n">update</span> <span class="n">length</span><span class="p">,</span> <span class="n">algo</span> <span class="ow">or</span> <span class="n">seqno</span> <span class="n">of</span> <span class="n">a</span> <span class="n">label</span>
+   <span class="n">version</span>      <span class="n">show</span> <span class="n">full</span> <span class="n">version</span> <span class="n">information</span>
+
+<span class="n">Options</span><span class="p">:</span>
+<span class="o">-</span><span class="n">f</span> <span class="o">&lt;</span><span class="n">labelfile</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">--</span><span class="n">file</span><span class="o">=&lt;</span><span class="n">labelfile</span><span class="o">&gt;</span>  <span class="n">override</span> <span class="n">labelfile</span>
+<span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>                          <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">information</span>
+<span class="o">-</span><span class="n">V</span><span class="p">,</span> <span class="o">--</span><span class="n">version</span>                       <span class="n">show</span> <span class="n">full</span> <span class="n">version</span> <span class="n">information</span>
+
+<span class="n">See</span> <span class="s1">&#39;dispass help &lt;command&gt;&#39;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span> <span class="n">on</span> <span class="n">a</span> <span class="n">specific</span> <span class="n">command</span><span class="o">.</span>
+<span class="n">For</span> <span class="n">full</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">see</span> <span class="s1">&#39;man dispass&#39;</span> <span class="ow">or</span> <span class="n">visit</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">dispass</span><span class="o">.</span><span class="n">org</span><span class="o">/</span>
+</pre></div>
+</div>
+<div class="section" id="dispass-add">
+<h3>dispass add<a class="headerlink" href="#dispass-add" title="Permalink to this headline">¶</a></h3>
+<p>Add a new label to the labelfile and generate passphrase.
+The labelspec looks like this: <code class="docutils literal notranslate"><span class="pre">label[:size[:algorithm[:sequence_number]]]</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">dispass</span> <span class="n">add</span> <span class="p">[</span><span class="o">-</span><span class="n">g</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">n</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">s</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">labelspec</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">labelspec2</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+       <span class="n">dispass</span> <span class="n">add</span> <span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">g</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
+</pre></div>
+</div>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-i</span>, <span class="option">--interactive</span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td>add label in an interactive manner</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-g</span>, <span class="option">--generate</span></kbd></td>
+<td>immediately generate passphrase after adding it</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>show this help information</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-n</span>, <span class="option">--dry-run</span></kbd></td>
+<td>do not actually add label to labelfile</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-s</span>, <span class="option">--silent</span></kbd></td>
+<td>do not print success message</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="dispass-disable">
+<h3>dispass disable<a class="headerlink" href="#dispass-disable" title="Permalink to this headline">¶</a></h3>
+<p>Disable a label without throwing it away</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">dispass</span> <span class="n">disable</span> <span class="o">&lt;</span><span class="n">label</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>show this help information</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-n</span>, <span class="option">--dry-run</span></kbd></td>
+<td>do not actually update label in labelfile</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-s</span>, <span class="option">--silent</span></kbd></td>
+<td>do not print success message</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="dispass-enable">
+<h3>dispass enable<a class="headerlink" href="#dispass-enable" title="Permalink to this headline">¶</a></h3>
+<p>Enable a label</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">dispass</span> <span class="n">enable</span> <span class="o">&lt;</span><span class="n">label</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>show this help information</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-n</span>, <span class="option">--dry-run</span></kbd></td>
+<td>do not actually update label in labelfile</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-s</span>, <span class="option">--silent</span></kbd></td>
+<td>do not print success message</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="dispass-generate">
+<h3>dispass generate<a class="headerlink" href="#dispass-generate" title="Permalink to this headline">¶</a></h3>
+<p>Generate passphrases for one or more labels</p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">-v</span></code> flag to ask for password twice to avoid typing errors</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">dispass</span> <span class="n">generate</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">label</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">label2</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">label3</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>show this help information</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-v</span>, <span class="option">--verify</span></kbd></td>
+<td>verify password</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-l <var>&lt;length&gt;</var></span>, <span class="option">--length=<var>&lt;length&gt;</var></span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td>length of passphrase</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-a <var>&lt;algorithm&gt;</var></span>, <span class="option">--algo=<var>&lt;algorithm&gt;</var></span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td>algorithm to use for generation</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-s <var>&lt;seqno&gt;</var></span>, <span class="option">--seqno=<var>&lt;seqno&gt;</var></span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td>sequence number to use for generation</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-p <var>&lt;password&gt;</var></span>, <span class="option">--password=<var>&lt;password&gt;</var></span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td>password to use for generation</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-o</span>, <span class="option">--stdout</span></kbd></td>
+<td>output passphrase(s) directly to stdout</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--silent</span></kbd></td>
+<td>do not show a prompt when errors occur</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="dispass-gui">
+<h3>dispass gui<a class="headerlink" href="#dispass-gui" title="Permalink to this headline">¶</a></h3>
+<p>Start the graphical version of DisPass.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">dispass</span> <span class="n">gui</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
+</pre></div>
+</div>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>show this help information</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="dispass-help">
+<h3>dispass help<a class="headerlink" href="#dispass-help" title="Permalink to this headline">¶</a></h3>
+<p>Show help information</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">dispass</span> <span class="n">help</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">command</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dispass-increment">
+<h3>dispass increment<a class="headerlink" href="#dispass-increment" title="Permalink to this headline">¶</a></h3>
+<p>Increment the sequence number of a label</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">dispass</span> <span class="n">increment</span> <span class="p">[</span><span class="o">-</span><span class="n">n</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">s</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">label</span><span class="o">&gt;</span>
+       <span class="n">dispass</span> <span class="n">increment</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
+</pre></div>
+</div>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>show this help information</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-n</span>, <span class="option">--dry-run</span></kbd></td>
+<td>do not actually update label in labelfile</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-s</span>, <span class="option">--silent</span></kbd></td>
+<td>do not print success message</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="dispass-list">
+<h3>dispass list<a class="headerlink" href="#dispass-list" title="Permalink to this headline">¶</a></h3>
+<p>Print a formatted table of labelfile contents</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">--script</span></code> is passed the output will be optimized for easy
+parsing by other programs and scripts by not printing the header
+and always printing one entry on a single line using the
+following positions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Column</span>  <span class="mi">1</span><span class="o">-</span><span class="mi">50</span><span class="p">:</span> <span class="n">labelname</span>        <span class="mi">50</span> <span class="n">chars</span> <span class="n">wide</span>
+<span class="n">Column</span> <span class="mi">52</span><span class="o">-</span><span class="mi">54</span><span class="p">:</span> <span class="n">length</span>            <span class="mi">3</span> <span class="n">chars</span> <span class="n">wide</span>
+<span class="n">Column</span> <span class="mi">56</span><span class="o">-</span><span class="mi">70</span><span class="p">:</span> <span class="nb">hash</span> <span class="n">algo</span>        <span class="mi">15</span> <span class="n">chars</span> <span class="n">wide</span>
+<span class="n">Column</span> <span class="mi">72</span><span class="o">-</span><span class="mi">74</span><span class="p">:</span> <span class="n">sequence</span> <span class="n">number</span>   <span class="mi">3</span> <span class="n">chars</span> <span class="n">wide</span>
+<span class="n">Column</span> <span class="mi">76</span><span class="o">-</span><span class="mi">77</span><span class="p">:</span> <span class="n">disabled</span>          <span class="mi">1</span> <span class="n">char</span> <span class="n">wide</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">dispass</span> <span class="nb">list</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">n</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">script</span><span class="p">]</span>
+</pre></div>
+</div>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-a</span>, <span class="option">--all</span></kbd></td>
+<td>include disabled labels</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>show this help information</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-n</span>, <span class="option">--names-only</span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td>only print names of the labels</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--script</span></kbd></td>
+<td>output in fixed columns</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="dispass-remove">
+<h3>dispass remove<a class="headerlink" href="#dispass-remove" title="Permalink to this headline">¶</a></h3>
+<p>Remove label from labelfile</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">dispass</span> <span class="n">remove</span> <span class="p">[</span><span class="o">-</span><span class="n">n</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">s</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">labelname</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">labelname2</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+       <span class="n">dispass</span> <span class="n">remove</span> <span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
+</pre></div>
+</div>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-i</span>, <span class="option">--interactive</span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td>remove label in an interactive manner</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>show this help information</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-n</span>, <span class="option">--dry-run</span></kbd></td>
+<td>do not actually remove label from labelfile</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-s</span>, <span class="option">--silent</span></kbd></td>
+<td>do not print success message</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="dispass-update">
+<h3>dispass update<a class="headerlink" href="#dispass-update" title="Permalink to this headline">¶</a></h3>
+<p>Update information for a label</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">dispass</span> <span class="n">update</span> <span class="p">[</span><span class="o">-</span><span class="n">n</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">s</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">label</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">size</span><span class="o">&gt;</span><span class="p">]:[</span><span class="o">&lt;</span><span class="n">algorithm</span><span class="o">&gt;</span><span class="p">]:[</span><span class="o">&lt;</span><span class="n">sequence_number</span><span class="o">&gt;</span><span class="p">]</span>
+       <span class="n">dispass</span> <span class="n">update</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
+</pre></div>
+</div>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>show this help information</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-n</span>, <span class="option">--dry-run</span></kbd></td>
+<td>do not actually update label in labelfile</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-s</span>, <span class="option">--silent</span></kbd></td>
+<td>do not print success message</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="dispass-version">
+<h3>dispass version<a class="headerlink" href="#dispass-version" title="Permalink to this headline">¶</a></h3>
+<p>Show full version information</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">dispass</span> <span class="n">version</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="using-gdispass.html" class="btn btn-neutral float-right" title="Using gdispass" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installing.html" class="btn btn-neutral" title="Downloading/Installing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2018  Benjamin Althues &amp; Tom Willemse.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.4.0',
+            LANGUAGE:'en',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dispass.cli &mdash; DisPass 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> DisPass
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quick-start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Downloading/Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using-dispass.html">Using dispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using-gdispass.html">Using gdispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Related projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#development">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#change-log">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#software-license">Software license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-reference.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">DisPass</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>dispass.cli</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for dispass.cli</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;Handling of password input and printing passphrases (using ncurses)&#39;&#39;&#39;</span>
+
+<span class="c1"># Copyright (c) 2012-2016  Tom Willemse &lt;tom@ryuslash.org&gt;</span>
+<span class="c1"># Copyright (c) 2011-2018  Benjamin Althues &lt;benjamin@babab.nl&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># Permission to use, copy, modify, and distribute this software for any</span>
+<span class="c1"># purpose with or without fee is hereby granted, provided that the above</span>
+<span class="c1"># copyright notice and this permission notice appear in all copies.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot; AND THE AUTHOR DISCLAIMS ALL WARRANTIES</span>
+<span class="c1"># WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF</span>
+<span class="c1"># MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR</span>
+<span class="c1"># ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES</span>
+<span class="c1"># WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN</span>
+<span class="c1"># ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF</span>
+<span class="c1"># OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</span>
+
+<span class="kn">import</span> <span class="nn">getpass</span>
+
+<span class="kn">from</span> <span class="nn">dispass.algos</span> <span class="k">import</span> <span class="n">algoObject</span>
+<span class="kn">from</span> <span class="nn">dispass.dispass</span> <span class="k">import</span> <span class="n">versionStr</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">curses</span>
+    <span class="n">hasCurses</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">hasCurses</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<div class="viewcode-block" id="CLI"><a class="viewcode-back" href="../../api-reference.html#dispass.cli.CLI">[docs]</a><span class="k">class</span> <span class="nc">CLI</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;Command Line Interface handling&#39;&#39;&#39;</span>
+
+    <span class="n">verifyPassword</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="sd">&#39;&#39;&#39;Boolean. Prompt for password twice and save label to labelfile&#39;&#39;&#39;</span>
+
+    <span class="n">scriptableIO</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="sd">&#39;&#39;&#39;Boolean. Optimize input/output for wrapping dispass&#39;&#39;&#39;</span>
+
+    <span class="n">passphrases</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="sd">&#39;&#39;&#39;Dict of labels and generated passphrases&#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filehandler</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Set `useCurses` to True or False.</span>
+
+<span class="sd">        Depending on the availability of curses</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filehandler</span> <span class="o">=</span> <span class="n">filehandler</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">useCurses</span> <span class="o">=</span> <span class="n">hasCurses</span>
+
+<div class="viewcode-block" id="CLI.setCurses"><a class="viewcode-back" href="../../api-reference.html#dispass.cli.CLI.setCurses">[docs]</a>    <span class="k">def</span> <span class="nf">setCurses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">useCurses</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Optionally override `self.useCurses`</span>
+
+<span class="sd">        Instead of setting the instance variable `self.useCurses` directly, a</span>
+<span class="sd">        setter is used to ensure it can only be set to `True` if the curses</span>
+<span class="sd">        library is supported.</span>
+
+<span class="sd">        :Parameters:</span>
+<span class="sd">            - `useCurses`: Boolean</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">useCurses</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">hasCurses</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">useCurses</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">useCurses</span> <span class="o">=</span> <span class="n">useCurses</span></div>
+
+<div class="viewcode-block" id="CLI.passwordPrompt"><a class="viewcode-back" href="../../api-reference.html#dispass.cli.CLI.passwordPrompt">[docs]</a>    <span class="k">def</span> <span class="nf">passwordPrompt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Prompt for password</span>
+
+<span class="sd">        Use the `getpass.getpass` function to ask the user for the password</span>
+<span class="sd">        and ensure it is 8 characters. The password will be asked twice if</span>
+<span class="sd">        `self.verifyPassword` == `True`.</span>
+
+<span class="sd">        :Return: Password string.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">inp</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Password must contain at least 8 characters.&#39;</span>
+                      <span class="s1">&#39;Please try again.&#39;</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verifyPassword</span><span class="p">:</span>
+                <span class="n">inp2</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">(</span><span class="s2">&quot;Password (again): &quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">inp</span> <span class="o">==</span> <span class="n">inp2</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Passwords do not match. Please try again.&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="k">return</span> <span class="n">inp</span></div>
+
+<div class="viewcode-block" id="CLI.generate"><a class="viewcode-back" href="../../api-reference.html#dispass.cli.CLI.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">labeltup</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Generate passphrase and store result in `passphrases`</span>
+
+<span class="sd">        :Parameters:</span>
+<span class="sd">            - `password`: Password to use for passphrase generation</span>
+<span class="sd">            - `labeltup`: A tuple `labeltup` with 5 values:</span>
+<span class="sd">               * `label`: Label to use for passphrase generation</span>
+<span class="sd">               * `length`: Length to use for passphrase generation</span>
+<span class="sd">               * `algo`: Algorithm to use for passphrase generation</span>
+<span class="sd">               * `seqno`: Sequence number to use for passphrase generation</span>
+<span class="sd">               * `disabled`: Whether or not the label is disabled</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">labeltup</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="n">labeltup</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">algo</span> <span class="o">=</span> <span class="n">labeltup</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">seqno</span> <span class="o">=</span> <span class="n">labeltup</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+        <span class="n">hasher</span> <span class="o">=</span> <span class="n">algoObject</span><span class="p">(</span><span class="n">algo</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">hasher</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">passphrases</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">label</span><span class="p">:</span> <span class="n">hasher</span><span class="o">.</span><span class="n">digest</span><span class="p">(</span>
+                <span class="n">label</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">seqno</span>
+            <span class="p">)})</span></div>
+
+<div class="viewcode-block" id="CLI.output"><a class="viewcode-back" href="../../api-reference.html#dispass.cli.CLI.output">[docs]</a>    <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Output and flush passphrase(s)&#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">passphrases</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">divlen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">passphrases</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))</span> <span class="o">+</span> <span class="mi">2</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">useCurses</span><span class="p">:</span>
+            <span class="n">stdscr</span> <span class="o">=</span> <span class="n">curses</span><span class="o">.</span><span class="n">initscr</span><span class="p">()</span>
+            <span class="n">curses</span><span class="o">.</span><span class="n">noecho</span><span class="p">()</span>
+            <span class="n">curses</span><span class="o">.</span><span class="n">cbreak</span><span class="p">()</span>
+
+            <span class="n">stdscr</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">versionStr</span> <span class="o">+</span> <span class="s2">&quot; - press &#39;q&#39; to quit&quot;</span><span class="p">,</span>
+                          <span class="n">curses</span><span class="o">.</span><span class="n">A_BOLD</span><span class="p">)</span>
+            <span class="n">stdscr</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Your passphrase(s)&quot;</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">A_BOLD</span><span class="p">)</span>
+
+            <span class="n">j</span> <span class="o">=</span> <span class="mi">3</span>
+            <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">passphrase</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">passphrases</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">stdscr</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">j</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">curses</span><span class="o">.</span><span class="n">A_BOLD</span><span class="p">)</span>
+                <span class="n">stdscr</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">divlen</span><span class="p">,</span> <span class="n">passphrase</span><span class="p">)</span>
+                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">stdscr</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+            <span class="n">curses</span><span class="o">.</span><span class="n">curs_set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">c</span> <span class="o">=</span> <span class="n">stdscr</span><span class="o">.</span><span class="n">getch</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+                        <span class="k">break</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">stdscr</span><span class="o">.</span><span class="n">erase</span><span class="p">()</span>
+                <span class="n">curses</span><span class="o">.</span><span class="n">nocbreak</span><span class="p">()</span>
+                <span class="n">curses</span><span class="o">.</span><span class="n">echo</span><span class="p">()</span>
+                <span class="n">curses</span><span class="o">.</span><span class="n">endwin</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">passphrase</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">passphrases</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scriptableIO</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:50}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">[:</span><span class="mi">50</span><span class="p">],</span> <span class="n">passphrase</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;{:</span><span class="si">{fill}</span><span class="s1">} </span><span class="si">{}</span><span class="s1">&#39;</span>
+                          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">passphrase</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">divlen</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passphrases</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">return</span> <span class="kc">True</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2018  Benjamin Althues &amp; Tom Willemse.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.4.0',
+            LANGUAGE:'en',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

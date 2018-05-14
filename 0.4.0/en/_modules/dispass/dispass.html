@@ -1,0 +1,378 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dispass.dispass &mdash; DisPass 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> DisPass
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quick-start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Downloading/Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using-dispass.html">Using dispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using-gdispass.html">Using gdispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Related projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#development">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#change-log">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#software-license">Software license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-reference.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">DisPass</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>dispass.dispass</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for dispass.dispass</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;Contains settings object/instance, DisPassCommand object and version info&#39;&#39;&#39;</span>
+
+<span class="c1"># Copyright (c) 2012-2016  Tom Willemse &lt;tom@ryuslash.org&gt;</span>
+<span class="c1"># Copyright (c) 2011-2018  Benjamin Althues &lt;benjamin@babab.nl&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># Permission to use, copy, modify, and distribute this software for any</span>
+<span class="c1"># purpose with or without fee is hereby granted, provided that the above</span>
+<span class="c1"># copyright notice and this permission notice appear in all copies.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot; AND THE AUTHOR DISCLAIMS ALL WARRANTIES</span>
+<span class="c1"># WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF</span>
+<span class="c1"># MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR</span>
+<span class="c1"># ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES</span>
+<span class="c1"># WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN</span>
+<span class="c1"># ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF</span>
+<span class="c1"># OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">pycommand</span>
+
+<span class="n">__docformat__</span> <span class="o">=</span> <span class="s1">&#39;restructuredtext&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Benjamin Althues&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright (C) 2011-2018  Benjamin Althues &amp; Tom Willemse&quot;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;0.4.0&#39;</span>
+<span class="n">versionStr</span> <span class="o">=</span> <span class="s1">&#39;DisPass &#39;</span> <span class="o">+</span> <span class="n">__version__</span>
+
+
+<div class="viewcode-block" id="verboseVersionInfo"><a class="viewcode-back" href="../../api-reference.html#dispass.dispass.verboseVersionInfo">[docs]</a><span class="k">def</span> <span class="nf">verboseVersionInfo</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;Returns a string with verbose version information</span>
+
+<span class="sd">    The string shows the version of DisPass and that of Python.</span>
+<span class="sd">    It also displays the name of the operating system/platform name.</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="se">\n\n</span><span class="s1">Python </span><span class="si">{}</span><span class="se">\n</span><span class="s1">Interpreter is at </span><span class="si">{}</span><span class="se">\n</span><span class="s1">Platform is </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">versionStr</span><span class="p">,</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">executable</span> <span class="ow">or</span> <span class="s1">&#39;unknown&#39;</span><span class="p">,</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+    <span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Settings"><a class="viewcode-back" href="../../api-reference.html#dispass.dispass.Settings">[docs]</a><span class="k">class</span> <span class="nc">Settings</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Global settings&#39;&#39;&#39;</span>
+
+    <span class="n">passphrase_length</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="sd">&#39;&#39;&#39;Int. Default passphrase length&#39;&#39;&#39;</span>
+
+    <span class="n">algorithm</span> <span class="o">=</span> <span class="s1">&#39;dispass1&#39;</span>
+    <span class="sd">&#39;&#39;&#39;String. The algorithm to use, default is dispass1&#39;&#39;&#39;</span>
+
+    <span class="n">sequence_number</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="sd">&#39;&#39;&#39;Int. Default sequence number&#39;&#39;&#39;</span>
+
+    <span class="n">disabled</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="sd">&#39;&#39;&#39;Bool. Default disabled state&#39;&#39;&#39;</span></div>
+
+
+<span class="n">settings</span> <span class="o">=</span> <span class="n">Settings</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="DispassCommand"><a class="viewcode-back" href="../../api-reference.html#dispass.dispass.DispassCommand">[docs]</a><span class="k">class</span> <span class="nc">DispassCommand</span><span class="p">(</span><span class="n">pycommand</span><span class="o">.</span><span class="n">CommandBase</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Main shell command object&#39;&#39;&#39;</span>
+
+    <span class="n">usagestr</span> <span class="o">=</span> <span class="s1">&#39;usage: dispass [options] &lt;command&gt; [&lt;args&gt;]&#39;</span>
+
+    <span class="n">description</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s1">&#39;Commands:</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;   add          add a new label to labelfile</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;   disable      disable a label without throwing it away</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;   enable       enable a label</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;   generate     generate passphrases for one or more labels</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;   gui          start the graphical version of DisPass</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;   help         show this help information</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;   increment    increment the sequence number of a label</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;   list         print a formatted table of labelfile contents</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;   remove       remove label from labelfile</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;   update       update length, algo or seqno of a label</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;   version      show full version information&#39;</span>
+    <span class="p">)</span>
+
+    <span class="n">optionList</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">,</span>        <span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;labelfile&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;override labelfile&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;help&#39;</span><span class="p">,</span>        <span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;show this help information&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;version&#39;</span><span class="p">,</span>     <span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;show full version information&#39;</span><span class="p">)),</span>
+    <span class="p">)</span>
+
+    <span class="n">usageTextExtra</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;See &#39;dispass help &lt;command&gt;&#39; for more information on a &quot;</span>
+        <span class="s2">&quot;specific command.</span><span class="se">\n</span><span class="s2">For full documentation, see &#39;man dispass&#39; &quot;</span>
+        <span class="s2">&quot;or visit https://dispass.org/&quot;</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="DispassCommand.run"><a class="viewcode-back" href="../../api-reference.html#dispass.dispass.DispassCommand.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;The `run` method of the main command</span>
+
+<span class="sd">        This is the first point of entry that will parse the command and</span>
+<span class="sd">        arguments given in the shell by the user, directing arguments to</span>
+<span class="sd">        subcommands if applicable.</span>
+
+<span class="sd">        The subcommands are imported in this method, since doing it in the</span>
+<span class="sd">        module itself causes circular import problems. There is support for</span>
+<span class="sd">        dynamically loading the modules, so you can define custom commands. The</span>
+<span class="sd">        (main) subcommands get imported explicitly so that &#39;freezing&#39; apps like</span>
+<span class="sd">        PyInstaller will correctly include the modules.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="kn">import</span> <span class="nn">dispass.commands.add</span>
+        <span class="kn">import</span> <span class="nn">dispass.commands.disable</span>
+        <span class="kn">import</span> <span class="nn">dispass.commands.enable</span>
+        <span class="kn">import</span> <span class="nn">dispass.commands.generate</span>
+        <span class="kn">import</span> <span class="nn">dispass.commands.gui</span>
+        <span class="kn">import</span> <span class="nn">dispass.commands.help</span>
+        <span class="kn">import</span> <span class="nn">dispass.commands.increment</span>
+        <span class="kn">import</span> <span class="nn">dispass.commands.list</span>
+        <span class="kn">import</span> <span class="nn">dispass.commands.remove</span>
+        <span class="kn">import</span> <span class="nn">dispass.commands.update</span>
+        <span class="kn">import</span> <span class="nn">dispass.commands.version</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">commands</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;add&#39;</span><span class="p">:</span> <span class="n">dispass</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span>
+            <span class="s1">&#39;disable&#39;</span><span class="p">:</span> <span class="n">dispass</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">disable</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span>
+            <span class="s1">&#39;enable&#39;</span><span class="p">:</span> <span class="n">dispass</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">enable</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span>
+            <span class="s1">&#39;generate&#39;</span><span class="p">:</span> <span class="n">dispass</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">generate</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span>
+            <span class="s1">&#39;gui&#39;</span><span class="p">:</span> <span class="n">dispass</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span>
+            <span class="s1">&#39;help&#39;</span><span class="p">:</span> <span class="n">dispass</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">help</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span>
+            <span class="s1">&#39;increment&#39;</span><span class="p">:</span> <span class="n">dispass</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">increment</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span>
+            <span class="s1">&#39;list&#39;</span><span class="p">:</span> <span class="n">dispass</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span>
+            <span class="s1">&#39;remove&#39;</span><span class="p">:</span> <span class="n">dispass</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">remove</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span>
+            <span class="s1">&#39;update&#39;</span><span class="p">:</span> <span class="n">dispass</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">update</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span>
+            <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="n">dispass</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;help&#39;</span><span class="p">]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">verboseVersionInfo</span><span class="p">())</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">2</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">DispassCommand</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">pycommand</span><span class="o">.</span><span class="n">CommandExit</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">e</span><span class="o">.</span><span class="n">err</span>
+
+        <span class="n">cmd</span><span class="o">.</span><span class="n">registerParentFlag</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">cmd</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dispass </span><span class="si">{cmd}</span><span class="s1">: </span><span class="si">{error}</span><span class="s1">&#39;</span>
+                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cmd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">error</span><span class="o">=</span><span class="n">cmd</span><span class="o">.</span><span class="n">error</span><span class="p">))</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">cmd</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2018  Benjamin Althues &amp; Tom Willemse.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.4.0',
+            LANGUAGE:'en',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

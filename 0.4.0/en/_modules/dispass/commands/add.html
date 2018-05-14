@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dispass.commands.add &mdash; DisPass 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> DisPass
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick-start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installing.html">Downloading/Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using-dispass.html">Using dispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using-gdispass.html">Using gdispass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">Related projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html#development">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html#change-log">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html#software-license">Software license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api-reference.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">DisPass</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>dispass.commands.add</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for dispass.commands.add</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;Subcommand module `add`; contains only a single class `Command`&#39;&#39;&#39;</span>
+
+<span class="c1"># Copyright (c) 2012-2016  Tom Willemse &lt;tom@ryuslash.org&gt;</span>
+<span class="c1"># Copyright (c) 2011-2018  Benjamin Althues &lt;benjamin@babab.nl&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># Permission to use, copy, modify, and distribute this software for any</span>
+<span class="c1"># purpose with or without fee is hereby granted, provided that the above</span>
+<span class="c1"># copyright notice and this permission notice appear in all copies.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot; AND THE AUTHOR DISCLAIMS ALL WARRANTIES</span>
+<span class="c1"># WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF</span>
+<span class="c1"># MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR</span>
+<span class="c1"># ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES</span>
+<span class="c1"># WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN</span>
+<span class="c1"># ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF</span>
+<span class="c1"># OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</span>
+
+<span class="kn">from</span> <span class="nn">pycommand</span> <span class="k">import</span> <span class="n">CommandBase</span>
+
+<span class="kn">from</span> <span class="nn">dispass</span> <span class="k">import</span> <span class="n">algos</span>
+<span class="kn">from</span> <span class="nn">dispass.dispass</span> <span class="k">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">dispass.cli</span> <span class="k">import</span> <span class="n">CLI</span>
+<span class="kn">from</span> <span class="nn">dispass.interactive_editor</span> <span class="k">import</span> <span class="n">InteractiveEditor</span>
+<span class="kn">from</span> <span class="nn">dispass.commands.decorators</span> <span class="k">import</span> <span class="n">write_labels</span>
+
+
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../api-reference.html#dispass.commands.add.Command">[docs]</a><span class="nd">@write_labels</span>
+<span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">CommandBase</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Add a new label to the labelfile and generate passphrase.&#39;&#39;&#39;</span>
+    <span class="n">usagestr</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s1">&#39;usage: dispass add [-g] [-n] [-s] &lt;labelspec&gt; [&lt;labelspec2&gt;] [...]</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;       dispass add [-i] [-g] [-h]&#39;</span>
+    <span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s1">&#39;Add a new label to the labelfile and generate passphrase.</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;The labelspec looks like this:</span><span class="se">\n\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;    label[:size[:algorithm[:sequence_number]]]&#39;</span>
+    <span class="p">)</span>
+    <span class="n">optionList</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="s1">&#39;interactive&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;add label in an interactive manner&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;generate&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>
+                      <span class="s1">&#39;immediately generate passphrase after adding it&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;help&#39;</span><span class="p">,</span>    <span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;show this help information&#39;</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">&#39;silent&#39;</span><span class="p">,</span>  <span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;do not print success message&#39;</span><span class="p">)),</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lf</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Parse labels and add them using `FileHandler.add`.</span>
+
+<span class="sd">        When the -i flag is passed, add them using `InteractiveEditor.add`</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">newlabels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="sd">&#39;&#39;&#39;A list of labelnames that have been added.&#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;interactive&#39;</span><span class="p">]:</span>
+            <span class="n">intedit</span> <span class="o">=</span> <span class="n">InteractiveEditor</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">lf</span><span class="p">,</span> <span class="n">interactive</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">newlabels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">intedit</span><span class="o">.</span><span class="n">add</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;help&#39;</span><span class="p">]:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
+                <span class="k">return</span>
+
+            <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">):</span>
+                <span class="n">labelspec</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+                <span class="n">params</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">labelspec</span><span class="p">)</span>
+
+                <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">length</span> <span class="o">=</span> <span class="n">params</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">labelspec</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">length</span><span class="p">:</span>
+                    <span class="n">length</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">passphrase_length</span>
+
+                <span class="n">algo</span> <span class="o">=</span> <span class="n">params</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">labelspec</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">or</span> <span class="n">settings</span><span class="o">.</span><span class="n">algorithm</span>
+                <span class="k">if</span> <span class="n">algo</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">algos</span><span class="o">.</span><span class="n">algorithms</span><span class="p">:</span>
+                    <span class="n">algo</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">algorithm</span>
+
+                <span class="n">seqno</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="n">algo</span> <span class="o">!=</span> <span class="s1">&#39;dispass1&#39;</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">seqno</span> <span class="o">=</span> <span class="n">params</span> <span class="o">&gt;=</span> <span class="mi">4</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">labelspec</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+                    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                        <span class="k">pass</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">seqno</span><span class="p">:</span>
+                    <span class="n">seqno</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">sequence_number</span>
+
+                <span class="k">if</span> <span class="n">lf</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">labelname</span><span class="o">=</span><span class="n">labelspec</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">length</span><span class="o">=</span><span class="n">length</span><span class="p">,</span> <span class="n">algo</span><span class="o">=</span><span class="n">algo</span><span class="p">,</span>
+                          <span class="n">seqno</span><span class="o">=</span><span class="n">seqno</span><span class="p">):</span>
+                    <span class="n">newlabels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">labelspec</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;silent&#39;</span><span class="p">]:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Label &#39;</span><span class="si">{name}</span><span class="s2">&#39; saved&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">labelspec</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;silent&#39;</span><span class="p">]:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Label &#39;</span><span class="si">{name}</span><span class="s2">&#39; already exists in labelfile&quot;</span>
+                              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">labelspec</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;generate&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">newlabels</span><span class="p">:</span>
+            <span class="n">console</span> <span class="o">=</span> <span class="n">CLI</span><span class="p">(</span><span class="n">lf</span><span class="p">)</span>
+            <span class="n">console</span><span class="o">.</span><span class="n">verifyPassword</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">password</span> <span class="o">=</span> <span class="n">console</span><span class="o">.</span><span class="n">passwordPrompt</span><span class="p">()</span>
+
+            <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">newlabels</span><span class="p">:</span>
+                <span class="n">console</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">lf</span><span class="o">.</span><span class="n">labeltup</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
+            <span class="k">del</span> <span class="n">password</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">console</span><span class="o">.</span><span class="n">output</span><span class="p">():</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;silent&#39;</span><span class="p">]:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: could not generate passphrase&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">0</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2011-2018  Benjamin Althues &amp; Tom Willemse.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.4.0',
+            LANGUAGE:'en',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
